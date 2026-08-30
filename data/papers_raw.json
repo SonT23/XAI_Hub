@@ -1,0 +1,187 @@
+[
+  {
+    "id": "3cbeb961-f1c8-8148-9aa7-c250e8752f92",
+    "Tác giả & Năm": "Higgins et al., 2017",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://openreview.net/forum?id=Sy2fzU9gl",
+    "Chủ đề": [
+      "Autoencoder/VAE",
+      "Concept-based"
+    ],
+    "Tên bài báo": "beta-VAE: Learning Basic Visual Concepts with a Constrained VAE"
+  },
+  {
+    "id": "3cbeb961-f1c8-810a-86a7-f45820508a1d",
+    "Tác giả & Năm": "Koh et al., 2020",
+    "Trạng thái": "Đang đọc",
+    "Link": "https://arxiv.org/abs/2007.04612",
+    "Chủ đề": [
+      "CBM",
+      "Concept-based",
+      "CNN"
+    ],
+    "Tên bài báo": "Concept Bottleneck Models"
+  },
+  {
+    "id": "3cbeb961-f1c8-812c-bc20-ca178a01c631",
+    "Tác giả & Năm": "Espinosa Zarlenga et al., 2022",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://arxiv.org/abs/2209.09056",
+    "Chủ đề": [
+      "CBM",
+      "Concept-based"
+    ],
+    "Tên bài báo": "Concept Embedding Models"
+  },
+  {
+    "id": "3cbeb961-f1c8-81de-b275-f14c0c0cdb56",
+    "Tác giả & Năm": "Phillips et al., 2021 — NIST",
+    "Trạng thái": "Đang đọc",
+    "Link": "https://nvlpubs.nist.gov/nistpubs/ir/2021/NIST.IR.8312.pdf",
+    "Chủ đề": [
+      "XAI tổng quan",
+      "Đánh giá XAI"
+    ],
+    "Tên bài báo": "Four Principles of Explainable Artificial Intelligence (NISTIR 8312)"
+  },
+  {
+    "id": "3cbeb961-f1c8-81e5-87a9-d2beb3e16f37",
+    "Tác giả & Năm": "Selvaraju et al., 2017",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://arxiv.org/abs/1610.02391",
+    "Chủ đề": [
+      "Post-hoc",
+      "CNN"
+    ],
+    "Tên bài báo": "Grad-CAM: Visual Explanations from Deep Networks"
+  },
+  {
+    "id": "3cbeb961-f1c8-81e0-b582-f1f341758e83",
+    "Tác giả & Năm": "S. Keshav (ĐH Waterloo) — ACM SIGCOMM CCR, Vol. 37, No. 3, tháng 07/2007, tr. 83–84",
+    "Trạng thái": "Đã tóm tắt xong",
+    "Link": "https://www.cs.princeton.edu/courses/archive/fall18/cos561/papers/HowToRead05.pdf",
+    "Chủ đề": null,
+    "Tên bài báo": "How to Read a Paper"
+  },
+  {
+    "id": "3cbeb961-f1c8-810e-ae05-c194e67bd1d2",
+    "Tác giả & Năm": "Tạp chí Machine Learning (Vol. 115) — xuất bản 16/04/2026",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://link.springer.com/article/10.1007/s10994-026-06999-y",
+    "Chủ đề": [
+      "CBM",
+      "Transformer/ViT",
+      "Đánh giá XAI"
+    ],
+    "Tên bài báo": "If Concept Bottlenecks are the Question, are Foundation Models the Answer?"
+  },
+  {
+    "id": "3cbeb961-f1c8-8190-ace3-cdee136daaa8",
+    "Tác giả & Năm": "Kim et al., 2018",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://arxiv.org/abs/1711.11279",
+    "Chủ đề": [
+      "Concept-based",
+      "Post-hoc"
+    ],
+    "Tên bài báo": "Interpretability Beyond Feature Attribution (TCAV)"
+  },
+  {
+    "id": "3cbeb961-f1c8-81a7-a446-de466ed1cd11",
+    "Tác giả & Năm": "Oikarinen et al., 2023",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://arxiv.org/abs/2304.06129",
+    "Chủ đề": [
+      "CBM",
+      "Transformer/ViT"
+    ],
+    "Tên bài báo": "Label-free Concept Bottleneck Models"
+  },
+  {
+    "id": "3cbeb961-f1c8-8134-8b59-fc3bda36dce4",
+    "Tác giả & Năm": "arXiv — 03/06/2026",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://arxiv.org/html/2606.04326",
+    "Chủ đề": [
+      "CBM",
+      "Dataset",
+      "Đánh giá XAI"
+    ],
+    "Tên bài báo": "Measuring What Matters: Synthetic Benchmarks for Concept Bottleneck Models"
+  },
+  {
+    "id": "3cbeb961-f1c8-8164-91e4-fc4f5c00f605",
+    "Tác giả & Năm": null,
+    "Trạng thái": "Chưa đọc",
+    "Link": null,
+    "Chủ đề": null,
+    "Tên bài báo": "MẪU GHI CHÚ ĐỌC BÀI (nhân bản hàng này khi thêm bài mới)"
+  },
+  {
+    "id": "3cbeb961-f1c8-81bf-97c2-d22f2446c394",
+    "Tác giả & Năm": "Google DeepMind Safety Research — 26/03/2025",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://deepmindsafetyresearch.medium.com/negative-results-for-sparse-autoencoders-on-downstream-tasks-and-deprioritising-sae-research-6cadcfc125b9",
+    "Chủ đề": [
+      "Autoencoder/VAE",
+      "Đánh giá XAI",
+      "XAI tổng quan"
+    ],
+    "Tên bài báo": "Negative Results for Sparse Autoencoders on Downstream Tasks (DeepMind)"
+  },
+  {
+    "id": "3cbeb961-f1c8-816f-b815-fc1356d8d99d",
+    "Tác giả & Năm": "Yuksekgonul et al., 2023",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://arxiv.org/abs/2205.15480",
+    "Chủ đề": [
+      "CBM",
+      "Post-hoc"
+    ],
+    "Tên bài báo": "Post-hoc Concept Bottleneck Models"
+  },
+  {
+    "id": "3cbeb961-f1c8-8156-aa45-cdd2ee9a7583",
+    "Tác giả & Năm": "Margeloiu et al., 2021",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://arxiv.org/abs/2106.13314",
+    "Chủ đề": [
+      "CBM",
+      "Đánh giá XAI"
+    ],
+    "Tên bài báo": "Promises and Pitfalls of Black-Box Concept Learning Models"
+  },
+  {
+    "id": "3cbeb961-f1c8-81b4-9fb2-dde0d9c7eeab",
+    "Tác giả & Năm": "CVPR 2026 — tiền ấn arXiv 05/03/2026",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://www.aimodels.fyi/papers/arxiv/rethinking-concept-bottleneck-models-pitfalls-solutions",
+    "Chủ đề": [
+      "CBM",
+      "Đánh giá XAI"
+    ],
+    "Tên bài báo": "Rethinking Concept Bottleneck Models: From Pitfalls to Solutions"
+  },
+  {
+    "id": "3cbeb961-f1c8-8160-96cf-eaa20ecf02d5",
+    "Tác giả & Năm": "Adebayo et al., 2018",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://arxiv.org/abs/1810.03292",
+    "Chủ đề": [
+      "Post-hoc",
+      "Đánh giá XAI"
+    ],
+    "Tên bài báo": "Sanity Checks for Saliency Maps"
+  },
+  {
+    "id": "3cbeb961-f1c8-8129-a435-ecf2734dd4b1",
+    "Tác giả & Năm": "Knab et al. — TMLR 2026, tiền ấn arXiv 03/2026",
+    "Trạng thái": "Chưa đọc",
+    "Link": "https://arxiv.org/abs/2603.05629",
+    "Chủ đề": [
+      "CBM",
+      "XAI tổng quan"
+    ],
+    "Tên bài báo": "What's in the Bottle? A Survey and Roadmap of Concept Bottleneck Models"
+  }
+]

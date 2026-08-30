@@ -2,22 +2,23 @@
 # -*- coding: utf-8 -*-
 """
 Tự động: (1) lấy toàn bộ dữ liệu từ database Notion "Thuật ngữ Anh - Việt",
-(2) build lại raw_data.json / glossary.json / glossary.csv / README.md,
-(3) git add + commit (message = thời gian chạy) + git push.
+(2) build lại data/raw_data.json, data/glossary.json, data/glossary.csv, và
+các trang docs/glossary/*.md, (3) git add + commit (message = thời gian
+chạy) + git push.
 
-Vị trí lưu: C:\\NCKH\\glossary-en-vi\\sync_and_push.py
+Vị trí lưu: C:\\NCKH\\nckh-wiki\\scripts\\sync_and_push.py
+Chạy từ thư mục gốc project qua update_and_push.bat (khuyên dùng), hoặc
+thủ công: python scripts\\sync_and_push.py
 
 Yêu cầu trước khi chạy:
-  1. Cài thư viện: pip install requests
-  2. Tạo file .env (copy từ .env.example) trong CÙNG thư mục này, điền:
+  1. Cài thư viện: pip install -r requirements.txt
+  2. Tạo file .env (copy từ .env.example) TẠI THƯ MỤC GỐC project (cùng cấp
+     với mkdocs.yml, KHÔNG phải trong scripts/), điền:
        NOTION_TOKEN=secret_xxx...
        NOTION_DATABASE_ID=4a41d94b-9d22-436a-9786-9a650f57bf2d
-     (Xem README_SYNC.md để biết cách lấy 2 giá trị này.)
+     (Xem MAINTENANCE.md để biết cách lấy 2 giá trị này.)
   3. Repo git đã init, remote đã cấu hình, và bạn đã push thành công ít
      nhất 1 lần thủ công (để chắc chắn SSH/HTTPS auth đã hoạt động).
-
-Chạy: python sync_and_push.py
-(hoặc double-click update_and_push.bat)
 """
 import json
 import os
@@ -27,10 +28,15 @@ from datetime import datetime
 
 import requests
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+sys.path.insert(0, SCRIPT_DIR)
+
 from glossary_lib import normalize_rows, write_outputs, write_mkdocs_docs
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-ENV_PATH = os.path.join(SCRIPT_DIR, ".env")
+ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+DOCS_DIR = os.path.join(PROJECT_ROOT, "docs")
 
 def load_env(path):
     """Đọc file .env đơn giản (KEY=VALUE mỗi dòng), không cần cài python-dotenv."""
@@ -82,7 +88,7 @@ def fetch_all_rows(token, database_id):
             raise RuntimeError(
                 f"Notion API trả lỗi {resp.status_code}: {resp.text}\n"
                 "Kiểm tra lại NOTION_TOKEN và NOTION_DATABASE_ID trong file .env, "
-                "và đảm bảo integration đã được share vào database (xem README_SYNC.md)."
+                "và đảm bảo integration đã được share vào database (xem MAINTENANCE.md)."
             )
         data = resp.json()
         for page in data.get("results", []):
@@ -148,7 +154,7 @@ def main():
         print(
             "[LỖI] Thiếu NOTION_TOKEN hoặc NOTION_DATABASE_ID.\n"
             f"Tạo file .env tại: {ENV_PATH}\n"
-            "Xem hướng dẫn chi tiết trong README_SYNC.md."
+            "Xem hướng dẫn chi tiết trong MAINTENANCE.md."
         )
         sys.exit(1)
 
@@ -156,16 +162,17 @@ def main():
     rows = fetch_all_rows(token, database_id)
     print(f"Lấy được {len(rows)} thuật ngữ.")
 
+    os.makedirs(DATA_DIR, exist_ok=True)
     # Cập nhật raw_data.json để giữ bản ghi lịch sử đồng bộ với glossary.json/csv
-    with open(os.path.join(SCRIPT_DIR, "raw_data.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(DATA_DIR, "raw_data.json"), "w", encoding="utf-8") as f:
         json.dump(rows, f, ensure_ascii=False, indent=2)
 
     entries = normalize_rows(rows)
-    write_outputs(entries, out_dir=SCRIPT_DIR)
-    write_mkdocs_docs(entries, docs_dir=os.path.join(SCRIPT_DIR, "docs"))
-    print(f"Đã tạo lại glossary.json, glossary.csv, README.md, và các trang docs/ ({len(entries)} thuật ngữ).")
+    write_outputs(entries, out_dir=DATA_DIR)
+    write_mkdocs_docs(entries, docs_dir=DOCS_DIR)
+    print(f"Đã tạo lại data/glossary.json, data/glossary.csv, và các trang docs/glossary/ ({len(entries)} thuật ngữ).")
 
-    git_commit_and_push(SCRIPT_DIR)
+    git_commit_and_push(PROJECT_ROOT)
 
 
 if __name__ == "__main__":

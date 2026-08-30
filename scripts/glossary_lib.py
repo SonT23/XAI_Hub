@@ -1,12 +1,12 @@
 """
-Shared logic to turn glossary rows (in the raw_data.json schema) into
-glossary.json, glossary.csv and README.md.
+Shared logic to turn glossary rows (from Notion) into glossary.json,
+glossary.csv, and the MkDocs pages under docs/glossary/.
 
 Used by both:
-- build_glossary.py   (reads raw_data.json, for manual/offline rebuilds)
+- build_glossary.py   (reads data/raw_data.json, for manual/offline rebuilds)
 - sync_and_push.py    (fetches fresh rows from the Notion API, then calls this)
 
-Save location: C:\\NCKH\\glossary-en-vi\\glossary_lib.py
+Save location: C:\\NCKH\\nckh-wiki\\scripts\\glossary_lib.py
 """
 import json
 import csv
@@ -91,14 +91,13 @@ def normalize_rows(rows):
 
 
 def write_outputs(entries, out_dir="."):
-    """Writes glossary.json, glossary.csv and README.md into out_dir."""
+    """Writes glossary.json and glossary.csv (machine-readable exports) into out_dir.
+    The human-facing output is the MkDocs site (write_mkdocs_docs), not these files."""
     import os
 
-    # --- glossary.json ---
     with open(os.path.join(out_dir, "glossary.json"), "w", encoding="utf-8") as f:
         json.dump(entries, f, ensure_ascii=False, indent=2)
 
-    # --- glossary.csv ---
     with open(os.path.join(out_dir, "glossary.csv"), "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["term_en", "term_vi", "abbr", "definition", "topics", "confused_with"])
@@ -108,86 +107,18 @@ def write_outputs(entries, out_dir="."):
                 "; ".join(e["topics"]), e["confused_with"],
             ])
 
-    # --- README.md, grouped by topic, sorted A-Z within each topic ---
-    by_topic, all_topics = _group_by_topic(entries)
-
-    lines = []
-    lines.append("# Bilingual Glossary: Explainable AI & Computer Vision (EN-VI)")
-    lines.append("")
-    lines.append(
-        "A bilingual (English-Vietnamese) glossary of terms used in machine "
-        "learning, computer vision, and Explainable AI (XAI), with a focus on "
-        "Concept Bottleneck Models (CBM). Source of truth is a Notion database; "
-        "this repo is a periodically refreshed export for public reference."
-    )
-    lines.append("")
-    lines.append(f"**Total terms:** {len(entries)}")
-    lines.append("")
-    lines.append("## Table of contents")
-    lines.append("")
-    for t in all_topics:
-        if t in by_topic:
-            anchor = t.lower().replace(" ", "-").replace("/", "")
-            lines.append(f"- [{t}](#{anchor})")
-    lines.append("")
-
-    for t in all_topics:
-        if t not in by_topic:
-            continue
-        lines.append(f"## {t}")
-        lines.append("")
-        lines.extend(_table_rows(by_topic[t]))
-        lines.append("")
-
-    lines.append("---")
-    lines.append("")
-    lines.append(
-        "Source of truth: a Notion database maintained during NCKH research on "
-        "Explainable AI for Computer Vision. Data files (`glossary.json`, "
-        "`glossary.csv`) are machine-readable exports kept in sync with this README."
-    )
-    lines.append("")
-
-    with open(os.path.join(out_dir, "README.md"), "w", encoding="utf-8") as f:
-        f.write("\n".join(lines))
-
 
 def write_mkdocs_docs(entries, docs_dir):
-    """Sinh các trang Markdown cho MkDocs (trang chủ, 1 trang mỗi chủ đề,
-    và 1 trang liệt kê toàn bộ) vào thư mục docs_dir. Ô tìm kiếm và điều
-    hướng theo chủ đề (nav) do MkDocs Material xử lý, không cần thêm code.
+    """Sinh các trang Markdown cho phần Glossary trong MkDocs (1 trang mỗi
+    chủ đề + 1 trang liệt kê toàn bộ) vào docs_dir/glossary/. KHÔNG đụng tới
+    docs/index.md (trang chủ toàn site) — trang đó là nội dung tổng của cả
+    NCKH, không riêng glossary, và được quản lý riêng.
     """
     import os
 
     os.makedirs(os.path.join(docs_dir, "glossary"), exist_ok=True)
     by_topic, all_topics = _group_by_topic(entries)
     present_topics = [t for t in all_topics if t in by_topic]
-
-    # --- docs/index.md ---
-    index_lines = [
-        "# Bilingual Glossary: XAI & Computer Vision (EN-VI)",
-        "",
-        (
-            "Bảng thuật ngữ song ngữ Anh - Việt về Machine Learning, Computer "
-            "Vision, và Explainable AI (XAI), tập trung vào Concept Bottleneck "
-            "Models (CBM). Nguồn dữ liệu gốc là một database Notion, được đồng "
-            "bộ tự động vào trang này."
-        ),
-        "",
-        f"**Tổng số thuật ngữ:** {len(entries)}",
-        "",
-        "Dùng ô tìm kiếm ở trên (biểu tượng kính lúp) để tra theo tên tiếng Anh, "
-        "tiếng Việt, hoặc viết tắt. Dùng thanh điều hướng bên trái để lọc theo "
-        "từng chủ đề, hoặc xem [toàn bộ thuật ngữ theo A-Z](glossary/all.md).",
-        "",
-        "## Chủ đề",
-        "",
-    ]
-    for t in present_topics:
-        index_lines.append(f"- [{t}](glossary/{_topic_slug(t)}.md) ({len(by_topic[t])} thuật ngữ)")
-    index_lines.append("")
-    with open(os.path.join(docs_dir, "index.md"), "w", encoding="utf-8") as f:
-        f.write("\n".join(index_lines))
 
     # --- docs/glossary/<topic>.md, mỗi trang 1 chủ đề ---
     for t in present_topics:

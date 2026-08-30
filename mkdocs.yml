@@ -1,9 +1,9 @@
-site_name: Bilingual Glossary — XAI & CBM
-site_description: Bảng thuật ngữ song ngữ Anh-Việt về Machine Learning, Computer Vision và Explainable AI (XAI), tập trung vào Concept Bottleneck Models (CBM).
+site_name: NCKH — XAI & Concept Bottleneck Models
+site_description: Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.
 
 # QUAN TRỌNG: sửa 2 dòng dưới đây thành đúng username/repo GitHub của bạn
 # (xem README_MKDOCS.md để biết cách lấy giá trị chính xác)
-site_url: https://SonT23.github.io/glossary-en-vi/
+site_url: https://YOUR-GITHUB-USERNAME.github.io/glossary-en-vi/
 repo_url: https://github.com/YOUR-GITHUB-USERNAME/glossary-en-vi
 repo_name: glossary-en-vi
 
@@ -27,6 +27,7 @@ theme:
     - navigation.tabs
     - navigation.top
     - navigation.instant
+    - navigation.indexes
     - search.suggest
     - search.highlight
     - content.code.copy
@@ -39,8 +40,36 @@ plugins:
 
 nav:
   - Trang chủ: index.md
-  - Toàn bộ thuật ngữ (A-Z): glossary/all.md
-  - Theo chủ đề:
+  - Toán nền tảng:
+      - Tổng quan: toan/index.md
+      - Đại số tuyến tính: toan/dai-so-tuyen-tinh.md
+      - Giải tích: toan/giai-tich.md
+      - Xác suất & Thống kê: toan/xac-suat-thong-ke.md
+  - ML cơ bản:
+      - Tổng quan: ml-co-ban/index.md
+      - Model Parameter: ml-co-ban/model-parameter.md
+      - Model Hyperparameter: ml-co-ban/model-hyperparameter.md
+      - Performance Measures: ml-co-ban/performance-measures.md
+  - Deep Learning:
+      - Tổng quan: deep-learning/index.md
+      - Autoencoder: deep-learning/autoencoder.md
+      - Variational Autoencoder (VAE): deep-learning/vae.md
+      - Latent Space: deep-learning/latent-space.md
+      - CNN: deep-learning/cnn.md
+      - Transformer & ViT: deep-learning/transformer-vit.md
+      - CLIP: deep-learning/clip.md
+  - Explainable AI:
+      - Tổng quan: xai/index.md
+      - 1. Tổng quan & Phân loại XAI: xai/01-tong-quan.md
+      - 2. Post-hoc: xai/02-post-hoc.md
+      - 3. Concept-based: xai/03-concept-based.md
+      - 4. CBM: xai/04-cbm.md
+      - 5. Biến thể CBM: xai/05-bien-the-cbm.md
+      - 6. Đánh giá lời giải thích: xai/06-danh-gia.md
+      - 7. Bộ dữ liệu & Công cụ: xai/07-du-lieu-cong-cu.md
+  - Thư viện bài báo: papers/index.md
+  - Thuật ngữ Anh - Việt:
+      - Toàn bộ (A-Z): glossary/all.md
       - Toán: glossary/toan.md
       - ML cơ bản: glossary/ml-co-ban.md
       - Deep Learning: glossary/deep-learning.md
@@ -49,8 +78,22 @@ nav:
       - Transformer/CLIP: glossary/transformer-clip.md
       - XAI: glossary/xai.md
       - CBM: glossary/cbm.md
+  - Kỹ năng nghiên cứu:
+      - Cách đọc bài báo: ky-nang/cach-doc-bai-bao.md
+      - Lộ trình đọc: ky-nang/lo-trinh-doc.md
 
 markdown_extensions:
   - tables
   - toc:
       permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js
