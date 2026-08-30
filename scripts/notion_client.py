@@ -4,10 +4,34 @@ Cac ham goi thang Notion REST API (khong dung SDK, chi can `requests`).
 Vi tri: C:\\NCKH\\nckh-wiki\\scripts\\notion_client.py
 """
 import os
+import time
 import requests
 
 NOTION_VERSION = "2022-06-28"
 API_BASE = "https://api.notion.com/v1"
+
+
+def _request(method, url, headers, **kwargs):
+    """Goi API co tu dong cho + thu lai khi bi Notion gioi han toc do (429) -
+    quan trong khi goi nhieu request song song (nhieu luong cung luc)."""
+    last_exc = None
+    for attempt in range(5):
+        try:
+            resp = requests.request(method, url, headers=headers, timeout=30, **kwargs)
+        except requests.RequestException as e:
+            last_exc = e
+            time.sleep(1 + attempt)
+            continue
+        if resp.status_code == 429:
+            wait = float(resp.headers.get("Retry-After", 1 + attempt))
+            time.sleep(wait)
+            continue
+        resp.raise_for_status()
+        return resp
+    if last_exc:
+        raise last_exc
+    resp.raise_for_status()
+    return resp
 
 
 def load_env(path):
@@ -46,11 +70,10 @@ def get_block_children_all(block_id, headers):
         params = {"page_size": 100}
         if cursor:
             params["start_cursor"] = cursor
-        resp = requests.get(
-            f"{API_BASE}/blocks/{block_id}/children",
-            headers=headers, params=params, timeout=30,
+        resp = _request(
+            "GET", f"{API_BASE}/blocks/{block_id}/children",
+            headers=headers, params=params,
         )
-        resp.raise_for_status()
         data = resp.json()
         results.extend(data.get("results", []))
         if data.get("has_more"):
@@ -89,8 +112,7 @@ def get_page_meta(page_id, headers):
     Dung last_edited_time de quyet dinh co can dong bo lai trang nay khong
     (giong co che 'da thay doi chua' cua git), tranh phai tai + render lai
     toan bo cay block cho nhung trang khong he doi gi ca."""
-    resp = requests.get(f"{API_BASE}/pages/{page_id}", headers=headers, timeout=30)
-    resp.raise_for_status()
+    resp = _request("GET", f"{API_BASE}/pages/{page_id}", headers=headers)
     data = resp.json()
     props = data.get("properties", {})
     title = "(không có tiêu đề)"

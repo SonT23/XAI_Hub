@@ -30,6 +30,7 @@ import argparse
 import json
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
@@ -44,6 +45,11 @@ ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
 MANIFEST_PATH = os.path.join(SCRIPT_DIR, "pages_manifest.json")
 PAPERS_RAW_PATH = os.path.join(PROJECT_ROOT, "data", "papers_raw.json")
 CACHE_PATH = os.path.join(SCRIPT_DIR, ".sync_cache.json")
+
+# So luong request goi song song toi da (kiem tra "sua lan cuoi" va tai noi
+# dung trang thay doi). Notion gioi han trung binh ~3 request/giay cho 1
+# token - de qua cao se bi 429 lien tuc (da co retry, nhung van nen vua phai).
+MAX_WORKERS = 5
 
 
 def _rel_link(from_output, to_output):
@@ -142,49 +148,91 @@ def sync_all_pages(verbose=True, force=False):
 
     cache = {} if force else load_cache(CACHE_PATH)
     new_cache = dict(cache)
+    entries = manifest.get("pages", [])
 
-    ok, skipped, errors = 0, 0, []
+    # Buoc 2a: kiem tra "sua lan cuoi" (last_edited_time) cua TAT CA trang
+    # CUNG LUC (song song) - day la buoc lam giam toc do nhieu nhat truoc day
+    # vi phai goi API tuan tu tung trang mot, gio goi dong thoi nhieu luong.
+    unique_ids = {}
+    for entry in entries:
+        for s in (entry.get("sources") or [entry.get("id")]):
+            unique_ids[normalize_id(s)] = s
 
-    for entry in manifest.get("pages", []):
+    metas_by_id = {}
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        future_map = {pool.submit(get_page_meta, s, headers): nid for nid, s in unique_ids.items()}
+        for future in as_completed(future_map):
+            nid = future_map[future]
+            try:
+                metas_by_id[nid] = future.result()
+            except Exception as e:  # noqa: BLE001
+                metas_by_id[nid] = {"title": None, "last_edited_time": None, "_error": str(e)}
+
+    # Buoc 2b: doi chieu voi cache -> tach ra trang can dong bo lai va trang
+    # bo qua (khong doi). Chi giu "to_update" de xu ly tiep, khong in tung
+    # dong "BO QUA" nua - chi dem so luong, in 1 dong tong ket cuoi cung.
+    to_update = []
+    skipped = 0
+    errors = []
+
+    for entry in entries:
         out_rel = entry["output"]
         out_abs = os.path.join(PROJECT_ROOT, out_rel)
         sources = entry.get("sources") or [entry.get("id")]
+        metas = [metas_by_id[normalize_id(s)] for s in sources]
+
+        meta_errors = [m["_error"] for m in metas if m.get("_error")]
+        if meta_errors:
+            errors.append((out_rel, "; ".join(meta_errors)))
+            if verbose:
+                print(f"  LỖI {out_rel}: {'; '.join(meta_errors)}")
+            continue
+
         cache_key = "|".join(normalize_id(s) for s in sources)
+        edit_signature = "|".join(m["last_edited_time"] or "" for m in metas)
 
-        try:
-            metas = [get_page_meta(s, headers) for s in sources]
-            edit_signature = "|".join(m["last_edited_time"] or "" for m in metas)
-
-            if (not force) and os.path.exists(out_abs) and cache.get(cache_key) == edit_signature:
-                skipped += 1
-                if verbose:
-                    print(f"  BỎ QUA (không đổi) {out_rel}")
-                new_cache[cache_key] = edit_signature
-                continue
-
-            if len(sources) == 1:
-                body = render_page_content(sources[0], headers, ctx, out_rel)
-                content = f"# {metas[0]['title']}\n\n{body}"
-            else:
-                parts = []
-                for i, src_id in enumerate(sources):
-                    body = render_page_content(src_id, headers, ctx, out_rel)
-                    heading = "#" if i == 0 else "##"
-                    parts.append(f"{heading} {metas[i]['title']}\n\n{body}")
-                content = "\n\n---\n\n".join(parts)
-
-            os.makedirs(os.path.dirname(out_abs), exist_ok=True)
-            with open(out_abs, "w", encoding="utf-8") as f:
-                f.write(content)
-
+        if (not force) and os.path.exists(out_abs) and cache.get(cache_key) == edit_signature:
+            skipped += 1
             new_cache[cache_key] = edit_signature
-            ok += 1
-            if verbose:
-                print(f"  OK  {out_rel}")
-        except Exception as e:  # noqa: BLE001 - bat moi loi de tiep tuc dong bo cac trang khac
-            errors.append((out_rel, str(e)))
-            if verbose:
-                print(f"  LỖI {out_rel}: {e}")
+            continue
+
+        to_update.append((entry, sources, metas, cache_key, edit_signature, out_rel, out_abs))
+
+    # Buoc 3: tai + chuyen doi noi dung CHI cho nhung trang thuc su thay doi,
+    # cung chay song song (moi trang doc lap voi nhau).
+    def _process(item):
+        _entry, sources, metas, cache_key, edit_signature, out_rel, out_abs = item
+        if len(sources) == 1:
+            body = render_page_content(sources[0], headers, ctx, out_rel)
+            content = f"# {metas[0]['title']}\n\n{body}"
+        else:
+            parts = []
+            for i, src_id in enumerate(sources):
+                body = render_page_content(src_id, headers, ctx, out_rel)
+                heading = "#" if i == 0 else "##"
+                parts.append(f"{heading} {metas[i]['title']}\n\n{body}")
+            content = "\n\n---\n\n".join(parts)
+        os.makedirs(os.path.dirname(out_abs), exist_ok=True)
+        with open(out_abs, "w", encoding="utf-8") as f:
+            f.write(content)
+        return cache_key, edit_signature
+
+    ok = 0
+    if to_update:
+        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+            future_map = {pool.submit(_process, item): item for item in to_update}
+            for future in as_completed(future_map):
+                out_rel = future_map[future][5]
+                try:
+                    cache_key, edit_signature = future.result()
+                    new_cache[cache_key] = edit_signature
+                    ok += 1
+                    if verbose:
+                        print(f"  OK  {out_rel}")
+                except Exception as e:  # noqa: BLE001 - bat loi de khong lam hong cac trang khac
+                    errors.append((out_rel, str(e)))
+                    if verbose:
+                        print(f"  LỖI {out_rel}: {e}")
 
     save_cache(CACHE_PATH, new_cache)
 
