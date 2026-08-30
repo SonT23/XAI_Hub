@@ -1,0 +1,56 @@
+site_name: Bilingual Glossary — XAI & CBM
+site_description: Bảng thuật ngữ song ngữ Anh-Việt về Machine Learning, Computer Vision và Explainable AI (XAI), tập trung vào Concept Bottleneck Models (CBM).
+
+# QUAN TRỌNG: sửa 2 dòng dưới đây thành đúng username/repo GitHub của bạn
+# (xem README_MKDOCS.md để biết cách lấy giá trị chính xác)
+site_url: https://SonT23.github.io/glossary-en-vi/
+repo_url: https://github.com/YOUR-GITHUB-USERNAME/glossary-en-vi
+repo_name: glossary-en-vi
+
+theme:
+  name: material
+  language: vi
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Chuyển sang giao diện tối
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Chuyển sang giao diện sáng
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.instant
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search:
+      lang:
+        - vi
+        - en
+
+nav:
+  - Trang chủ: index.md
+  - Toàn bộ thuật ngữ (A-Z): glossary/all.md
+  - Theo chủ đề:
+      - Toán: glossary/toan.md
+      - ML cơ bản: glossary/ml-co-ban.md
+      - Deep Learning: glossary/deep-learning.md
+      - CNN: glossary/cnn.md
+      - Autoencoder: glossary/autoencoder.md
+      - Transformer/CLIP: glossary/transformer-clip.md
+      - XAI: glossary/xai.md
+      - CBM: glossary/cbm.md
+
+markdown_extensions:
+  - tables
+  - toc:
+      permalink: true

@@ -17,6 +17,50 @@ TOPIC_ORDER = [
     "Transformer/CLIP", "XAI", "CBM", "Khác",
 ]
 
+# Slug dùng cho tên file .md của từng chủ đề trong trang MkDocs
+TOPIC_SLUGS = {
+    "Toán": "toan",
+    "ML cơ bản": "ml-co-ban",
+    "Deep Learning": "deep-learning",
+    "CNN": "cnn",
+    "Autoencoder": "autoencoder",
+    "Transformer/CLIP": "transformer-clip",
+    "XAI": "xai",
+    "CBM": "cbm",
+    "Khác": "khac",
+}
+
+
+def _topic_slug(topic):
+    return TOPIC_SLUGS.get(topic, topic.lower().replace(" ", "-").replace("/", "-"))
+
+
+def _group_by_topic(entries):
+    by_topic = defaultdict(list)
+    for e in entries:
+        if e["topics"]:
+            for t in e["topics"]:
+                by_topic[t].append(e)
+        else:
+            by_topic["Khác"].append(e)
+    all_topics = TOPIC_ORDER + [t for t in sorted(by_topic) if t not in TOPIC_ORDER]
+    return by_topic, all_topics
+
+
+def _esc(s):
+    return (s or "").replace("|", "\\|").replace("\n", " ")
+
+
+def _table_rows(items):
+    lines = ["| Term (EN) | Tiếng Việt | Viết tắt | Định nghĩa ngắn | Dễ nhầm với |",
+             "|---|---|---|---|---|"]
+    for e in sorted(items, key=lambda x: x["term_en"].lower()):
+        lines.append(
+            f"| {_esc(e['term_en'])} | {_esc(e['term_vi'])} | {_esc(e['abbr'])} | "
+            f"{_esc(e['definition'])} | {_esc(e['confused_with'])} |"
+        )
+    return lines
+
 
 def normalize_rows(rows):
     """rows: list of dicts with keys matching the Notion column names
@@ -65,15 +109,7 @@ def write_outputs(entries, out_dir="."):
             ])
 
     # --- README.md, grouped by topic, sorted A-Z within each topic ---
-    by_topic = defaultdict(list)
-    for e in entries:
-        if e["topics"]:
-            for t in e["topics"]:
-                by_topic[t].append(e)
-        else:
-            by_topic["Khác"].append(e)
-
-    all_topics = TOPIC_ORDER + [t for t in sorted(by_topic) if t not in TOPIC_ORDER]
+    by_topic, all_topics = _group_by_topic(entries)
 
     lines = []
     lines.append("# Bilingual Glossary: Explainable AI & Computer Vision (EN-VI)")
@@ -100,15 +136,7 @@ def write_outputs(entries, out_dir="."):
             continue
         lines.append(f"## {t}")
         lines.append("")
-        lines.append("| Term (EN) | Tiếng Việt | Viết tắt | Định nghĩa ngắn | Dễ nhầm với |")
-        lines.append("|---|---|---|---|---|")
-        for e in sorted(by_topic[t], key=lambda x: x["term_en"].lower()):
-            def esc(s):
-                return (s or "").replace("|", "\\|").replace("\n", " ")
-            lines.append(
-                f"| {esc(e['term_en'])} | {esc(e['term_vi'])} | {esc(e['abbr'])} | "
-                f"{esc(e['definition'])} | {esc(e['confused_with'])} |"
-            )
+        lines.extend(_table_rows(by_topic[t]))
         lines.append("")
 
     lines.append("---")
@@ -122,3 +150,58 @@ def write_outputs(entries, out_dir="."):
 
     with open(os.path.join(out_dir, "README.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
+
+
+def write_mkdocs_docs(entries, docs_dir):
+    """Sinh các trang Markdown cho MkDocs (trang chủ, 1 trang mỗi chủ đề,
+    và 1 trang liệt kê toàn bộ) vào thư mục docs_dir. Ô tìm kiếm và điều
+    hướng theo chủ đề (nav) do MkDocs Material xử lý, không cần thêm code.
+    """
+    import os
+
+    os.makedirs(os.path.join(docs_dir, "glossary"), exist_ok=True)
+    by_topic, all_topics = _group_by_topic(entries)
+    present_topics = [t for t in all_topics if t in by_topic]
+
+    # --- docs/index.md ---
+    index_lines = [
+        "# Bilingual Glossary: XAI & Computer Vision (EN-VI)",
+        "",
+        (
+            "Bảng thuật ngữ song ngữ Anh - Việt về Machine Learning, Computer "
+            "Vision, và Explainable AI (XAI), tập trung vào Concept Bottleneck "
+            "Models (CBM). Nguồn dữ liệu gốc là một database Notion, được đồng "
+            "bộ tự động vào trang này."
+        ),
+        "",
+        f"**Tổng số thuật ngữ:** {len(entries)}",
+        "",
+        "Dùng ô tìm kiếm ở trên (biểu tượng kính lúp) để tra theo tên tiếng Anh, "
+        "tiếng Việt, hoặc viết tắt. Dùng thanh điều hướng bên trái để lọc theo "
+        "từng chủ đề, hoặc xem [toàn bộ thuật ngữ theo A-Z](glossary/all.md).",
+        "",
+        "## Chủ đề",
+        "",
+    ]
+    for t in present_topics:
+        index_lines.append(f"- [{t}](glossary/{_topic_slug(t)}.md) ({len(by_topic[t])} thuật ngữ)")
+    index_lines.append("")
+    with open(os.path.join(docs_dir, "index.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(index_lines))
+
+    # --- docs/glossary/<topic>.md, mỗi trang 1 chủ đề ---
+    for t in present_topics:
+        lines = [f"# {t}", ""]
+        lines.extend(_table_rows(by_topic[t]))
+        lines.append("")
+        with open(os.path.join(docs_dir, "glossary", f"{_topic_slug(t)}.md"), "w", encoding="utf-8") as f:
+            f.write("\n".join(lines))
+
+    # --- docs/glossary/all.md, toàn bộ thuật ngữ A-Z (không chia chủ đề) ---
+    all_lines = ["# Toàn bộ thuật ngữ (A-Z)", ""]
+    all_lines.extend(_table_rows(entries))
+    all_lines.append("")
+    with open(os.path.join(docs_dir, "glossary", "all.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(all_lines))
+
+    return present_topics

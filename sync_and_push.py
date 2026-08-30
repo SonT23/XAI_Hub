@@ -27,7 +27,7 @@ from datetime import datetime
 
 import requests
 
-from glossary_lib import normalize_rows, write_outputs
+from glossary_lib import normalize_rows, write_outputs, write_mkdocs_docs
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ENV_PATH = os.path.join(SCRIPT_DIR, ".env")
@@ -162,7 +162,8 @@ def main():
 
     entries = normalize_rows(rows)
     write_outputs(entries, out_dir=SCRIPT_DIR)
-    print(f"Đã tạo lại glossary.json, glossary.csv, README.md ({len(entries)} thuật ngữ).")
+    write_mkdocs_docs(entries, docs_dir=os.path.join(SCRIPT_DIR, "docs"))
+    print(f"Đã tạo lại glossary.json, glossary.csv, README.md, và các trang docs/ ({len(entries)} thuật ngữ).")
 
     git_commit_and_push(SCRIPT_DIR)
 

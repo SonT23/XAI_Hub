@@ -1,0 +1,46 @@
+# XAI
+
+| Term (EN) | Tiếng Việt | Viết tắt | Định nghĩa ngắn | Dễ nhầm với |
+|---|---|---|---|---|
+| Black Box | Hộp đen |  | Mô hình chỉ thấy được đầu vào và đầu ra, không hiểu được cơ chế bên trong. Đây chính là vấn đề mà XAI sinh ra để giải quyết. |  |
+| Calibration | Hiệu chỉnh xác suất |  | Mức độ mà điểm tin cậy của mô hình phản ánh đúng xác suất thực tế. Quan trọng khi đánh giá độ tin cậy của khái niệm trong CBM và của điểm số CLIP. |  |
+| Choice Blindness | Mù lựa chọn |  | Con người không nhớ chính xác lựa chọn trước đó, và vẫn đưa ra lý do thuyết phục cho những lựa chọn mà họ chưa từng chọn. |  |
+| Concept Activation Vector | Vectơ kích hoạt khái niệm | CAV | Vectơ pháp tuyến của siêu phẳng tách ảnh có khái niệm với ảnh không có, trong không gian activation. Đại diện cho hướng của khái niệm đó. |  |
+| Concept Space | Không gian khái niệm |  | Một Latent Space mà MỖI CHIỀU đã được gán nhãn một khái niệm con người hiểu được. Đây chính là thứ CBM tạo ra — có thể hiểu CBM là một latent space bị buộc phải diễn giải được. | Latent Space thông thường — không ai biết chiều thứ 42 nghĩa là gì |
+| Confabulation | Bịa lý do |  | Con người ra quyết định trước rồi gắn lý do vào sau, mà vẫn tin đó là lý do thật. Bằng chứng thần kinh học: dấu hiệu quyết định xuất hiện trước tới 10 giây so với lúc ý thức được. |  |
+| Counterfactual Explanation | Giải thích phản thực |  | Lời giải thích dạng 'nếu đầu vào khác đi thì quyết định sẽ đổi'. Mô tả thay đổi NHỎ NHẤT đủ để lật kết quả. Ưu điểm: không làm lộ cơ chế bên trong. |  |
+| Decision Accuracy | Độ chính xác của quyết định |  | Phán đoán của hệ thống đúng hay sai. Đây là thứ các chỉ số accuracy/F1 thông thường đang đo. | Explanation Accuracy — nhầm hai cái này là lỗi cơ bản nhất khi viết bài về XAI. |
+| Disentangled Representation | Biểu diễn phân tách |  | Biểu diễn mà mỗi chiều latent mang một ý nghĩa độc lập, dễ hiểu với con người. Đây là cầu nối quan trọng giữa VAE và hướng nghiên cứu CBM không cần nhãn. |  |
+| Dunning-Kruger Effect | Hiệu ứng Dunning-Kruger |  | Hầu hết mọi người, kể cả chuyên gia, ước lượng sai năng lực của chính mình. Trong NIST IR 8312, đây là bằng chứng cho thấy con người cũng không đạt nguyên tắc Knowledge Limits. |  |
+| Explainability | Khả năng giải thích |  | Khả năng đưa ra lời giải thích cho MỘT QUYẾT ĐỊNH CỤ THỂ, kể cả khi bên trong mô hình vẫn là hộp đen. | Interpretability |
+| Explainable AI | AI có khả năng giải thích | XAI | Lĩnh vực nghiên cứu các phương pháp giúp con người hiểu được tại sao một mô hình AI đưa ra một dự đoán cụ thể. |  |
+| Explanation (Principle 1) | Nguyên tắc Có lời giải thích |  | Nguyên tắc 1 của NIST: hệ thống phải cung cấp bằng chứng hoặc lý do kèm theo đầu ra. Độc lập với việc lời giải thích có đúng hay dễ hiểu hay không — chỉ đòi hỏi nó TỒN TẠI. |  |
+| Explanation Accuracy (Principle 3) | Độ chính xác của lời giải thích | EA | Nguyên tắc 3 của NIST: lời giải thích phải phản ánh ĐÚNG lý do/quy trình thực sự mà hệ thống dùng để ra kết quả. | Decision Accuracy — cặp này HOÀN TOÀN ĐỘC LẬP: mô hình dự đoán đúng vẫn có thể giải thích sai. |
+| Fairwashing | Tẩy trắng công bằng |  | Tấn công đối kháng: sinh ra các mô hình dễ hiểu xấp xỉ hộp đen nhưng TRÔNG CÔNG BẰNG HƠN thực tế, qua đó che giấu sự bất công của mô hình gốc. |  |
+| Faithfulness | Độ trung thực |  | Lời giải thích có phản ánh ĐÚNG quá trình mô hình thực sự dùng để quyết định hay không. | Plausibility — hai tiêu chí này có thể đối lập nhau. |
+| Fidelity | Độ trung thành |  | Mức độ lời giải thích hậu kỳ phản ánh trung thực hành vi của mô hình gốc. Là cách vận hành hóa cụ thể của Explanation Accuracy trong đo lường. | Faithfulness — gần nghĩa, thường dùng thay nhau; fidelity hay dùng cho mô hình thay thế (surrogate). |
+| Global Average Pooling | Gộp trung bình toàn cục | GAP | Lấy trung bình toàn bộ mỗi kênh của Feature Map, biến HxWxC thành đúng C số. Thay thế hiện đại cho Flatten + FC lớn, cắt được phần lớn tham số và là cơ chế giúp Grad-CAM hoạt động. | Max Pooling 2x2 — chỉ giảm một nửa kích thước, còn GAP nén cả kênh về một số duy nhất |
+| Grad-CAM | Grad-CAM |  | Dùng gradient tại lớp tích chập cuối để tạo heatmap chỉ vùng ảnh mô hình nhìn vào. Chỉ trả lời được 'ở đâu' chứ không phải 'cái gì'. |  |
+| Ground Truth | Nhãn chuẩn / Sự thật nền |  | Giá trị đúng được coi là chuẩn để đối chiếu kết quả mô hình. Vấn đề lớn của XAI: không có ground truth cho lời giải thích — không ai biết lời giải thích đúng tuyệt đối trông như thế nào. |  |
+| Human Simulatability | Khả năng con người mô phỏng |  | Khả năng con người hiểu mô hình đủ để TỰ dự đoán đúng đầu ra của nó. Là cách đo chính cho nguyên tắc Meaningful. Đo bằng độ chính xác, thời gian, và đánh giá chủ quan. |  |
+| Influence Functions | Hàm ảnh hưởng |  | Phương pháp giải thích cục bộ: ước lượng điểm dữ liệu HUẤN LUYỆN nào ảnh hưởng nhiều nhất đến một quyết định cụ thể. Khác các phương pháp khác ở chỗ nó quy trách nhiệm cho dữ liệu chứ không phải đặc trưng. |  |
+| Input Invariance | Bất biến với đầu vào |  | Tính chất mà một phương pháp giải thích tốt phải có: thay đổi nhỏ không đáng kể ở đầu vào không được làm lời giải thích đảo lộn. Nhiều phương pháp saliency KHÔNG đạt tính này. |  |
+| Interpretability | Tính dễ hiểu (nội tại) |  | Mức độ mà con người hiểu được CƠ CHẾ NỘI TẠI của mô hình, ví dụ đọc được toàn bộ luồng suy luận của một cây quyết định. | Explainability — interpretability nói về bên trong mô hình, explainability nói về lời giải thích cho từng quyết định. Rất hay bị dùng lẫn. |
+| Intervention Curve | Đường cong can thiệp |  | Đồ thị thể hiện độ chính xác tăng ra sao khi sửa đúng dần từng khái niệm. Đường dốc lên là dấu hiệu tốt; đường phẳng báo hiệu concept leakage. |  |
+| Intrinsic (Ante-hoc) Interpretability | Giải thích nội tại |  | Tính giải thích được thiết kế sẵn vào kiến trúc mô hình, nên lời giải thích chính là đường đi thật của dữ liệu. CBM thuộc nhóm này. | Post-hoc |
+| Introspection Illusion | Ảo tưởng nội quan |  | Hiện tượng tâm lý: con người tin rằng nhìn vào nội tâm sẽ biết được lý do thật cho quyết định của mình — nhưng niềm tin đó sai lầm. |  |
+| Knowledge Limits (Principle 4) | Giới hạn tri thức |  | Nguyên tắc 4 của NIST: hệ thống chỉ hoạt động trong điều kiện nó được thiết kế và khi đủ tự tin. Hai con đường chạm giới hạn: nằm ngoài miền hoạt động, và độ tin cậy quá thấp. CBM gốc không đề cập nguyên tắc này. |  |
+| Latent Traversal | Đi dọc một chiều tiềm ẩn |  | Kỹ thuật giữ nguyên toàn bộ vector z và chỉ kéo MỘT chiều từ -3 đến +3, rồi xem ảnh giải mã thay đổi thế nào. Là cách chuẩn để kiểm tra mức độ disentangled của latent space. | Interpolation — đi giữa hai điểm có thật, còn traversal đi dọc theo một trục tọa độ |
+| LIME | LIME |  | Xấp xỉ mô hình phức tạp bằng một mô hình tuyến tính đơn giản quanh một điểm dữ liệu cụ thể, rồi đọc hệ số để biết đặc trưng nào quan trọng. |  |
+| Local vs Global Explanation | Giải thích cục bộ vs toàn cục |  | Local giải thích một dự đoán cụ thể; Global giải thích hành vi tổng thể của mô hình trên toàn bộ dữ liệu. |  |
+| Meaningful (Principle 2) | Nguyên tắc Có ý nghĩa |  | Nguyên tắc 2 của NIST: lời giải thích phải dễ hiểu với đúng người tiếp nhận mục tiêu (intended consumer). Phụ thuộc đối tượng, không phải thuộc tính tuyệt đối. | Explanation Accuracy — hai nguyên tắc này có thể xung đột với nhau. |
+| Model Risk | Rủi ro mô hình |  | Hậu quả tiêu cực từ mô hình không hợp lệ hoặc bị dùng sai (định nghĩa của Cục Dự trữ Liên bang Mỹ). Hai nguồn: lỗi trong mô hình, và dùng mô hình vượt giới hạn tri thức. |  |
+| Model-agnostic | Độc lập với mô hình |  | Phương pháp giải thích dùng được cho bất kỳ mô hình nào, chỉ cần quan sát đầu vào và đầu ra. Ngược lại là model-specific. |  |
+| Out-of-Distribution | Ngoài phân phối | OOD | Dữ liệu khác biệt đáng kể so với phân phối của tập huấn luyện. Mô hình thường hoạt động rất kém trên OOD — liên quan trực tiếp tới nguyên tắc Knowledge Limits. |  |
+| Partial Dependence Plot | Đồ thị phụ thuộc từng phần | PDP | Phương pháp giải thích toàn cục: cho thấy dự đoán thay đổi thế nào khi một đặc trưng thay đổi, giúp xác định quan hệ là tuyến tính hay phức tạp. |  |
+| Plausibility | Độ hợp lý |  | Lời giải thích có THUYẾT PHỤC với con người hay không. Một lời giải thích plausible nhưng không faithful là nguy hiểm nhất vì tạo cảm giác an tâm giả. | Faithfulness |
+| Post-hoc Explanation | Giải thích hậu kỳ |  | Mô hình được huấn luyện bình thường như hộp đen, sau đó dùng công cụ khác ước lượng từ bên ngoài xem nó dựa vào đâu. Ví dụ: LIME, SHAP, Grad-CAM. | Intrinsic — đây là trục phân loại quan trọng nhất để định vị CBM. |
+| Prototype | Mẫu đại diện |  | Mẫu tiêu biểu của một lớp, dùng làm lời giải thích dạng 'giống với cái này'. Ví dụ: 'con chim này là hồng y vì nó giống các con hồng y trong tập huấn luyện'. |  |
+| Saliency Map | Bản đồ nổi bật |  | Heatmap chỉ ra pixel nào quan trọng, tính bằng gradient của đầu ra theo từng pixel. Đã bị chỉ trích vì không vượt được sanity check. |  |
+| SHAP / Shapley Value | Giá trị Shapley |  | Chia công bằng đóng góp của từng đặc trưng vào dự đoán, dựa trên lý thuyết trò chơi hợp tác. Ổn định hơn LIME nhưng tốn tính toán. |  |
+| TCAV | Kiểm thử bằng vectơ kích hoạt khái niệm |  | Phương pháp post-hoc đo xem một khái niệm (ví dụ 'sọc') ảnh hưởng bao nhiêu đến dự đoán của một lớp. Là tiền đề trực tiếp của CBM. |  |
