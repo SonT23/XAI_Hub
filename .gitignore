@@ -3,3 +3,10 @@ __pycache__/
 .DS_Store
 .env
 site/
+
+# Ghi chú cá nhân / trang thử nghiệm - KHÔNG public lên GitHub
+docs/test/
+
+# Cache "lần sửa đổi cuối" của từng trang Notion, dùng để bỏ qua trang
+# không đổi khi đồng bộ - chỉ có ý nghĩa cục bộ trên máy bạn, không cần commit
+scripts/.sync_cache.json

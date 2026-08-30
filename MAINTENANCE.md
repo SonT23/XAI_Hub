@@ -100,6 +100,13 @@ Muốn kiểm tra riêng phần đồng bộ trang (không commit/push) trước
 
 ### Thêm 1 trang kiến thức mới vào danh sách đồng bộ
 
+**Tự động (khuyến khích):** nếu trang mới nằm trực tiếp bên trong 1 trong 4 trang hub
+(Toán nền tảng / ML cơ bản / Deep Learning / Explainable AI), chỉ cần viết trong Notion
+rồi chạy `update_and_push.bat` — `scripts/discover_pages.py` sẽ tự quét, tự thêm vào
+`pages_manifest.json` và tự thêm 1 dòng vào `nav:` trong `mkdocs.yml`. Không cần copy ID,
+không cần sửa file tay.
+
+**Thủ công (khi trang lồng sâu hơn 1 cấp, hoặc không nằm trong 4 hub trên):**
 1. Mở trang đó trong Notion bằng trình duyệt, copy ID 32 ký tự từ URL (xem cách lấy ID ở Phần A).
 2. Mở `scripts/pages_manifest.json`, thêm 1 dòng vào mảng `"pages"`, ví dụ:
    ```json
@@ -107,6 +114,15 @@ Muốn kiểm tra riêng phần đồng bộ trang (không commit/push) trước
    ```
 3. Thêm mục tương ứng vào `nav:` trong `mkdocs.yml` để trang xuất hiện trên menu.
 4. Chạy lại `update_and_push.bat`.
+
+### Đồng bộ nhanh hơn
+
+`sync_pages.py` kiểm tra "thời điểm sửa cuối" của mỗi trang trên Notion trước khi tải lại
+toàn bộ nội dung — trang không đổi sẽ được bỏ qua, không tốn thời gian chuyển đổi lại.
+Nếu nghi ngờ cache sai (ví dụ sau khi tự sửa chính script chuyển đổi), chạy:
+```
+python scripts\sync_pages.py --force
+```
 
 ### Thư viện bài báo
 

@@ -1,5 +1,17 @@
 {
-  "_comment": "Manifest anh xa Notion page ID -> file docs/ tuong ung. link_only=true nghia la entry nay CHI dung de giai quyet link cho <mention-page>, KHONG dong bo noi dung (glossary/papers da co script rieng: build_glossary/sync_and_push va build_papers_page).",
+  "_comment": "Manifest anh xa Notion page ID -> file docs/ tuong ung. link_only=true nghia la entry nay CHI dung de giai quyet link cho <mention-page>, KHONG dong bo noi dung (glossary/papers da co script rieng: build_glossary/sync_and_push va build_papers_page). auto_discover_hubs = danh sach 4 trang hub duoc scripts/discover_pages.py tu dong quet moi lan sync de tim trang con MOI (khong can copy ID tay) - CHI phat hien 1 cap (con truc tiep), va tu dong them vao mang 'pages' + vao nav trong mkdocs.yml. skip_ids dung de loai tru trang 'stub' (vo rong) da duoc gop thu cong thanh 1 entry rieng trong 'pages' (vi du CBM).",
+
+  "auto_discover_hubs": [
+    { "hub_id": "7e9eb961f1c882f7a68c81b8549ae617", "folder": "docs/toan", "nav_section": "Toán nền tảng" },
+    { "hub_id": "3b8eb961f1c88086a0b2fc7d85072360", "folder": "docs/ml-co-ban", "nav_section": "ML cơ bản" },
+    { "hub_id": "3cbeb961f1c88139b2b2fc56dbfd58fc", "folder": "docs/deep-learning", "nav_section": "Deep Learning" },
+    {
+      "hub_id": "3cbeb961f1c8818c8525ca930d263d90",
+      "folder": "docs/xai",
+      "nav_section": "Explainable AI",
+      "skip_ids": ["106eb961-f1c8-8249-946e-0126ae36924d"]
+    }
+  ],
 
   "pages": [
     { "id": "3cceb961f1c881a1a604ed767c1e2a5e", "output": "docs/toan/dai-so-tuyen-tinh.md" },

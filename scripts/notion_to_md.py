@@ -242,7 +242,10 @@ def render_blocks(blocks, ctx, _list_stack=None):
 
         elif btype == "toggle":
             text = rich_text_to_md(data.get("rich_text", []), ctx)
-            out.append("<details>")
+            # markdown="1" bat buoc phai co de MkDocs (python-markdown, extension
+            # md_in_html trong mkdocs.yml) chiu xu ly Markdown long ben trong the
+            # HTML nay (dam, danh sach, ...) thay vi coi toan bo la HTML tho.
+            out.append('<details markdown="1">')
             out.append(f"<summary>{text}</summary>")
             out.append("")
             if block.get("_children"):

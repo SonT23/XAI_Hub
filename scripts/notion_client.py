@@ -80,10 +80,35 @@ def fetch_block_tree(block_id, headers, _depth=0, _max_depth=8):
 
 def get_page_title(page_id, headers):
     """Lay tieu de mot page qua endpoint /pages/{id} (doc property kieu 'title')."""
+    return get_page_meta(page_id, headers)["title"]
+
+
+def get_page_meta(page_id, headers):
+    """Lay tieu de VA thoi diem sua doi cuoi cung (last_edited_time) cua 1 page,
+    chi bang 1 lan goi GET /pages/{id} (khong can tai toan bo block).
+    Dung last_edited_time de quyet dinh co can dong bo lai trang nay khong
+    (giong co che 'da thay doi chua' cua git), tranh phai tai + render lai
+    toan bo cay block cho nhung trang khong he doi gi ca."""
     resp = requests.get(f"{API_BASE}/pages/{page_id}", headers=headers, timeout=30)
     resp.raise_for_status()
-    props = resp.json().get("properties", {})
+    data = resp.json()
+    props = data.get("properties", {})
+    title = "(không có tiêu đề)"
     for prop in props.values():
         if prop.get("type") == "title":
-            return "".join(rt.get("plain_text", "") for rt in prop.get("title", []))
-    return "(không có tiêu đề)"
+            title = "".join(rt.get("plain_text", "") for rt in prop.get("title", []))
+            break
+    return {"title": title, "last_edited_time": data.get("last_edited_time")}
+
+
+def list_child_page_blocks(block_id, headers):
+    """Lay danh sach cac block con truc tiep co type == 'child_page' (khong de quy
+    sau hon). Tra ve list {"id":..., "title":...} - tieu de lay truc tiep tu block
+    (khong can goi them API rieng)."""
+    children = get_block_children_all(block_id, headers)
+    result = []
+    for b in children:
+        if b.get("type") == "child_page":
+            title = b.get("child_page", {}).get("title", "(không có tiêu đề)")
+            result.append({"id": b["id"], "title": title})
+    return result
