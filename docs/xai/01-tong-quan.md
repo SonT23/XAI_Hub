@@ -14,7 +14,7 @@ NIST (Viện Tiêu chuẩn và Công nghệ Quốc gia Hoa Kỳ) đề xuất 4 
 
 1. **Explanation (Có lời giải thích):** hệ thống phải cung cấp bằng chứng/lý do kèm theo mỗi đầu ra.
 
-2. **Meaningful (Có ý nghĩa):** lời giải thích phải dễ hiểu đối với người dùng mục tiêu (bác sĩ và kỹ sư ML cần hai kiểu giải thích khác nhau).
+2. **Meaningful (Có ý nghĩa):** lời giải thích phải dễ hiểu đối với người dùng mục tiêu (bác sĩ và kỹ sư ML cần hai kiểu giải thích khác nhau). Ví dụ với bức ảnh 100x100, AI sẽ nhìn nhận nó như là 10000 con số, khi dự đoán ra bức ảnh, AI đã thực hiện rất nhiều các phương trình toán học phức tạp trên 10.000 con số này.
 
 3. **Explanation Accuracy (Chính xác):** lời giải thích phải phản ánh đúng quá trình mà mô hình thực sự dùng để ra quyết định.
 
