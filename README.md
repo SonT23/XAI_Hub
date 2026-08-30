@@ -7,7 +7,7 @@ A bilingual (English-Vietnamese) glossary of terms used in machine learning, com
 ## Table of contents
 
 - [Toán](#toán)
-- [ML cơ bản](#ml-co-ban)
+- [ML cơ bản](#ml-cơ-bản)
 - [Deep Learning](#deep-learning)
 - [CNN](#cnn)
 - [Autoencoder](#autoencoder)
