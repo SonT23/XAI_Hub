@@ -82,17 +82,35 @@ Double-click **`update_and_push.bat`** ở thư mục gốc. Script sẽ: lấy 
 
 ---
 
-## Phần B — Cập nhật nội dung kiến thức / bài báo (bán tự động)
+## Phần B — Cập nhật nội dung kiến thức (Toán, ML, Deep Learning, XAI, Kỹ năng nghiên cứu) — TỰ ĐỘNG
 
-Các trang trong `docs/toan/`, `docs/ml-co-ban/`, `docs/deep-learning/`, `docs/xai/`, `docs/ky-nang/` được chuyển thủ công từ Notion sang Markdown (Notion không có API đơn giản để tự động hóa hoàn toàn phần văn bản tự do như glossary). Quy trình hiện tại:
+Kể từ bản này, các trang trong `docs/toan/`, `docs/ml-co-ban/`, `docs/deep-learning/`, `docs/xai/`, `docs/ky-nang/` được đồng bộ **tự động** từ Notion mỗi khi bạn chạy `update_and_push.bat` — không cần nhắn Claude nữa. Cơ chế:
 
-1. Bạn sửa/thêm nội dung trong Notion như bình thường.
-2. Nhắn Claude: *"cập nhật lại trang [tên trang] từ Notion"* — Claude sẽ lấy lại nội dung, chuyển đổi định dạng, và ghi đè đúng file `.md` tương ứng vào máy bạn.
-3. Chạy `git add . && git commit -m "Update [tên trang]" && git push` (hoặc dùng `update_and_push.bat` — nó cũng push mọi thay đổi khác đang có trong thư mục, không chỉ glossary).
+- `scripts/pages_manifest.json` — danh sách ánh xạ "ID trang Notion" → "file `docs/....md`" tương ứng. Đây là danh sách các trang được đồng bộ; nếu bạn tạo thêm 1 trang kiến thức mới trong Notion muốn đưa lên web, cần thêm 1 dòng vào file này (xem hướng dẫn bên dưới).
+- `scripts/notion_client.py` — gọi thẳng Notion REST API để lấy nội dung (block) của từng trang.
+- `scripts/notion_to_md.py` — chuyển đổi block Notion sang Markdown (callout → blockquote, columns → phẳng, bảng → bảng Markdown, mermaid/LaTeX giữ nguyên, mention-page → link tương đối nếu trang đích có trong manifest, nếu không thì hiện tên **in đậm**).
+- `scripts/sync_pages.py` — chạy đồng bộ toàn bộ trang trong manifest, ghi đè từng file `.md` tương ứng.
+- `scripts/sync_and_push.py` đã được sửa để tự gọi `sync_pages.sync_all_pages()` ngay sau khi đồng bộ glossary, rồi mới commit + push — tức là chạy `update_and_push.bat` một lần sẽ cập nhật **cả glossary lẫn toàn bộ trang kiến thức** trong cùng 1 commit.
 
-Thư viện bài báo (`docs/papers/index.md`) tương tự — nhắn Claude cập nhật, Claude sẽ ghi lại `data/papers_raw.json` rồi chạy `scripts/build_papers_page.py`.
+### ⚠️ Lưu ý quan trọng: đây là tính năng MỚI, chưa chạy thử với dữ liệu Notion thật của bạn
 
-**Hướng nâng cấp trong tương lai (đã thảo luận, chưa triển khai):** viết một script Python tổng quát gọi thẳng Notion API + tự chuyển đổi block Notion sang Markdown (áp dụng đúng các quy tắc đã dùng thủ công: callout → blockquote, columns → phẳng, mention-page → link tương đối, giữ nguyên mermaid/LaTeX), tích hợp vào `update_and_push.bat` để không cần nhờ Claude mỗi lần nữa. Đây là một khối việc lớn, làm khi bạn sẵn sàng đầu tư thời gian.
+Phần này được viết dựa trên đúng cấu trúc Notion API và các quy tắc chuyển đổi đã áp dụng thủ công trước đây, nhưng **chưa được chạy thử end-to-end** (tôi không có quyền chạy lệnh trực tiếp trên máy bạn, chỉ có thể gửi file). Lần chạy `update_and_push.bat` đầu tiên sau khi cập nhật, hãy để ý phần in ra "Đang đồng bộ các trang kiến thức..." — nếu có dòng `LỖI` cho trang nào, **glossary và các trang khác vẫn được push bình thường**, chỉ riêng trang lỗi đó giữ nguyên nội dung cũ. Hãy copy nguyên văn thông báo lỗi gửi lại để debug cùng nhau.
+
+Muốn kiểm tra riêng phần đồng bộ trang (không commit/push) trước khi tin tưởng chạy full: `python scripts\sync_pages.py`
+
+### Thêm 1 trang kiến thức mới vào danh sách đồng bộ
+
+1. Mở trang đó trong Notion bằng trình duyệt, copy ID 32 ký tự từ URL (xem cách lấy ID ở Phần A).
+2. Mở `scripts/pages_manifest.json`, thêm 1 dòng vào mảng `"pages"`, ví dụ:
+   ```json
+   { "id": "abc123...", "output": "docs/xai/08-trang-moi.md" }
+   ```
+3. Thêm mục tương ứng vào `nav:` trong `mkdocs.yml` để trang xuất hiện trên menu.
+4. Chạy lại `update_and_push.bat`.
+
+### Thư viện bài báo
+
+`docs/papers/index.md` vẫn dùng cơ chế riêng (chưa gộp vào `sync_pages.py` vì cấu trúc là 1 database, không phải trang tự do): nhắn Claude cập nhật, Claude ghi lại `data/papers_raw.json` rồi chạy `scripts/build_papers_page.py`.
 
 ---
 

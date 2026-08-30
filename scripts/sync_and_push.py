@@ -33,6 +33,7 @@ PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 sys.path.insert(0, SCRIPT_DIR)
 
 from glossary_lib import normalize_rows, write_outputs, write_mkdocs_docs
+from sync_pages import sync_all_pages
 
 ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
@@ -171,6 +172,18 @@ def main():
     write_outputs(entries, out_dir=DATA_DIR)
     write_mkdocs_docs(entries, docs_dir=DOCS_DIR)
     print(f"Đã tạo lại data/glossary.json, data/glossary.csv, và các trang docs/glossary/ ({len(entries)} thuật ngữ).")
+
+    print("\nĐang đồng bộ các trang kiến thức (Toán, ML, Deep Learning, XAI, Kỹ năng nghiên cứu)...")
+    try:
+        ok, n_err, errors = sync_all_pages()
+        if n_err:
+            print(
+                f"[CẢNH BÁO] {n_err} trang gặp lỗi khi đồng bộ (xem chi tiết ở trên). "
+                "Các trang lỗi giữ nguyên nội dung cũ, không bị xóa."
+            )
+    except Exception as e:  # noqa: BLE001 - không để lỗi đồng bộ trang làm hỏng phần glossary đã xong
+        print(f"[LỖI] Đồng bộ trang kiến thức thất bại hoàn toàn: {e}")
+        print("Glossary vẫn được cập nhật và push bình thường bên dưới.")
 
     git_commit_and_push(PROJECT_ROOT)
 

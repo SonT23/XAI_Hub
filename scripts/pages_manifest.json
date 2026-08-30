@@ -1,0 +1,42 @@
+{
+  "_comment": "Manifest anh xa Notion page ID -> file docs/ tuong ung. link_only=true nghia la entry nay CHI dung de giai quyet link cho <mention-page>, KHONG dong bo noi dung (glossary/papers da co script rieng: build_glossary/sync_and_push va build_papers_page).",
+
+  "pages": [
+    { "id": "3cceb961f1c881a1a604ed767c1e2a5e", "output": "docs/toan/dai-so-tuyen-tinh.md" },
+    { "id": "3cceb961f1c881d2ac99da03ca868ab9", "output": "docs/toan/giai-tich.md" },
+    { "id": "3cceb961f1c881c8ba74c0163c287d4d", "output": "docs/toan/xac-suat-thong-ke.md" },
+
+    { "id": "3caeb961f1c8809fa816eb502a40b98e", "output": "docs/ml-co-ban/model-parameter.md" },
+    { "id": "3caeb961f1c8804a884bd80ecbd714ed", "output": "docs/ml-co-ban/model-hyperparameter.md" },
+    { "id": "3caeb961f1c88012ada9eda947d522d2", "output": "docs/ml-co-ban/performance-measures.md" },
+
+    { "id": "006eb961f1c8833b811381e636fd99ad", "output": "docs/deep-learning/autoencoder.md" },
+    { "id": "3cbeb961f1c881859c94d1b3c4cacd38", "output": "docs/deep-learning/vae.md" },
+    { "id": "3cceb961f1c88139bed2cf23cc70f6ab", "output": "docs/deep-learning/latent-space.md" },
+    { "id": "a6aeb961f1c882bfbe7701e95a8699e5", "output": "docs/deep-learning/cnn.md" },
+    { "id": "3cbeb961f1c881daa976e1b2c4ee62b5", "output": "docs/deep-learning/transformer-vit.md" },
+    { "id": "3cbeb961f1c8811b9b72fc535d284704", "output": "docs/deep-learning/clip.md" },
+
+    { "id": "3cbeb961f1c881958292f2b5d081c723", "output": "docs/xai/01-tong-quan.md" },
+    { "id": "3cbeb961f1c8815599b9cf5044023255", "output": "docs/xai/02-post-hoc.md" },
+    { "id": "3cbeb961f1c881189b04c0433c3e1e50", "output": "docs/xai/03-concept-based.md" },
+    {
+      "output": "docs/xai/04-cbm.md",
+      "sources": [
+        "3caeb961-f1c8-808a-a961-ebcc66335944",
+        "3caeb961-f1c8-8041-9526-e57be83b7d44",
+        "3caeb961-f1c8-8030-b1aa-ea12baeb6ff0"
+      ]
+    },
+    { "id": "3cbeb961f1c8813eaee4c82c0ce4dc01", "output": "docs/xai/05-bien-the-cbm.md" },
+    { "id": "3cbeb961f1c881a485c3ef13f81390c7", "output": "docs/xai/06-danh-gia.md" },
+    { "id": "3cbeb961f1c881e19cddc9fea5762e35", "output": "docs/xai/07-du-lieu-cong-cu.md" },
+
+    { "id": "3cbeb961f1c8810cbdb1d8a70e727d8d", "output": "docs/ky-nang/cach-doc-bai-bao.md" },
+    { "id": "3cbeb961f1c881fb9a84f7e481c02685", "output": "docs/ky-nang/lo-trinh-doc.md" }
+  ],
+
+  "link_only": [
+    { "id": "6f9eb961f1c8828da10581f3c267ca4a", "output": "docs/glossary/all.md" }
+  ]
+}
