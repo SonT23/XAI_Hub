@@ -45,14 +45,14 @@ nav:
       - Đại số tuyến tính: toan/dai-so-tuyen-tinh.md
       - Giải tích: toan/giai-tich.md
       - Xác suất & Thống kê: toan/xac-suat-thong-ke.md
-      - Cheat Sheet: Gradient Descent và các biến thể: toan/cheat-sheet-gradient-descent-va-cac-bien-the.md
-      - Cheat Sheet: Đại số tuyến tính cho Machine Learning: toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning.md
+      - "Cheat Sheet: Gradient Descent và các biến thể": toan/cheat-sheet-gradient-descent-va-cac-bien-the.md
+      - "Cheat Sheet: Đại số tuyến tính cho Machine Learning": toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning.md
   - ML cơ bản:
       - Tổng quan: ml-co-ban/index.md
       - Model Parameter: ml-co-ban/model-parameter.md
       - Model Hyperparameter: ml-co-ban/model-hyperparameter.md
       - Performance Measures: ml-co-ban/performance-measures.md
-      - Sơ đồ tư duy: Phân loại các nhánh Machine Learning: ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning.md
+      - "Sơ đồ tư duy: Phân loại các nhánh Machine Learning": ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning.md
   - Deep Learning:
       - Tổng quan: deep-learning/index.md
       - Autoencoder: deep-learning/autoencoder.md
@@ -63,8 +63,8 @@ nav:
       - CLIP: deep-learning/clip.md
       - Cheat Sheet CNN (Stanford CS230): deep-learning/cheat-sheet-cnn-stanford-cs230.md
       - Cẩm nang PyTorch: deep-learning/cam-nang-pytorch.md
-      - Cẩm nang Deep Learning: Transformer: deep-learning/cam-nang-deep-learning-transformer.md
-      - Cẩm nang Deep Learning: Nền tảng Neural Network: deep-learning/cam-nang-deep-learning-nen-tang-neural-network.md
+      - "Cẩm nang Deep Learning: Transformer": deep-learning/cam-nang-deep-learning-transformer.md
+      - "Cẩm nang Deep Learning: Nền tảng Neural Network": deep-learning/cam-nang-deep-learning-nen-tang-neural-network.md
   - Explainable AI:
       - Tổng quan: xai/index.md
       - 1. Tổng quan & Phân loại XAI: xai/01-tong-quan.md
