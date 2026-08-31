@@ -1,37 +1,91 @@
 {
   "_comment": "Manifest anh xa Notion page ID -> file docs/ tuong ung. link_only=true nghia la entry nay CHI dung de giai quyet link cho <mention-page>, KHONG dong bo noi dung (glossary/papers da co script rieng: build_glossary/sync_and_push va build_papers_page). auto_discover_hubs = danh sach 4 trang hub duoc scripts/discover_pages.py tu dong quet moi lan sync de tim trang con MOI (khong can copy ID tay) - CHI phat hien 1 cap (con truc tiep), va tu dong them vao mang 'pages' + vao nav trong mkdocs.yml. skip_ids dung de loai tru trang 'stub' (vo rong) da duoc gop thu cong thanh 1 entry rieng trong 'pages' (vi du CBM).",
-
   "auto_discover_hubs": [
-    { "hub_id": "7e9eb961f1c882f7a68c81b8549ae617", "folder": "docs/toan", "nav_section": "Toán nền tảng" },
-    { "hub_id": "3b8eb961f1c88086a0b2fc7d85072360", "folder": "docs/ml-co-ban", "nav_section": "ML cơ bản" },
-    { "hub_id": "3cbeb961f1c88139b2b2fc56dbfd58fc", "folder": "docs/deep-learning", "nav_section": "Deep Learning" },
+    {
+      "hub_id": "7e9eb961f1c882f7a68c81b8549ae617",
+      "folder": "docs/toan",
+      "nav_section": "Toán nền tảng"
+    },
+    {
+      "hub_id": "3b8eb961f1c88086a0b2fc7d85072360",
+      "folder": "docs/ml-co-ban",
+      "nav_section": "ML cơ bản"
+    },
+    {
+      "hub_id": "3cbeb961f1c88139b2b2fc56dbfd58fc",
+      "folder": "docs/deep-learning",
+      "nav_section": "Deep Learning"
+    },
     {
       "hub_id": "3cbeb961f1c8818c8525ca930d263d90",
       "folder": "docs/xai",
       "nav_section": "Explainable AI",
-      "skip_ids": ["106eb961-f1c8-8249-946e-0126ae36924d"]
+      "skip_ids": [
+        "106eb961-f1c8-8249-946e-0126ae36924d"
+      ]
     }
   ],
-
   "pages": [
-    { "id": "3cceb961f1c881a1a604ed767c1e2a5e", "output": "docs/toan/dai-so-tuyen-tinh.md" },
-    { "id": "3cceb961f1c881d2ac99da03ca868ab9", "output": "docs/toan/giai-tich.md" },
-    { "id": "3cceb961f1c881c8ba74c0163c287d4d", "output": "docs/toan/xac-suat-thong-ke.md" },
-
-    { "id": "3caeb961f1c8809fa816eb502a40b98e", "output": "docs/ml-co-ban/model-parameter.md" },
-    { "id": "3caeb961f1c8804a884bd80ecbd714ed", "output": "docs/ml-co-ban/model-hyperparameter.md" },
-    { "id": "3caeb961f1c88012ada9eda947d522d2", "output": "docs/ml-co-ban/performance-measures.md" },
-
-    { "id": "006eb961f1c8833b811381e636fd99ad", "output": "docs/deep-learning/autoencoder.md" },
-    { "id": "3cbeb961f1c881859c94d1b3c4cacd38", "output": "docs/deep-learning/vae.md" },
-    { "id": "3cceb961f1c88139bed2cf23cc70f6ab", "output": "docs/deep-learning/latent-space.md" },
-    { "id": "a6aeb961f1c882bfbe7701e95a8699e5", "output": "docs/deep-learning/cnn.md" },
-    { "id": "3cbeb961f1c881daa976e1b2c4ee62b5", "output": "docs/deep-learning/transformer-vit.md" },
-    { "id": "3cbeb961f1c8811b9b72fc535d284704", "output": "docs/deep-learning/clip.md" },
-
-    { "id": "3cbeb961f1c881958292f2b5d081c723", "output": "docs/xai/01-tong-quan.md" },
-    { "id": "3cbeb961f1c8815599b9cf5044023255", "output": "docs/xai/02-post-hoc.md" },
-    { "id": "3cbeb961f1c881189b04c0433c3e1e50", "output": "docs/xai/03-concept-based.md" },
+    {
+      "id": "3cceb961f1c881a1a604ed767c1e2a5e",
+      "output": "docs/toan/dai-so-tuyen-tinh.md"
+    },
+    {
+      "id": "3cceb961f1c881d2ac99da03ca868ab9",
+      "output": "docs/toan/giai-tich.md"
+    },
+    {
+      "id": "3cceb961f1c881c8ba74c0163c287d4d",
+      "output": "docs/toan/xac-suat-thong-ke.md"
+    },
+    {
+      "id": "3caeb961f1c8809fa816eb502a40b98e",
+      "output": "docs/ml-co-ban/model-parameter.md"
+    },
+    {
+      "id": "3caeb961f1c8804a884bd80ecbd714ed",
+      "output": "docs/ml-co-ban/model-hyperparameter.md"
+    },
+    {
+      "id": "3caeb961f1c88012ada9eda947d522d2",
+      "output": "docs/ml-co-ban/performance-measures.md"
+    },
+    {
+      "id": "006eb961f1c8833b811381e636fd99ad",
+      "output": "docs/deep-learning/autoencoder.md"
+    },
+    {
+      "id": "3cbeb961f1c881859c94d1b3c4cacd38",
+      "output": "docs/deep-learning/vae.md"
+    },
+    {
+      "id": "3cceb961f1c88139bed2cf23cc70f6ab",
+      "output": "docs/deep-learning/latent-space.md"
+    },
+    {
+      "id": "a6aeb961f1c882bfbe7701e95a8699e5",
+      "output": "docs/deep-learning/cnn.md"
+    },
+    {
+      "id": "3cbeb961f1c881daa976e1b2c4ee62b5",
+      "output": "docs/deep-learning/transformer-vit.md"
+    },
+    {
+      "id": "3cbeb961f1c8811b9b72fc535d284704",
+      "output": "docs/deep-learning/clip.md"
+    },
+    {
+      "id": "3cbeb961f1c881958292f2b5d081c723",
+      "output": "docs/xai/01-tong-quan.md"
+    },
+    {
+      "id": "3cbeb961f1c8815599b9cf5044023255",
+      "output": "docs/xai/02-post-hoc.md"
+    },
+    {
+      "id": "3cbeb961f1c881189b04c0433c3e1e50",
+      "output": "docs/xai/03-concept-based.md"
+    },
     {
       "output": "docs/xai/04-cbm.md",
       "sources": [
@@ -40,15 +94,131 @@
         "3caeb961-f1c8-8030-b1aa-ea12baeb6ff0"
       ]
     },
-    { "id": "3cbeb961f1c8813eaee4c82c0ce4dc01", "output": "docs/xai/05-bien-the-cbm.md" },
-    { "id": "3cbeb961f1c881a485c3ef13f81390c7", "output": "docs/xai/06-danh-gia.md" },
-    { "id": "3cbeb961f1c881e19cddc9fea5762e35", "output": "docs/xai/07-du-lieu-cong-cu.md" },
-
-    { "id": "3cbeb961f1c8810cbdb1d8a70e727d8d", "output": "docs/ky-nang/cach-doc-bai-bao.md" },
-    { "id": "3cbeb961f1c881fb9a84f7e481c02685", "output": "docs/ky-nang/lo-trinh-doc.md" }
+    {
+      "id": "3cbeb961f1c8813eaee4c82c0ce4dc01",
+      "output": "docs/xai/05-bien-the-cbm.md"
+    },
+    {
+      "id": "3cbeb961f1c881a485c3ef13f81390c7",
+      "output": "docs/xai/06-danh-gia.md"
+    },
+    {
+      "id": "3cbeb961f1c881e19cddc9fea5762e35",
+      "output": "docs/xai/07-du-lieu-cong-cu.md"
+    },
+    {
+      "id": "3cbeb961f1c8810cbdb1d8a70e727d8d",
+      "output": "docs/ky-nang/cach-doc-bai-bao.md"
+    },
+    {
+      "id": "3cbeb961f1c881fb9a84f7e481c02685",
+      "output": "docs/ky-nang/lo-trinh-doc.md"
+    },
+    {
+      "id": "3cdeb961f1c8819b9152ff6370f318b7",
+      "output": "docs/lap-trinh/docker-co-ban.md"
+    },
+    {
+      "id": "3cdeb961f1c8818b8dfcd763579828c4",
+      "output": "docs/lap-trinh/docker-nang-cao.md"
+    },
+    {
+      "id": "3cdeb961f1c881c185f5fa83170e884c",
+      "output": "docs/lap-trinh/dsa-nhap-mon-big-o.md"
+    },
+    {
+      "id": "3cdeb961f1c881e19bc7ee7295518d1e",
+      "output": "docs/lap-trinh/dsa-mang-chuoi-linked-list.md"
+    },
+    {
+      "id": "3cdeb961f1c881f5a550f6867ba452ec",
+      "output": "docs/lap-trinh/dsa-stack-queue-hashing.md"
+    },
+    {
+      "id": "3cdeb961f1c8817d97c6fc1c370095d3",
+      "output": "docs/lap-trinh/dsa-de-quy-tim-kiem-sap-xep.md"
+    },
+    {
+      "id": "3cdeb961f1c88196b2d7c0075bf4c424",
+      "output": "docs/lap-trinh/dsa-trees-heap-graphs.md"
+    },
+    {
+      "id": "3cdeb961f1c8815d8728e8522b273a97",
+      "output": "docs/lap-trinh/dsa-dp-greedy.md"
+    },
+    {
+      "id": "3cdeb961f1c881b9ae68e139a4d1822b",
+      "output": "docs/lap-trinh/dsa-ky-thuat-giai-bai-tap.md"
+    },
+    {
+      "id": "3cdeb961f1c88101a699c0b799ce8064",
+      "output": "docs/lap-trinh/dsa-tong-on-tap-roadmap.md"
+    },
+    {
+      "id": "3cdeb961f1c88123a474f6f997ee91ef",
+      "output": "docs/lap-trinh/python-cu-phap-co-ban.md"
+    },
+    {
+      "id": "3cdeb961f1c88118b188d54c0b065fd0",
+      "output": "docs/lap-trinh/python-cau-truc-dieu-khien.md"
+    },
+    {
+      "id": "3cdeb961f1c88159baf5f2fbd1886d06",
+      "output": "docs/lap-trinh/python-cau-truc-du-lieu.md"
+    },
+    {
+      "id": "3cdeb961f1c8815682a4fcf68e68416c",
+      "output": "docs/lap-trinh/python-functions-comprehension-lambda.md"
+    },
+    {
+      "id": "3cdeb961f1c881688ecded0635d7ad61",
+      "output": "docs/lap-trinh/python-modules-file-exception.md"
+    },
+    {
+      "id": "3cdeb961f1c881419afbda2abf3ccf87",
+      "output": "docs/lap-trinh/python-oop.md"
+    },
+    {
+      "id": "3cdeb961f1c881989cb5f87d013a75eb",
+      "output": "docs/lap-trinh/python-nang-cao-thu-vien.md"
+    },
+    {
+      "id": "3cdeb961f1c881d78fffedc2b3711870",
+      "output": "docs/lap-trinh/python-automation-best-practices-on-tap.md"
+    },
+    {
+      "id": "3cdeb961-f1c8-8103-a1ea-e1b209215c79",
+      "output": "docs/toan/cheat-sheet-gradient-descent-va-cac-bien-the.md"
+    },
+    {
+      "id": "3cdeb961-f1c8-81ee-a2c1-c6b3cc2d12c6",
+      "output": "docs/toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning.md"
+    },
+    {
+      "id": "3cdeb961-f1c8-8198-8938-df06ab92bc29",
+      "output": "docs/ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning.md"
+    },
+    {
+      "id": "3cdeb961-f1c8-81c7-a109-fed5c2427a88",
+      "output": "docs/deep-learning/cheat-sheet-cnn-stanford-cs230.md"
+    },
+    {
+      "id": "3cdeb961-f1c8-81b0-962e-dcfa85f1e58a",
+      "output": "docs/deep-learning/cam-nang-pytorch.md"
+    },
+    {
+      "id": "3cdeb961-f1c8-8131-823a-efb37c702997",
+      "output": "docs/deep-learning/cam-nang-deep-learning-transformer.md"
+    },
+    {
+      "id": "3cdeb961-f1c8-81df-b30a-d8cb9f422d6b",
+      "output": "docs/deep-learning/cam-nang-deep-learning-nen-tang-neural-network.md"
+    }
   ],
-
   "link_only": [
-    { "id": "6f9eb961f1c8828da10581f3c267ca4a", "output": "docs/glossary/all.md" }
+    {
+      "id": "6f9eb961f1c8828da10581f3c267ca4a",
+      "output": "docs/glossary/all.md"
+    }
   ]
 }
