@@ -3,9 +3,9 @@ site_description: Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottl
 
 # QUAN TRỌNG: sửa 2 dòng dưới đây thành đúng username/repo GitHub của bạn
 # (xem README_MKDOCS.md để biết cách lấy giá trị chính xác)
-site_url: https://YOUR-GITHUB-USERNAME.github.io/glossary-en-vi/
-repo_url: https://github.com/YOUR-GITHUB-USERNAME/glossary-en-vi
-repo_name: glossary-en-vi
+site_url: https://SonT23.github.io/XAI_Hub/
+repo_url: https://github.com/SonT23/XAI_Hub
+repo_name: XAI_Hub
 
 theme:
   name: material

@@ -7,7 +7,7 @@ Tài liệu này dành cho bạn (người quản lý repo), không phải ngư�
 ## Cấu trúc thư mục
 
 ```
-nckh-wiki/
+XAI_Hub/
 ├── docs/                  Nội dung website (MkDocs quét thư mục này để build)
 │   ├── index.md           Trang chủ
 │   ├── toan/              Toán nền tảng
@@ -42,7 +42,7 @@ nckh-wiki/
 ### Cài đặt lần đầu
 
 ```
-cd C:\NCKH\nckh-wiki
+cd C:\NCKH\XAI_Hub
 pip install -r requirements.txt
 pip install -r requirements-docs.txt
 ```
@@ -62,7 +62,7 @@ Mở database bằng trình duyệt, nhìn URL dạng `https://www.notion.so/...
 
 ### Tạo file `.env`
 
-Tại **thư mục gốc** project (`C:\NCKH\nckh-wiki\`, cùng cấp với `mkdocs.yml`), copy `.env.example` thành `.env`, điền:
+Tại **thư mục gốc** project (`C:\NCKH\XAI_Hub\`, cùng cấp với `mkdocs.yml`), copy `.env.example` thành `.env`, điền:
 
 ```
 NOTION_TOKEN=secret_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -133,7 +133,7 @@ python scripts\sync_pages.py --force
 ## Xem thử site trước khi push
 
 ```
-cd C:\NCKH\nckh-wiki
+cd C:\NCKH\XAI_Hub
 mkdocs serve
 ```
 

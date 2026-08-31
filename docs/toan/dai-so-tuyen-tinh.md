@@ -125,6 +125,8 @@ $$\mathbf{a} \cdot \mathbf{b} = \sum_i a_i b_i = |\mathbf{a}||\mathbf{b}|\cos\th
 
 Ví dụ: $[1,2,3] \cdot [4,5,6] = 4 + 10 + 18 = 32$.
 
+Tương tự như vector, kết quả vô hướng của hai ma trận cùng số chiều này đo lường mức độ "đồng thuận" hay sự tương đồng giữa hai ma trận. Trong Học máy, đặc biệt là xử lý ảnh (ảnh thực chất là các ma trận điểm ảnh), tích vô hướng Frobenius được dùng trong các hàm suy hao (loss function) để đánh giá ma trận dự đoán của AI đang giống với ma trận dữ liệu thực tế đến mức độ nào.
+
 > 📏 **Đây là phép toán quan trọng nhất trong cả AI hiện đại**, vì $\cos\theta$ trong công thức cho ta **góc giữa hai vector** — tức **độ giống nhau về ngữ nghĩa**.
 > Cosine similarity trong [Latent Space (Không gian tiềm ẩn)](../deep-learning/latent-space.md), cách CLIP ghép ảnh với chữ, cách Attention tính $QK^\top$, cách vector database tìm kết quả gần nhất — **tất cả đều chỉ là tích vô hướng**.
 >
@@ -132,6 +134,31 @@ Ví dụ: $[1,2,3] \cdot [4,5,6] = 4 + 10 + 18 = 32$.
 ### 5.2. Nhân ma trận với ma trận — ghép nhiều phép biến đổi
 
 $AB$ nghĩa là "làm phép $B$ trước, rồi làm phép $A$" — đọc **từ phải sang trái**, giống hàm hợp $f(g(x))$.
+
+Quá trình nhân 2 ma trận với nhau là ta đang nhân tích vô hướng của hàng này với cột kia của 2 ma trận, mà tích vô hướng lại là cách để so sự tượng đồng giữa 2 mà trận trong khi kết quả của phép nhân 2 ma trận lại là tạo ra một ma trận thực hiện đồng thời 2 phép biến đổi của 2 ma trận thành phần. Tại sao lại như vậy?
+
+**1. Góc nhìn Khai phá dữ liệu (Tìm kiếm khuôn mẫu)**
+Trong Trí tuệ nhân tạo và xử lý dữ liệu, phép nhân ma trận là công cụ cốt lõi để quét tìm các đặc trưng.
+
+- **Ma trận A (Khuôn mẫu):** Hãy coi mỗi **hàng** của ma trận A là một "lăng kính" hoặc một "tiêu chí" mà bạn đang muốn tìm kiếm. Ví dụ: Hàng 1 là tiêu chí tìm kiếm người thích đồ công nghệ, Hàng 2 tìm người thích thể thao.
+
+- **Ma trận B (Thực tế):** Mỗi **cột** của ma trận B là một điểm dữ liệu. Ví dụ: Cột 1 là lịch sử mua sắm của Khách hàng X, Cột 2 là của Khách hàng Y.
+
+- **Ý nghĩa tại ô (i, j):** Tính tích vô hướng giữa "Tiêu chí 1" (hàng) và "Khách hàng Y" (cột) chính là đo lường sự tương đồng giữa hai bên. Nếu điểm số rất cao, hệ thống xác nhận khách hàng Y khớp hoàn hảo với hồ sơ của người yêu công nghệ. Ma trận kết quả cuối cùng là một bảng báo cáo toàn diện xem tiêu chí nào khớp với ai.
+
+**2. Góc nhìn Hệ thống (Khớp nối sự biến đổi)**
+Trong vật lý học hoặc quản lý chuỗi cung ứng, ma trận đại diện cho các bước chuyển đổi trạng thái.
+
+- **Cột của B (Nguyên liệu đầu vào):** Thể hiện số lượng các thành phần cơ bản (Ví dụ: 10 Thép, 5 Kính, 2 Nhựa).
+
+- **Hàng của A (Quy trình sản xuất):** Thể hiện công thức để chế tạo ra thành phẩm. (Ví dụ: Để ráp một chiếc xe hơi cần 4 Thép, 2 Kính, 1 Nhựa).
+
+- **Ý nghĩa tại ô (i, j):** Tích vô hướng sẽ khớp "công thức" (hàng) với "lô nguyên liệu" (cột). Sự "tương đồng" ở đây đo lường mức độ đồng bộ: Nguyên liệu đầu vào (cột) hỗ trợ mạnh mẽ đến mức nào cho việc hoàn thành quy trình sản xuất (hàng).
+
+
+Tóm lại, nếu coi ma trận đứng trước A là một danh sách các **câu hỏi / yêu cầu**, và ma trận đứng sau B là danh sách các **câu trả lời / tài nguyên**, thì phép nhân ma trận là cách loài người tạo ra một cỗ máy tự động để chấm điểm xem mọi câu trả lời khớp với mọi câu hỏi ở mức độ nào.
+
+
 
 > ⚠️ Điều này giải thích vì sao $AB \neq BA$: **xoay rồi kéo giãn** cho kết quả khác **kéo giãn rồi xoay**. Thứ tự của động từ có ý nghĩa.
 
@@ -142,6 +169,14 @@ $A^\top$ đổi hàng thành cột. Xuất hiện khắp nơi trong công thức
 ### 5.4. Hạng (Rank) — số chiều thật sự còn lại
 
 Số chiều mà không gian còn giữ được sau phép biến đổi. Ma trận 2×2 với det = 0 có rank = 1 (mặt phẳng đã sụp thành đường thẳng).
+
+**Ý nghĩa hình học: Không gian bị bóp méo**
+Nếu bạn coi ma trận là một cỗ máy làm biến dạng không gian, Hạng chính là **số chiều của không gian sống sót** sau khi đi qua cỗ máy đó.**Hạng (Rank)Kết quả biến đổi không gianÝ nghĩaRank = 1**Bóp bẹp thành một **Đường thẳng** (1D)Mọi điểm dữ liệu đều rơi vào một đường thẳng duy nhất. Dữ liệu cực kỳ nghèo nàn, lặp lại.**Rank = 2**Ép thành một **Mặt phẳng** (2D)Toàn bộ dữ liệu nằm trên một mặt phẳng dẹt (như tờ giấy).**Rank = 3**Giữ nguyên **Không gian 3 chiều** (3D)Dữ liệu bung tỏa đa chiều, đầy đủ và phong phú. (Được gọi là ma trận "đầy hạng" - Full rank).
+
+**Tại sao Hạng (Rank) lại quan trọng?**
+• **Nén dữ liệu và Học máy (Low-rank Approximation):** Bạn có một bức ảnh độ phân giải $1000 \times 1000$ (ma trận 1 triệu điểm ảnh). Nếu tính toán, bạn phát hiện Rank của nó chỉ là 50. Điều này nghĩa là 950 chiều kia thực chất chỉ là các pixel màu nền lặp đi lặp lại hoặc nhiễu. Các thuật toán AI có thể nén ma trận 1 triệu số này xuống thành một ma trận siêu nhỏ dựa trên 50 trục lõi kia mà bức ảnh nhìn bằng mắt thường không hề thay đổi.
+• **Giải hệ phương trình:** Hạng là "vị giám khảo" quyết định xem một hệ phương trình có giải được hay không. Nếu hạng của ma trận hệ số nhỏ hơn số ẩn số (ví dụ: có 3 ẩn $x, y, z$ nhưng Rank chỉ bằng 2), hệ thống đang thiếu thông tin và sẽ có vô số nghiệm.
+• **Lý thuyết Điều khiển (Vật lý / Kỹ thuật):** Trong các hệ thống tự động (như điều khiển cánh tay robot), nếu hạng của "ma trận trạng thái" đạt mức tối đa, kỹ sư có thể lập trình để đưa robot đến *bất kỳ* tọa độ nào. Nếu thiếu hạng, cánh tay robot sẽ có những điểm "mù" không bao giờ với tới được.
 
 > 💰 **Rank là lý do kỹ thuật LoRA hoạt động.** Thay vì huấn luyện lại cả ma trận trọng số khổng lồ $W$ (ví dụ 4096×4096 ≈ 16.7 triệu tham số), LoRA chỉ học một hiệu chỉnh **hạng thấp** $\Delta W = BA$ với $B$ là 4096×8 và $A$ là 8×4096 — chỉ khoảng 65 nghìn tham số, tức **ít hơn 250 lần**.
 > Giả định phía sau: cái mà mô hình cần học thêm cho một tác vụ mới thực ra "nằm gọn trong vài chiều", tức là có hạng thấp.
