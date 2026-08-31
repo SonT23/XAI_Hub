@@ -20,6 +20,11 @@ Tinh nang (cap nhat 30/08/2026):
      (chi 1 lan goi API nhe, khong can tai toan bo noi dung) truoc - neu
      khong doi so voi lan dong bo truoc va file .md da ton tai, BO QUA luon,
      khong ton thoi gian tai + render lai. Cache luu o scripts/.sync_cache.json.
+  3. ANH DAN/UPLOAD TRUC TIEP VAO NOTION (khong phai anh dan bang URL ngoai)
+     duoc TAI VE VA LUU VAO REPO ngay luc dong bo (docs/assets/images/...),
+     thay vi bi bo qua nhu truoc - vi Notion chi tra ve URL S3 tam thoi
+     (het han sau vai gio) cho loai anh nay, khong the nhung thang URL do
+     vao Markdown roi push len git duoc.
 
 LUU Y QUAN TRONG: day la code MOI, CHUA duoc chay thu voi Notion token that
 cua ban. Rat co the lan chay dau tien se gap loi can sua cung nhau (vi du:
@@ -57,6 +62,30 @@ def _rel_link(from_output, to_output):
     from_dir = os.path.dirname(from_output)
     rel = os.path.relpath(to_output, from_dir)
     return rel.replace(os.sep, "/")
+
+
+def _image_paths_for_output(out_rel, subindex=None):
+    """Voi 1 file dau ra (vd "docs/xai/bai-1.md"), tra ve:
+    - image_dir_rel: duong dan TUONG DOI TU GOC REPO toi thu muc se luu anh
+      cua rieng trang nay (vd "docs/assets/images/xai/bai-1").
+    - image_url_prefix: duong dan TUONG DOI TU FILE .MD toi thu muc do
+      (vd "../assets/images/xai/bai-1"), dung de chen thang vao Markdown.
+    Anh duoc tach rieng theo tung trang (thay vi don chung 1 thu muc) de
+    de doi chieu "anh nay thuoc trang nao" va tranh trung ten file.
+
+    subindex: dung khi nhieu trang Notion goc (sources) duoc gop chung vao
+    1 file dau ra (entry co "sources") - moi nguon can 1 thu muc anh RIENG,
+    neu khong 2 trang nguon se de anh de len nhau (cung bat dau img-1...).
+    """
+    rel_no_ext = os.path.splitext(out_rel)[0]
+    parts = rel_no_ext.split(os.sep)
+    if parts and parts[0] == "docs":
+        parts = parts[1:]
+    if subindex is not None:
+        parts = parts + [f"src-{subindex}"]
+    image_dir_rel = os.path.join("docs", "assets", "images", *parts)
+    prefix = _rel_link(out_rel, os.path.join(image_dir_rel, "_")).rsplit("/", 1)[0]
+    return image_dir_rel, prefix
 
 
 def load_manifest():
@@ -101,14 +130,17 @@ def build_link_map(manifest):
     return link_map
 
 
-def render_page_content(page_id, headers, ctx, out_output_path):
+def render_page_content(page_id, headers, ctx, out_output_path, image_subindex=None):
     blocks = fetch_block_tree(page_id, headers)
+    image_dir_rel, image_url_prefix = _image_paths_for_output(out_output_path, subindex=image_subindex)
     local_ctx = Context(
         link_map={
             pid: (_rel_link(out_output_path, out) if not out.startswith("http") else out)
             for pid, out in ctx.link_map.items()
         },
         paper_map=ctx.paper_map,
+        image_save_dir=os.path.join(PROJECT_ROOT, image_dir_rel),
+        image_url_prefix=image_url_prefix,
     )
     return blocks_to_markdown(blocks, local_ctx)
 
@@ -208,7 +240,7 @@ def sync_all_pages(verbose=True, force=False):
         else:
             parts = []
             for i, src_id in enumerate(sources):
-                body = render_page_content(src_id, headers, ctx, out_rel)
+                body = render_page_content(src_id, headers, ctx, out_rel, image_subindex=i)
                 heading = "#" if i == 0 else "##"
                 parts.append(f"{heading} {metas[i]['title']}\n\n{body}")
             content = "\n\n---\n\n".join(parts)

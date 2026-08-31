@@ -7,6 +7,8 @@ import os
 import time
 import requests
 
+CHROME_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+
 NOTION_VERSION = "2022-06-28"
 API_BASE = "https://api.notion.com/v1"
 
@@ -121,6 +123,24 @@ def get_page_meta(page_id, headers):
             title = "".join(rt.get("plain_text", "") for rt in prop.get("title", []))
             break
     return {"title": title, "last_edited_time": data.get("last_edited_time")}
+
+
+def download_file(url, dest_path, timeout=30):
+    """Tai 1 file (vi du anh) tu 1 URL bat ky va luu vao dest_path.
+
+    Dung cho URL S3 tam thoi ma Notion tra ve khi anh duoc upload/dan truc
+    tiep vao Notion (block image type == "file"): URL nay da tu chua quyen
+    truy cap (presigned), nen KHONG duoc gui kem header "Authorization" cua
+    Notion (gui kem se bi loi 400 vi S3 khong hieu header do). Vi URL nay
+    het han sau vai gio, phai tai ngay trong luc dong bo (khong duoc luu URL
+    lai roi tai sau).
+    """
+    resp = requests.get(url, headers={"User-Agent": CHROME_UA}, timeout=timeout)
+    resp.raise_for_status()
+    os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+    with open(dest_path, "wb") as f:
+        f.write(resp.content)
+    return dest_path
 
 
 def list_child_page_blocks(block_id, headers):

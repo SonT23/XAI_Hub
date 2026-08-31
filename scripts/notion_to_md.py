@@ -14,13 +14,19 @@ Quy tac chuyen doi (giong voi cach da lam thu cong truoc do):
 - equation (inline)-> $...$
 - mention page/database -> link tuong doi neu biet trong manifest (Context.link_map),
   neu khong biet thi in DAM plain text (KHONG BAO GIO tao link chet)
-- image (external) -> ![alt](url); image (file/temporary S3 url) -> canh bao, bo qua embed
+- image (external) -> ![alt](url)
+- image (file/temporary S3 url) -> TAI VE NGAY va luu vao docs/assets/images/...,
+  roi nhung nhu anh binh thuong bang duong dan tuong doi (chi con canh bao
+  neu tai that bai, vi du URL da het han truoc khi kip dong bo)
 - child_page/child_database -> KHONG duyet vao, chi ghi chu bang link (neu co trong link_map)
   hoac ten trang in nghieng (dong bo nhu 1 entry rieng trong manifest)
 - toggle           -> <details><summary>...</summary> ... </details>
 - divider          -> "---"
 - table_of_contents, breadcrumb... (Notion tra ve it dùng qua block children) -> bo qua
 """
+import os
+
+from notion_client import download_file
 
 
 class Context:
@@ -29,15 +35,34 @@ class Context:
               dung de chuyen <mention page> thanh link that thay vi chu in dam.
     paper_map: dict normalize(page_id) -> {"title":..., "link": external_url}
               rieng cho cac trang la row trong database "Thu vien bai bao".
+    image_save_dir: duong dan TUYET DOI (tren o dia) toi thu muc se luu anh
+              cua rieng trang dang render (vd "...\\docs\\assets\\images\\xai\\bai-1").
+              None = khong tai anh (chi ghi chu canh bao nhu truoc).
+    image_url_prefix: duong dan TUONG DOI tu file .md dang render toi thu muc
+              tren (vd "../assets/images/xai/bai-1"), dung de chen vao the
+              ![]() trong Markdown.
     """
 
-    def __init__(self, link_map=None, paper_map=None):
+    def __init__(self, link_map=None, paper_map=None, image_save_dir=None, image_url_prefix=None):
         self.link_map = link_map or {}
         self.paper_map = paper_map or {}
+        self.image_save_dir = image_save_dir
+        self.image_url_prefix = image_url_prefix
+        self._image_counter = 0
 
 
 def _normalize_id(page_id):
     return (page_id or "").replace("-", "").lower()
+
+
+def _guess_image_ext(url):
+    """Doan phan mo rong file anh tu URL (bo qua phan query string ?X-Amz-...)."""
+    from urllib.parse import urlparse
+    path = urlparse(url).path
+    _, ext = os.path.splitext(path)
+    if ext and 2 <= len(ext) <= 5:
+        return ext.lower()
+    return ".png"
 
 
 def resolve_mention(ctx, page_id, fallback_text):
@@ -263,8 +288,27 @@ def render_blocks(blocks, ctx, _list_stack=None):
                 out.append(f"![{caption}]({url})")
                 out.append("")
             else:
-                # file type: URL tam thoi (S3, se het han) -> khong embed, chi ghi chu
-                out.append(f"_[Hình ảnh không thể tự động chuyển đổi — URL tạm thời của Notion đã hết hạn. Vui lòng cập nhật thủ công nếu cần: {caption or '(không có mô tả)'}]_")
+                # file type: URL tam thoi (S3, se het han sau vai gio) -> tai
+                # ngay ve va luu vao repo (docs/assets/images/...) de co duong
+                # dan vinh vien, khong phu thuoc Notion nua. Chi khi tai that
+                # bai (mang loi, URL da het han truoc khi kip dong bo, ...)
+                # moi rot ve ghi chu canh bao nhu truoc.
+                file_url = img.get("file", {}).get("url", "")
+                saved_rel_url = None
+                if file_url and ctx.image_save_dir and ctx.image_url_prefix:
+                    try:
+                        ctx._image_counter += 1
+                        ext = _guess_image_ext(file_url)
+                        filename = f"img-{ctx._image_counter}{ext}"
+                        dest_path = os.path.join(ctx.image_save_dir, filename)
+                        download_file(file_url, dest_path)
+                        saved_rel_url = f"{ctx.image_url_prefix}/{filename}"
+                    except Exception:
+                        saved_rel_url = None
+                if saved_rel_url:
+                    out.append(f"![{caption}]({saved_rel_url})")
+                else:
+                    out.append(f"_[Hình ảnh không thể tự động chuyển đổi — URL tạm thời của Notion đã hết hạn hoặc tải xuống thất bại. Vui lòng cập nhật thủ công nếu cần: {caption or '(không có mô tả)'}]_")
                 out.append("")
 
         elif btype == "bookmark":
