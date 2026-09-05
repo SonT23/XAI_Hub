@@ -1,0 +1,4018 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/toan/giai-tich/">
+      
+      
+        <link rel="prev" href="../dai-so-tuyen-tinh/">
+      
+      
+        <link rel="next" href="../xac-suat-thong-ke/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Giải tích - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-giai-tich-calculus-ao-ham-tich-phan-gradient-descent" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Giải tích
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../deep-learning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lap-trinh/docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-ban-chat-cua-ao-ham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Bản chất của đạo hàm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Bản chất của đạo hàm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phat-bieu-chinh-xac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phát biểu chính xác
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tu-kiem-chung-bang-so" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tự kiểm chứng bằng số
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oc-y-nghia-cua-ao-ham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc ý nghĩa của đạo hàm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-quy-tac-day-chuyen-chain-rule-quy-tac-quan-trong-nhat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Quy tắc dây chuyền (Chain Rule) — quy tắc quan trọng nhất
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ban-chat-cua-tich-phan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bản chất của tích phân
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Bản chất của tích phân">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#y-tuong-chia-thanh-hinh-chu-nhat-roi-cong-lai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ý tưởng: chia thành hình chữ nhật rồi cộng lại
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ao-ham-va-tich-phan-la-hai-chieu-nguoc-nhau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đạo hàm và Tích phân là hai chiều ngược nhau
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tich-phan-xuat-hien-o-au-trong-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tích phân xuất hiện ở đâu trong AI?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tu-ao-ham-mot-bien-sang-gradient-nhieu-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Từ đạo hàm một biến sang Gradient nhiều biến
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Từ đạo hàm một biến sang Gradient nhiều biến">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-cu-the" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ cụ thể
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-gradient-descent-thuat-toan-day-moi-ai-cach-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Gradient Descent — thuật toán dạy mọi AI cách học
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Gradient Descent — thuật toán dạy mọi AI cách học">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chay-tay-thuat-toan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chạy tay thuật toán
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-rate-con-so-lam-hong-moi-thu-neu-chon-sai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning rate — con số làm hỏng mọi thứ nếu chọn sai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ba-bien-the-trong-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ba biến thể trong thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ghep-tat-ca-lai-mot-vong-lap-huan-luyen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Ghép tất cả lại: một vòng lặp huấn luyện
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ghép tất cả lại: một vòng lặp huấn luyện">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ba-cai-bay-cua-be-mat-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ba cái bẫy của bề mặt Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tu-chay-lai-toan-bo-trang-nay-bang-12-dong-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tự chạy lại toàn bộ trang này bằng 12 dòng code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-bang-thuat-ngu-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Bảng thuật ngữ nhanh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-nguon-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Nguồn học
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Nguồn học">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#video-a-xem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Video đã xem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nen-xem-tiep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nên xem tiếp
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ghi-chu-cua-minh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ghi chú của mình
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/vae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/latent-space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-nen-tang-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-nang-cao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-mang-chuoi-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-trees-heap-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-automation-best-practices-on-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-ban-chat-cua-ao-ham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Bản chất của đạo hàm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Bản chất của đạo hàm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phat-bieu-chinh-xac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phát biểu chính xác
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tu-kiem-chung-bang-so" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tự kiểm chứng bằng số
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oc-y-nghia-cua-ao-ham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc ý nghĩa của đạo hàm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-quy-tac-day-chuyen-chain-rule-quy-tac-quan-trong-nhat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Quy tắc dây chuyền (Chain Rule) — quy tắc quan trọng nhất
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ban-chat-cua-tich-phan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bản chất của tích phân
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Bản chất của tích phân">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#y-tuong-chia-thanh-hinh-chu-nhat-roi-cong-lai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ý tưởng: chia thành hình chữ nhật rồi cộng lại
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ao-ham-va-tich-phan-la-hai-chieu-nguoc-nhau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đạo hàm và Tích phân là hai chiều ngược nhau
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tich-phan-xuat-hien-o-au-trong-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tích phân xuất hiện ở đâu trong AI?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tu-ao-ham-mot-bien-sang-gradient-nhieu-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Từ đạo hàm một biến sang Gradient nhiều biến
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Từ đạo hàm một biến sang Gradient nhiều biến">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-cu-the" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ cụ thể
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-gradient-descent-thuat-toan-day-moi-ai-cach-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Gradient Descent — thuật toán dạy mọi AI cách học
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Gradient Descent — thuật toán dạy mọi AI cách học">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chay-tay-thuat-toan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chạy tay thuật toán
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-rate-con-so-lam-hong-moi-thu-neu-chon-sai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning rate — con số làm hỏng mọi thứ nếu chọn sai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ba-bien-the-trong-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ba biến thể trong thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ghep-tat-ca-lai-mot-vong-lap-huan-luyen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Ghép tất cả lại: một vòng lặp huấn luyện
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ghép tất cả lại: một vòng lặp huấn luyện">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ba-cai-bay-cua-be-mat-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ba cái bẫy của bề mặt Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tu-chay-lai-toan-bo-trang-nay-bang-12-dong-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tự chạy lại toàn bộ trang này bằng 12 dòng code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-bang-thuat-ngu-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Bảng thuật ngữ nhanh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-nguon-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Nguồn học
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Nguồn học">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#video-a-xem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Video đã xem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nen-xem-tiep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nên xem tiếp
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ghi-chu-cua-minh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ghi chú của mình
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="2-giai-tich-calculus-ao-ham-tich-phan-gradient-descent">2. Giải tích (Calculus) — Đạo hàm, Tích phân &amp; Gradient Descent<a class="headerlink" href="#2-giai-tich-calculus-ao-ham-tich-phan-gradient-descent" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🎓 <strong>NCKH</strong> / <strong>Toán</strong> / <strong>Giải tích</strong></p>
+<p>🎯 <strong>Câu hỏi lớn của cả trang:</strong> <em>Làm sao một cỗ máy có hàng triệu con số lại có thể "tự học" để tốt dần lên?</em>
+Câu trả lời nằm trọn trong một câu: <strong>đạo hàm cho biết đi hướng nào thì sai số giảm, và ta cứ đi theo hướng đó hàng triệu lần.</strong> Đó chính là <strong>Gradient Descent</strong>.</p>
+<p>Nếu <a href="../dai-so-tuyen-tinh/">1. Đại số tuyến tính (Linear Algebra)</a> trả lời câu hỏi <em>"AI TÍNH như thế nào"</em>, thì Giải tích trả lời câu hỏi <em>"AI HỌC như thế nào"</em>.
+</p>
+</blockquote>
+<hr />
+<h2 id="1-ban-chat-cua-ao-ham">1. Bản chất của đạo hàm<a class="headerlink" href="#1-ban-chat-cua-ao-ham" title="Permanent link">&para;</a></h2>
+<p>Ở trường, đạo hàm thường được dạy như một <strong>bảng công thức phải thuộc lòng</strong>. Nhưng bản chất của nó chỉ là một câu hỏi rất đời thường:</p>
+<blockquote>
+<p>❓ <strong>"Nếu tôi nhích đầu vào một xíu, thì đầu ra thay đổi bao nhiêu?"</strong>
+Đạo hàm KHÔNG phải là giá trị của hàm số. Nó là <strong>tốc độ thay đổi</strong> của hàm số — hay nói theo hình học, là <strong>độ dốc của đồ thị tại một điểm</strong>.
+</p>
+</blockquote>
+<h3 id="phat-bieu-chinh-xac">Phát biểu chính xác<a class="headerlink" href="#phat-bieu-chinh-xac" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}\]</div>
+<p>Phần tử số là <strong>đầu ra thay đổi bao nhiêu</strong>, phần mẫu số là <strong>đầu vào thay đổi bao nhiêu</strong>. Chia hai cái cho nhau ta được tỉ lệ đổi — tức độ dốc. Chữ <span class="arithmatex">\(h \to 0\)</span> nghĩa là <strong>nhích thật nhỏ</strong>, nhỏ tới mức ta đang đo độ dốc <strong>tại đúng một điểm</strong> chứ không phải trên một đoạn.</p>
+<h3 id="tu-kiem-chung-bang-so">Tự kiểm chứng bằng số<a class="headerlink" href="#tu-kiem-chung-bang-so" title="Permanent link">&para;</a></h3>
+<p>Lấy <span class="arithmatex">\(f(x) = x^2\)</span> và hỏi: độ dốc tại <span class="arithmatex">\(x = 3\)</span> là bao nhiêu? Thay vì dùng công thức, ta <strong>bấm máy tính với h nhỏ dần</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>h</th>
+<th><span class="arithmatex">\(f(3+h)\)</span></th>
+<th><span class="arithmatex">\(\dfrac{f(3+h) - f(3)}{h}\)</span></th>
+<th>Kết quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><span class="arithmatex">\(4^2 = 16\)</span></td>
+<td>(16 − 9) / 1</td>
+<td>7</td>
+</tr>
+<tr>
+<td>0.1</td>
+<td><span class="arithmatex">\(3.1^2 = 9.61\)</span></td>
+<td>(9.61 − 9) / 0.1</td>
+<td>6.1</td>
+</tr>
+<tr>
+<td>0.01</td>
+<td><span class="arithmatex">\(3.01^2 = 9.0601\)</span></td>
+<td>(9.0601 − 9) / 0.01</td>
+<td>6.01</td>
+</tr>
+<tr>
+<td>0.001</td>
+<td><span class="arithmatex">\(3.001^2 = 9.006001\)</span></td>
+<td>(9.006001 − 9) / 0.001</td>
+<td>6.001</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\to 0\)</span></td>
+<td>—</td>
+<td>—</td>
+<td><strong>6</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>✅ Dãy số hội tụ về <strong>6</strong>. Và công thức <span class="arithmatex">\((x^2)' = 2x\)</span> cho <span class="arithmatex">\(2 \times 3 = 6\)</span> — khớp.
+<strong>Điều đáng nhớ:</strong> công thức ở trường chỉ là <strong>lối tắt</strong> cho phép bấm máy ở trên. Bản chất luôn là "nhích một xíu rồi xem đầu ra đổi bao nhiêu".
+</p>
+</blockquote>
+<h3 id="oc-y-nghia-cua-ao-ham">Đọc ý nghĩa của đạo hàm<a class="headerlink" href="#oc-y-nghia-cua-ao-ham" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Giá trị <span class="arithmatex">\(f'(x)\)</span></th>
+<th>Nghĩa là</th>
+<th>Để giảm f, ta nên</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(f'(x) = +6\)</span></td>
+<td>Đang <strong>lên dốc</strong>, tăng x thì f tăng nhanh</td>
+<td><strong>Giảm x</strong></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f'(x) = -6\)</span></td>
+<td>Đang <strong>xuống dốc</strong>, tăng x thì f giảm</td>
+<td><strong>Tăng x</strong></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f'(x) = +0.01\)</span></td>
+<td>Gần như phẳng, sắp tới đáy</td>
+<td>Đi bước rất nhỏ</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f'(x) = 0\)</span></td>
+<td><strong>Đáy (hoặc đỉnh)</strong> — hoàn toàn phẳng</td>
+<td><strong>Dừng lại</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🔑 Cột cuối cùng chính là <strong>toàn bộ thuật toán học của AI</strong>, phát biểu bằng lời: <em>luôn đi ngược dấu của đạo hàm.</em> Phần còn lại chỉ là chi tiết kỹ thuật.</p>
+</blockquote>
+<hr />
+<h2 id="2-quy-tac-day-chuyen-chain-rule-quy-tac-quan-trong-nhat">2. Quy tắc dây chuyền (Chain Rule) — quy tắc quan trọng nhất<a class="headerlink" href="#2-quy-tac-day-chuyen-chain-rule-quy-tac-quan-trong-nhat" title="Permanent link">&para;</a></h2>
+<p>Trong tất cả các quy tắc đạo hàm, đây là quy tắc <strong>duy nhất bắt buộc phải hiểu thật kỹ</strong>, vì nó chính là Backpropagation.</p>
+<div class="arithmatex">\[\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}\]</div>
+<blockquote>
+<p>⚙️ <strong>Trực giác — hệ bánh răng:</strong> bánh A quay nhanh gấp <strong>3</strong> lần bánh B, bánh B quay nhanh gấp <strong>2</strong> lần bánh C. Vậy A nhanh gấp mấy lần C? <strong>3 × 2 = 6</strong>.
+Chain rule chỉ nói đúng điều đó: khi các đại lượng nối tiếp nhau, <strong>tốc độ ảnh hưởng được NHÂN dồn qua từng khâu</strong>.
+</p>
+</blockquote>
+<p><strong>Ví dụ tính tay.</strong> Cho <span class="arithmatex">\(y = (3x + 1)^2\)</span>. Đặt <span class="arithmatex">\(u = 3x+1\)</span>, ta có <span class="arithmatex">\(y = u^2\)</span>.</p>
+<div class="arithmatex">\[\frac{dy}{du} = 2u, \qquad \frac{du}{dx} = 3 \qquad \Rightarrow \qquad \frac{dy}{dx} = 2u \cdot 3 = 6(3x+1)\]</div>
+<p>Tại <span class="arithmatex">\(x = 1\)</span>: <span class="arithmatex">\(\frac{dy}{dx} = 6(4) = 24\)</span>. Kiểm chứng bằng cách nhích một xíu: <span class="arithmatex">\(f(1) = 16\)</span>, <span class="arithmatex">\(f(1.001) = 4.003^2 = 16.024009\)</span>, chia cho 0.001 được <strong>24.009</strong> — đúng.</p>
+<blockquote>
+<p>🧠 <strong>Vì sao đây là Backpropagation:</strong> một mạng nơ-ron 100 lớp thực chất là 100 hàm lồng nhau, <span class="arithmatex">\(f_{100}(f_{99}(\dots f_1(x)))\)</span>. Muốn biết trọng số ở <strong>lớp 1</strong> ảnh hưởng thế nào tới sai số ở <strong>lớp 100</strong>, ta chỉ việc <strong>nhân dồn 100 đạo hàm</strong> lại với nhau — đúng quy tắc bánh răng ở trên.
+Đây cũng là lý do có hiện tượng <strong>vanishing gradient</strong>: nếu mỗi khâu nhân với một số nhỏ hơn 1, nhân dồn 100 lần thì kết quả teo về gần 0, và các lớp đầu gần như không học được gì.
+</p>
+</blockquote>
+<hr />
+<h2 id="3-ban-chat-cua-tich-phan">3. Bản chất của tích phân<a class="headerlink" href="#3-ban-chat-cua-tich-phan" title="Permanent link">&para;</a></h2>
+<p>Nếu đạo hàm là <strong>chia nhỏ ra để xem tốc độ</strong>, thì tích phân là chiều ngược lại: <strong>gom vô số mảnh nhỏ lại thành một tổng</strong>.</p>
+<blockquote>
+<p>❓ <strong>"Nếu tôi biết tốc độ thay đổi ở mọi thời điểm, thì tổng cộng đã tích lũy được bao nhiêu?"</strong>
+Về hình học: tích phân là <strong>diện tích nằm dưới đường cong</strong>.
+</p>
+</blockquote>
+<h3 id="y-tuong-chia-thanh-hinh-chu-nhat-roi-cong-lai">Ý tưởng: chia thành hình chữ nhật rồi cộng lại<a class="headerlink" href="#y-tuong-chia-thanh-hinh-chu-nhat-roi-cong-lai" title="Permanent link">&para;</a></h3>
+<p>Muốn tính diện tích dưới đường <span class="arithmatex">\(f(x) = x\)</span> từ 0 đến 2, ta chia đoạn đó thành n hình chữ nhật, tính diện tích từng cái rồi cộng — càng nhiều hình chữ nhật thì càng chính xác:</p>
+<table>
+<thead>
+<tr>
+<th>Số hình chữ nhật</th>
+<th>Chiều rộng mỗi cái</th>
+<th>Tổng diện tích</th>
+<th>Sai lệch so với đáp án đúng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>0.5</td>
+<td>2.5</td>
+<td>+0.5</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0.25</td>
+<td>2.25</td>
+<td>+0.25</td>
+</tr>
+<tr>
+<td>16</td>
+<td>0.125</td>
+<td>2.125</td>
+<td>+0.125</td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.02</td>
+<td>2.02</td>
+<td>+0.02</td>
+</tr>
+<tr>
+<td><strong>vô hạn</strong></td>
+<td><strong>→ 0</strong></td>
+<td><strong>2</strong></td>
+<td><strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="arithmatex">\[\int_0^2 x \, dx = \left. \frac{x^2}{2} \right|_0^2 = \frac{4}{2} - 0 = 2 \quad \checkmark\]</div>
+<blockquote>
+<p>📐 <strong>Kiểm tra lại bằng hình học lớp 6:</strong> vùng dưới đường <span class="arithmatex">\(y = x\)</span> từ 0 đến 2 là một <strong>tam giác vuông</strong> có đáy 2 và cao 2. Diện tích <span class="arithmatex">\(= \frac{1}{2} \times 2 \times 2 = 2\)</span>. Khớp.
+Tích phân <strong>không phải phép thuật</strong> — nó chỉ là cách tính diện tích cho những hình mà công thức hình học phổ thông chịu thua.</p>
+<p>Ký hiệu <span class="arithmatex">\(\int\)</span> thực ra là <strong>chữ S kéo dài</strong> của từ "Sum" (tổng), và <span class="arithmatex">\(dx\)</span> là <strong>chiều rộng bé xíu</strong> của mỗi hình chữ nhật. Đọc công thức theo nghĩa đó thì nó chỉ nói: <em>"cộng tất cả (chiều cao × chiều rộng) lại"</em>.
+</p>
+</blockquote>
+<h3 id="ao-ham-va-tich-phan-la-hai-chieu-nguoc-nhau">Đạo hàm và Tích phân là hai chiều ngược nhau<a class="headerlink" href="#ao-ham-va-tich-phan-la-hai-chieu-nguoc-nhau" title="Permanent link">&para;</a></h3>
+<p>Đây là <strong>Định lý cơ bản của Giải tích</strong> — kết quả quan trọng nhất của cả môn học:</p>
+<div class="arithmatex">\[\frac{d}{dx}\left( \int_a^x f(t)\, dt \right) = f(x)\]</div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Đạo hàm</th>
+<th>Tích phân</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Làm gì</td>
+<td><strong>Chia nhỏ</strong> để xem tốc độ tại một điểm</td>
+<td><strong>Gom lại</strong> để xem tổng tích lũy</td>
+</tr>
+<tr>
+<td>Ví dụ đời thường</td>
+<td>Từ <strong>quãng đường</strong> ra <strong>vận tốc</strong></td>
+<td>Từ <strong>vận tốc</strong> ra <strong>quãng đường</strong></td>
+</tr>
+<tr>
+<td>Hình học</td>
+<td>Độ dốc của tiếp tuyến</td>
+<td>Diện tích dưới đường cong</td>
+</tr>
+<tr>
+<td>Trong AI</td>
+<td><strong>Huấn luyện</strong> (Gradient Descent, Backprop)</td>
+<td><strong>Xác suất</strong> (kỳ vọng, ELBO, chuẩn hóa)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tich-phan-xuat-hien-o-au-trong-ai">Tích phân xuất hiện ở đâu trong AI?<a class="headerlink" href="#tich-phan-xuat-hien-o-au-trong-ai" title="Permanent link">&para;</a></h3>
+<p>Đạo hàm thì bạn gặp mỗi ngày khi train. Tích phân ít lộ diện hơn, nhưng nó nằm ngay dưới nền của mọi mô hình xác suất:</p>
+<table>
+<thead>
+<tr>
+<th>Chỗ xuất hiện</th>
+<th>Công thức</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Kỳ vọng (Expectation)</strong></td>
+<td><span class="arithmatex">\(\mathbb{E}[X] = \int x \, p(x) \, dx\)</span></td>
+<td>Giá trị trung bình có trọng số theo xác suất — xuất hiện trong mọi hàm Loss</td>
+</tr>
+<tr>
+<td><strong>Chuẩn hóa xác suất</strong></td>
+<td><span class="arithmatex">\(\int p(x)\,dx = 1\)</span></td>
+<td>Điều kiện để một hàm được gọi là phân phối xác suất</td>
+</tr>
+<tr>
+<td><strong>Bài toán gốc của VAE</strong></td>
+<td><span class="arithmatex">\(p(x) = \int p(x\vert z)\, p(z) \, dz\)</span></td>
+<td>Tích phân này <strong>không tính nổi</strong> (intractable) — chính vì vậy mới phải phát minh ra ELBO</td>
+</tr>
+<tr>
+<td><strong>KL Divergence</strong></td>
+<td><span class="arithmatex">\(D_{KL} = \int q(z) \log \frac{q(z)}{p(z)} dz\)</span></td>
+<td>Thành phần thứ hai trong hàm Loss của VAE</td>
+</tr>
+<tr>
+<td><strong>Diffusion Model</strong></td>
+<td>Tích phân theo thời gian của quá trình khuếch tán</td>
+<td>Nền toán của Stable Diffusion</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🔗 <strong>Đây là điểm nối trực tiếp với đề tài của bạn.</strong> Dòng thứ ba trong bảng — tích phân không tính nổi — chính là câu mở đầu của mục 2 trong <a href="../../deep-learning/vae/">Variational Autoencoder (VAE)</a>. Chữ <strong>"Variational"</strong> trong tên VAE ra đời <strong>chỉ vì</strong> người ta không tính được tích phân đó và phải đi đường vòng.
+Nói cách khác: hiểu tích phân là gì thì mới hiểu <strong>vì sao VAE tồn tại</strong>.
+</p>
+</blockquote>
+<hr />
+<h2 id="4-tu-ao-ham-mot-bien-sang-gradient-nhieu-bien">4. Từ đạo hàm một biến sang Gradient nhiều biến<a class="headerlink" href="#4-tu-ao-ham-mot-bien-sang-gradient-nhieu-bien" title="Permanent link">&para;</a></h2>
+<p>Hàm Loss của một mạng nơ-ron không phụ thuộc vào <strong>một</strong> biến, mà vào <strong>hàng triệu</strong> trọng số. Khi đó ta cần khái niệm mở rộng.</p>
+<p><strong>Đạo hàm riêng</strong> <span class="arithmatex">\(\frac{\partial f}{\partial x}\)</span> nghĩa là: đạo hàm theo x, <strong>coi mọi biến còn lại như hằng số</strong>. Không có gì mới — vẫn là "nhích x một xíu, xem f đổi bao nhiêu", chỉ khác là ta giữ yên các biến kia.</p>
+<p><strong>Gradient</strong> là <strong>vector gom tất cả các đạo hàm riêng lại</strong>:</p>
+<div class="arithmatex">\[\nabla f = \left[ \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \dots, \frac{\partial f}{\partial x_n} \right]\]</div>
+<h3 id="vi-du-cu-the">Ví dụ cụ thể<a class="headerlink" href="#vi-du-cu-the" title="Permanent link">&para;</a></h3>
+<p>Cho <span class="arithmatex">\(f(x, y) = x^2 + 3y^2\)</span>. Ta có <span class="arithmatex">\(\frac{\partial f}{\partial x} = 2x\)</span> và <span class="arithmatex">\(\frac{\partial f}{\partial y} = 6y\)</span>.</p>
+<p>Tại điểm <span class="arithmatex">\((1, 2)\)</span>:</p>
+<div class="arithmatex">\[\nabla f(1,2) = [\,2,\; 12\,]\]</div>
+<blockquote>
+<p>🧭 <strong>Cách đọc vector này — hai thông tin trong một:</strong>
+<strong>Hướng:</strong> <span class="arithmatex">\([2, 12]\)</span> chỉ về phía <strong>dốc lên nhanh nhất</strong>. Muốn <em>giảm</em> f thì đi ngược lại, tức hướng <span class="arithmatex">\([-2, -12]\)</span>.</p>
+<p><strong>Độ lớn:</strong> thành phần y là <strong>12</strong>, gấp 6 lần thành phần x là <strong>2</strong>. Nghĩa là ở điểm này, hàm số <strong>nhạy với y gấp 6 lần so với x</strong> — nhích y một chút thì f đổi nhiều hơn hẳn.</p>
+<p>Hình dung: bạn đứng trên sườn đồi trong sương mù. Gradient là chiếc la bàn chỉ <strong>hướng dốc nhất</strong>, và độ dài kim cho biết <strong>dốc tới mức nào</strong>.
+</p>
+</blockquote>
+<hr />
+<h2 id="5-gradient-descent-thuat-toan-day-moi-ai-cach-hoc">5. Gradient Descent — thuật toán dạy mọi AI cách học<a class="headerlink" href="#5-gradient-descent-thuat-toan-day-moi-ai-cach-hoc" title="Permanent link">&para;</a></h2>
+<p>Ghép hai ý lại: gradient chỉ hướng dốc lên, và ta muốn <strong>xuống đáy</strong> (Loss nhỏ nhất). Vậy cứ <strong>đi ngược gradient</strong>, lặp đi lặp lại.</p>
+<div class="arithmatex">\[\theta_{\text{mới}} = \theta_{\text{cũ}} - \eta \cdot \nabla L(\theta)\]</div>
+<table>
+<thead>
+<tr>
+<th>Ký hiệu</th>
+<th>Là gì</th>
+<th>Trong thực tế</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\theta\)</span></td>
+<td>Toàn bộ trọng số của mô hình</td>
+<td>Có thể là hàng tỉ con số</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(L(\theta)\)</span></td>
+<td>Hàm mất mát — mức độ sai</td>
+<td>MSE, BCE, CrossEntropy...</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\nabla L\)</span></td>
+<td>Gradient — hướng làm sai <strong>nhiều hơn</strong></td>
+<td>Tính bằng Backpropagation</td>
+</tr>
+<tr>
+<td><strong>dấu trừ</strong></td>
+<td><strong>Đi NGƯỢC lại</strong> hướng đó</td>
+<td>Đây là chữ "Descent" (đi xuống)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\eta\)</span></td>
+<td>Learning rate — bước chân dài bao nhiêu</td>
+<td>Thường 0.001 – 0.1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="chay-tay-thuat-toan">Chạy tay thuật toán<a class="headerlink" href="#chay-tay-thuat-toan" title="Permanent link">&para;</a></h3>
+<p>Bài toán đơn giản nhất: tìm x để <span class="arithmatex">\(f(x) = x^2\)</span> nhỏ nhất (ai cũng biết đáp án là <strong>x = 0</strong>). Ta có <span class="arithmatex">\(f'(x) = 2x\)</span>. Bắt đầu từ <span class="arithmatex">\(x = 4\)</span>, learning rate <span class="arithmatex">\(\eta = 0.1\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th>Bước</th>
+<th>x hiện tại</th>
+<th><span class="arithmatex">\(f(x)\)</span></th>
+<th><span class="arithmatex">\(f'(x) = 2x\)</span></th>
+<th>Tính <span class="arithmatex">\(x - 0.1 \times f'(x)\)</span></th>
+<th>x mới</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>4.000</td>
+<td>16.00</td>
+<td>8.00</td>
+<td>4 − 0.8</td>
+<td>3.200</td>
+</tr>
+<tr>
+<td>1</td>
+<td>3.200</td>
+<td>10.24</td>
+<td>6.40</td>
+<td>3.2 − 0.64</td>
+<td>2.560</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2.560</td>
+<td>6.55</td>
+<td>5.12</td>
+<td>2.56 − 0.512</td>
+<td>2.048</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2.048</td>
+<td>4.19</td>
+<td>4.10</td>
+<td>2.048 − 0.410</td>
+<td>1.638</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1.638</td>
+<td>2.68</td>
+<td>3.28</td>
+<td>1.638 − 0.328</td>
+<td>1.311</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>50</td>
+<td>≈ 0.000</td>
+<td>≈ 0</td>
+<td>≈ 0</td>
+<td>gần như không đổi</td>
+<td><strong>≈ 0</strong> ✓</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>👀 <strong>Ba điều nhìn ra ngay từ bảng:</strong>
+1. <strong>f(x) giảm đều đặn:</strong> 16 → 10.24 → 6.55 → 4.19 → 2.68. Mô hình đang "học".</p>
+<ol>
+<li>
+<p><strong>Bước chân tự động ngắn lại:</strong> 0.8 → 0.64 → 0.512 → 0.41. Vì càng gần đáy thì độ dốc càng nhỏ, mà bước chân tỉ lệ với độ dốc. <strong>Không ai lập trình điều này cả — nó tự xảy ra.</strong></p>
+</li>
+<li>
+<p><strong>Không bao giờ chạm đúng 0</strong>, chỉ tiến gần vô hạn. Nên trong thực tế ta dừng khi Loss đã đủ nhỏ hoặc hết số epoch.</p>
+</li>
+</ol>
+<p>Toàn bộ việc huấn luyện một mô hình hàng tỉ tham số <strong>chỉ là bảng này</strong>, lặp lại hàng triệu lần, trên hàng tỉ chiều thay vì một chiều.
+</p>
+</blockquote>
+<h3 id="learning-rate-con-so-lam-hong-moi-thu-neu-chon-sai">Learning rate — con số làm hỏng mọi thứ nếu chọn sai<a class="headerlink" href="#learning-rate-con-so-lam-hong-moi-thu-neu-chon-sai" title="Permanent link">&para;</a></h3>
+<p>Vẫn bài toán trên, xuất phát từ x = 4, chỉ đổi mỗi <span class="arithmatex">\(\eta\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(\eta\)</span></th>
+<th>Diễn biến</th>
+<th>Kết quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0.001</strong> (quá nhỏ)</td>
+<td>4 → 3.992 → 3.984 → ...</td>
+<td>Đúng hướng nhưng <strong>chậm kinh khủng</strong>, cần hàng chục nghìn bước</td>
+</tr>
+<tr>
+<td><strong>0.1</strong> (vừa)</td>
+<td>4 → 3.2 → 2.56 → 2.05</td>
+<td><strong>Hội tụ mượt</strong> — như bảng trên</td>
+</tr>
+<tr>
+<td><strong>0.9</strong> (hơi lớn)</td>
+<td>4 → −3.2 → 2.56 → −2.05</td>
+<td>Nhảy qua nhảy lại hai bên đáy, nhưng biên độ vẫn co dần</td>
+</tr>
+<tr>
+<td><strong>1.1</strong> (quá lớn)</td>
+<td>4 → <strong>−4.8</strong> → <strong>5.76</strong> → <strong>−6.91</strong></td>
+<td><strong>Phân kỳ</strong> — càng đi càng xa đáy, Loss phình lên rồi thành <code>NaN</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ Hàng cuối là hiện tượng bạn sẽ gặp trong thực tế: Loss đang giảm rồi đột nhiên nhảy vọt lên hoặc biến thành <code>NaN</code>. <strong>Phản xạ đầu tiên phải là giảm learning rate xuống 10 lần.</strong>
+Hình dung: bạn muốn xuống đáy thung lũng nhưng mỗi bước lại sải quá dài, nên cứ nhảy từ sườn bên này sang sườn bên kia và ngày càng lên cao.
+</p>
+</blockquote>
+<h3 id="ba-bien-the-trong-thuc-te">Ba biến thể trong thực tế<a class="headerlink" href="#ba-bien-the-trong-thuc-te" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tên</th>
+<th>Mỗi bước dùng bao nhiêu dữ liệu</th>
+<th>Đặc điểm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Batch GD</strong></td>
+<td><strong>Toàn bộ</strong> tập dữ liệu</td>
+<td>Hướng đi chính xác nhất nhưng cực chậm, không khả thi với dữ liệu lớn</td>
+</tr>
+<tr>
+<td><strong>SGD</strong></td>
+<td><strong>Một</strong> mẫu</td>
+<td>Rất nhanh nhưng đường đi ngoằn ngoèo; nhiễu đó đôi khi lại giúp thoát cực tiểu địa phương</td>
+</tr>
+<tr>
+<td><strong>Mini-batch GD</strong></td>
+<td>Một lô (32 – 256 mẫu)</td>
+<td><strong>Lựa chọn mặc định trong mọi thư viện</strong> — cân bằng giữa hai cái trên. Đây chính là ý nghĩa của siêu tham số <code>batch_size</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🚀 <strong>Adam — thứ bạn thực sự dùng khi viết code.</strong> Adam vẫn là Gradient Descent, nhưng thêm hai cải tiến: <strong>momentum</strong> (nhớ hướng đi các bước trước, như hòn bi lăn có quán tính nên vượt qua được chỗ gồ ghề) và <strong>learning rate riêng cho từng tham số</strong> (tham số nào ít được cập nhật thì cho bước dài hơn).
+Vì vậy dòng <code>optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)</code> mà bạn viết trong mọi bài thực hành chính là <strong>công thức ở đầu mục 5</strong>, chỉ được gia cố thêm.
+</p>
+</blockquote>
+<hr />
+<h2 id="6-ghep-tat-ca-lai-mot-vong-lap-huan-luyen">6. Ghép tất cả lại: một vòng lặp huấn luyện<a class="headerlink" href="#6-ghep-tat-ca-lai-mot-vong-lap-huan-luyen" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    A["Đưa dữ liệu x&lt;br&gt;vào mô hình"] --&gt; B["Dự đoán ŷ&lt;br&gt;(toàn phép nhân ma trận)"]
+    B --&gt; C["Tính Loss&lt;br&gt;L = sai lệch giữa ŷ và y"]
+    C --&gt; D["BACKPROP&lt;br&gt;tính ∇L bằng&lt;br&gt;quy tắc dây chuyền"]
+    D --&gt; E["GRADIENT DESCENT&lt;br&gt;θ ← θ − η∇L"]
+    E --&gt; A</code></pre>
+<table>
+<thead>
+<tr>
+<th>Dòng code PyTorch</th>
+<th>Thực chất là bước nào</th>
+<th>Kiến thức toán đứng sau</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>y_hat = model(x)</code></td>
+<td>Lan truyền xuôi</td>
+<td><strong>Đại số tuyến tính</strong> — nhân ma trận</td>
+</tr>
+<tr>
+<td><code>loss = criterion(y_hat, y)</code></td>
+<td>Đo mức độ sai</td>
+<td>Hàm mất mát</td>
+</tr>
+<tr>
+<td><code>optimizer.zero_grad()</code></td>
+<td>Xóa gradient của bước trước</td>
+<td>(PyTorch cộng dồn gradient nếu không xóa)</td>
+</tr>
+<tr>
+<td><code>loss.backward()</code></td>
+<td>Tính toàn bộ <span class="arithmatex">\(\nabla L\)</span></td>
+<td><strong>Quy tắc dây chuyền</strong> — mục 2</td>
+</tr>
+<tr>
+<td><code>optimizer.step()</code></td>
+<td>Cập nhật trọng số</td>
+<td><strong>Gradient Descent</strong> — mục 5</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🎓 <strong>Nhìn bảng này là thấy toàn bộ mối liên hệ giữa hai trang Toán:</strong>
+<code>model(x)</code> là <strong>Đại số tuyến tính</strong>. <code>loss.backward()</code> và <code>optimizer.step()</code> là <strong>Giải tích</strong>.</p>
+<p>Một mô hình AI = đại số tuyến tính để <strong>tính</strong>, giải tích để <strong>học</strong>. Không có gì hơn thế.
+</p>
+</blockquote>
+<h3 id="ba-cai-bay-cua-be-mat-loss">Ba cái bẫy của bề mặt Loss<a class="headerlink" href="#ba-cai-bay-cua-be-mat-loss" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🕳️ <strong>Cực tiểu địa phương</strong>
+Một cái hố nhỏ không phải đáy thật. Gradient bằng 0 nên thuật toán tưởng đã xong.</p>
+<p>Trong không gian nhiều chiều, chuyện này <strong>hiếm hơn ta tưởng</strong> — để bị kẹt thì phải mọi chiều đều đi lên cùng lúc.
+</p>
+<p>🐴 <strong>Điểm yên ngựa (saddle point)</strong>
+Chiều này đi lên, chiều kia đi xuống, gradient vẫn bằng 0. <strong>Đây mới là vấn đề thật sự</strong> trong mạng lớn, không phải cực tiểu địa phương.</p>
+<p>Momentum giúp trượt qua được.
+</p>
+<p>🏔️ <strong>Cao nguyên phẳng (plateau)</strong>
+Gradient gần bằng 0 trên một vùng rộng, mô hình gần như đứng yên rất lâu.</p>
+<p>Liên quan tới <strong>vanishing gradient</strong> và là lý do có Batch Normalization, residual connection.
+</p>
+</blockquote>
+<hr />
+<h2 id="7-tu-chay-lai-toan-bo-trang-nay-bang-12-dong-code">7. Tự chạy lại toàn bộ trang này bằng 12 dòng code<a class="headerlink" href="#7-tu-chay-lai-toan-bo-trang-nay-bang-12-dong-code" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="c1"># f(x) = x^2, tim x de f nho nhat</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">4.0</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># diem xuat phat</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>                 <span class="c1"># ham mat mat</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>               <span class="c1"># &lt;- CHAIN RULE: tinh dao ham, ra 2x</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">grad</span>          <span class="c1"># &lt;- GRADIENT DESCENT: di nguoc gradient</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"buoc </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">: x = </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, f(x) = </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, grad = </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>                <span class="c1"># xoa gradient cho buoc sau</span>
+</code></pre></div>
+<blockquote>
+<p>✅ Chạy đoạn này và <strong>đối chiếu output với bảng ở mục 5</strong> — bạn sẽ thấy đúng dãy 4.000 → 3.200 → 2.560 → 2.048 → 1.638.
+Sau đó thử đổi <code>lr = 1.1</code> và xem nó phân kỳ đúng như bảng learning rate. Mười lăm phút này đáng giá hơn đọc lý thuyết cả buổi.
+</p>
+</blockquote>
+<hr />
+<h2 id="8-bang-thuat-ngu-nhanh">8. Bảng thuật ngữ nhanh<a class="headerlink" href="#8-bang-thuat-ngu-nhanh" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Thuật ngữ</th>
+<th>Hiểu trong một câu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Derivative</strong> (đạo hàm)</td>
+<td>Nhích đầu vào một xíu thì đầu ra đổi bao nhiêu — độ dốc tại một điểm</td>
+</tr>
+<tr>
+<td><strong>Partial derivative</strong> (đạo hàm riêng)</td>
+<td>Đạo hàm theo một biến, coi các biến còn lại là hằng số</td>
+</tr>
+<tr>
+<td><strong>Gradient</strong></td>
+<td>Vector gom mọi đạo hàm riêng — chỉ hướng dốc lên nhanh nhất</td>
+</tr>
+<tr>
+<td><strong>Chain Rule</strong></td>
+<td>Đạo hàm của hàm lồng nhau = tích các đạo hàm từng khâu. Chính là Backpropagation</td>
+</tr>
+<tr>
+<td><strong>Integral</strong> (tích phân)</td>
+<td>Gom vô số mảnh nhỏ thành một tổng — diện tích dưới đường cong</td>
+</tr>
+<tr>
+<td><strong>Gradient Descent</strong></td>
+<td>Lặp lại việc đi ngược hướng gradient để giảm dần hàm mất mát</td>
+</tr>
+<tr>
+<td><strong>Learning rate</strong> <span class="arithmatex">\(\eta\)</span></td>
+<td>Độ dài mỗi bước chân. Quá nhỏ thì chậm, quá lớn thì phân kỳ</td>
+</tr>
+<tr>
+<td><strong>Convergence</strong> (hội tụ)</td>
+<td>Loss đã giảm tới mức gần như không đổi nữa</td>
+</tr>
+<tr>
+<td><strong>Local minimum / Saddle point</strong></td>
+<td>Chỗ gradient bằng 0 nhưng chưa phải đáy thật</td>
+</tr>
+<tr>
+<td><strong>Jacobian</strong></td>
+<td>Ma trận chứa mọi đạo hàm riêng khi cả đầu vào lẫn đầu ra đều là vector</td>
+</tr>
+<tr>
+<td><strong>Hessian</strong></td>
+<td>Ma trận đạo hàm bậc hai — cho biết độ cong, dùng trong các phương pháp tối ưu bậc cao</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-nguon-hoc">9. Nguồn học<a class="headerlink" href="#9-nguon-hoc" title="Permanent link">&para;</a></h2>
+<h3 id="video-a-xem">Video đã xem<a class="headerlink" href="#video-a-xem" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://youtu.be/w_Rk7JgjDno">Thuật Toán Dạy Mọi AI Cách Học | Gradient Descent — Học Giải Thuật Cùng HPN</a> — <strong>video gốc của trang này</strong>, giải thích bằng tiếng Việt cơ chế học của mọi mô hình AI.</li>
+</ul>
+<h3 id="nen-xem-tiep">Nên xem tiếp<a class="headerlink" href="#nen-xem-tiep" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr">Essence of Calculus — 3Blue1Brown (toàn bộ series)</a> — <strong>nguồn tốt nhất cho phần trực giác</strong>. Tập 1 dựng lại toàn bộ giải tích chỉ từ bài toán tính diện tích hình tròn; tập 4 giải thích chain rule bằng hình động.</p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=IHZwWFHWa-w">Gradient descent, how neural networks learn — 3Blue1Brown (Chương 2 series Deep Learning)</a> — hình dung bề mặt Loss và hòn bi lăn xuống đáy.</p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=tIeHLnjs5U8">Backpropagation calculus — 3Blue1Brown (Chương 4)</a> — nối thẳng chain rule với việc cập nhật trọng số.</p>
+</li>
+<li>
+<p><a href="https://mml-book.github.io/">Mathematics for Machine Learning — Deisenroth, Faisal, Ong (PDF miễn phí)</a> — <strong>sách để trích dẫn trong bài báo</strong>. Chương 5 là Vector Calculus, chương 7 là Optimization.</p>
+</li>
+<li>
+<p><a href="https://cs231n.github.io/optimization-1/">CS231n — Optimization Notes (Stanford)</a> — giải thích Gradient Descent theo góc nhìn kỹ sư, có code.</p>
+</li>
+<li>
+<p><a href="https://www.deeplearningbook.org/contents/numerical.html">Deep Learning Book — Chapter 4: Numerical Computation (Goodfellow et al.)</a> — phần tối ưu hóa dựa trên gradient, viết chặt chẽ.</p>
+</li>
+</ul>
+<blockquote>
+<p>🧭 <strong>Thứ tự mình khuyên:</strong> xem lại video HPN → chạy đoạn code 12 dòng ở mục 7 và đối chiếu với bảng ở mục 5 → xem tập 1 và tập 4 của Essence of Calculus → cuối cùng xem chương 2 và 4 của series Deep Learning (3Blue1Brown).
+Sau bốn bước đó, khi bạn viết <code>loss.backward()</code> bạn sẽ biết chính xác dòng đó đang làm gì.
+</p>
+</blockquote>
+<hr />
+<h2 id="10-ghi-chu-cua-minh">10. Ghi chú của mình<a class="headerlink" href="#10-ghi-chu-cua-minh" title="Permanent link">&para;</a></h2>
+<p><em>(Điền sau khi học: chỗ nào còn vướng, câu hỏi cần hỏi thầy.)</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

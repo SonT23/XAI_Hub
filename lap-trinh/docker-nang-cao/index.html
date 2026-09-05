@@ -1,0 +1,4302 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/lap-trinh/docker-nang-cao/">
+      
+      
+        <link rel="prev" href="../docker-co-ban/">
+      
+      
+        <link rel="next" href="../dsa-nhap-mon-big-o/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Docker nâng cao - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#docker-nang-cao-images-dockerfile-volumes-compose" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Docker nâng cao
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../toan/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../deep-learning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../toan/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/giai-tich/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/vae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/latent-space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-nen-tang-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-lam-viec-voi-docker-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Làm việc với Docker Images
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Làm việc với Docker Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-pull-mot-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Pull một Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-liet-ke-tat-ca-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Liệt kê tất cả Images
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-kiem-tra-chi-tiet-image-inspect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kiểm tra chi tiết Image (Inspect)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-xoa-mot-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Xóa một Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-xoa-cac-images-khong-dung-en" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Xóa các Images không dùng đến
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-gan-tag-cho-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Gắn Tag cho Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-tim-kiem-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tìm kiếm Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-dockerfile-va-cac-instructions-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Dockerfile và các Instructions phổ biến
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Dockerfile và các Instructions phổ biến">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dockerfile-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dockerfile là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-nen-dung-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao nên dùng Dockerfile?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-truc-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cấu trúc cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-instructions-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các Instructions phổ biến
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-ve-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ về Dockerfile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-mot-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build một Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-huong-dan-build-mot-docker-image-bang-docker-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Hướng dẫn build một Docker Image bằng docker build
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Hướng dẫn build một Docker Image bằng docker build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-lenh-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Lệnh cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ieu-gi-xay-ra-khi-ban-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Điều gì xảy ra khi bạn build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-kiem-tra-image-cua-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kiểm tra Image của bạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-build-voi-dockerfile-khac-tuy-chon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Build với Dockerfile khác (Tùy chọn)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-port-mapping-vi-du-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Port Mapping (ví dụ Nginx)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Port Mapping (ví dụ Nginx)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-port-mapping-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Port Mapping là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cu-phap-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Cú pháp cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-vi-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Ví dụ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-mot-vi-du-khac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Một ví dụ khác
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-docker-volumes-luu-tru-du-lieu-lau-dai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Docker Volumes - lưu trữ dữ liệu lâu dài
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Docker Volumes - lưu trữ dữ liệu lâu dài">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-docker-volume-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Docker Volume là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vi-sao-nen-dung-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Vì sao nên dùng Volumes?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cu-phap-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cú pháp cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-vi-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ví dụ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-quan-ly-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Quản lý Volumes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-docker-compose-file-yaml-multi-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Docker Compose - file YAML multi-container
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Docker Compose - file YAML multi-container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-docker-compose-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Docker Compose là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-file-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. File Compose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cac-lenh-thuong-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Các lệnh thường dùng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-vi-sao-nen-dung-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Vì sao nên dùng Docker Compose?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-cac-use-case-pho-bien-cua-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Các Use Case phổ biến của Docker
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Các Use Case phổ biến của Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-moi-truong-development-nhat-quan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Môi trường Development nhất quán
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-deploy-ung-dung-de-dang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deploy ứng dụng dễ dàng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-kien-truc-microservices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kiến trúc Microservices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cicd-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. CI/CD Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-cach-ly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing cách ly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-ho-tro-ung-dung-legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hỗ trợ ứng dụng Legacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-portable-tren-moi-nen-tang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Portable trên mọi nền tảng
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-mang-chuoi-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-trees-heap-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-automation-best-practices-on-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-lam-viec-voi-docker-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Làm việc với Docker Images
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Làm việc với Docker Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-pull-mot-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Pull một Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-liet-ke-tat-ca-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Liệt kê tất cả Images
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-kiem-tra-chi-tiet-image-inspect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kiểm tra chi tiết Image (Inspect)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-xoa-mot-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Xóa một Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-xoa-cac-images-khong-dung-en" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Xóa các Images không dùng đến
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-gan-tag-cho-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Gắn Tag cho Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-tim-kiem-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tìm kiếm Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-dockerfile-va-cac-instructions-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Dockerfile và các Instructions phổ biến
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Dockerfile và các Instructions phổ biến">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dockerfile-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dockerfile là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-nen-dung-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao nên dùng Dockerfile?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-truc-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cấu trúc cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-instructions-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các Instructions phổ biến
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-ve-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ về Dockerfile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-mot-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build một Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-huong-dan-build-mot-docker-image-bang-docker-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Hướng dẫn build một Docker Image bằng docker build
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Hướng dẫn build một Docker Image bằng docker build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-lenh-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Lệnh cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ieu-gi-xay-ra-khi-ban-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Điều gì xảy ra khi bạn build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-kiem-tra-image-cua-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kiểm tra Image của bạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-build-voi-dockerfile-khac-tuy-chon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Build với Dockerfile khác (Tùy chọn)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-port-mapping-vi-du-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Port Mapping (ví dụ Nginx)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Port Mapping (ví dụ Nginx)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-port-mapping-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Port Mapping là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cu-phap-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Cú pháp cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-vi-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Ví dụ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-mot-vi-du-khac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Một ví dụ khác
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-docker-volumes-luu-tru-du-lieu-lau-dai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Docker Volumes - lưu trữ dữ liệu lâu dài
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Docker Volumes - lưu trữ dữ liệu lâu dài">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-docker-volume-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Docker Volume là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vi-sao-nen-dung-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Vì sao nên dùng Volumes?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cu-phap-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cú pháp cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-vi-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ví dụ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-quan-ly-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Quản lý Volumes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-docker-compose-file-yaml-multi-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Docker Compose - file YAML multi-container
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Docker Compose - file YAML multi-container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-docker-compose-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Docker Compose là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-file-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. File Compose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cac-lenh-thuong-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Các lệnh thường dùng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-vi-sao-nen-dung-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Vì sao nên dùng Docker Compose?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-cac-use-case-pho-bien-cua-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Các Use Case phổ biến của Docker
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Các Use Case phổ biến của Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-moi-truong-development-nhat-quan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Môi trường Development nhất quán
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-deploy-ung-dung-de-dang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deploy ứng dụng dễ dàng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-kien-truc-microservices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kiến trúc Microservices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cicd-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. CI/CD Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-cach-ly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing cách ly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-ho-tro-ung-dung-legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hỗ trợ ứng dụng Legacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-portable-tren-moi-nen-tang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Portable trên mọi nền tảng
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="docker-nang-cao-images-dockerfile-volumes-compose">Docker nâng cao: Images, Dockerfile, Volumes &amp; Compose<a class="headerlink" href="#docker-nang-cao-images-dockerfile-volumes-compose" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🖼️ <strong>7 ảnh gốc cho trang này (dán theo đúng thứ tự vào từng mục bên dưới):</strong>
+1395_ghi-chu-lam-viec-voi-docker-images-pull-inspect-ta.jpg</p>
+<p>1396_ghi-chu-ve-dockerfile-va-cac-instructions-pho-bien.jpg</p>
+<p>1397_huong-dan-build-mot-docker-image-bang-docker-build.jpg</p>
+<p>1398_ghi-chu-docker-port-mapping-vi-du-nginx.jpg</p>
+<p>1399_ghi-chu-docker-volumes-luu-tru-du-lieu-lau-dai.jpg</p>
+<p>1400_ghi-chu-docker-compose-file-yaml-multi-container.jpg</p>
+<p>1401_cac-use-case-pho-bien-cua-docker-ban-trung.jpg
+</p>
+</blockquote>
+<h3 id="1-lam-viec-voi-docker-images">1. Làm việc với Docker Images<a class="headerlink" href="#1-lam-viec-voi-docker-images" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1395_ghi-chu-lam-viec-voi-docker-images-pull-inspect-ta.jpg</code></p>
+</blockquote>
+<p>Docker images là các template chỉ đọc (read-only) dùng để tạo containers.</p>
+<h4 id="1-pull-mot-image">1. Pull một Image<a class="headerlink" href="#1-pull-mot-image" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Tải một image từ Docker Hub.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>&lt;image-name&gt;<span class="o">[</span>:tag<span class="o">]</span>
+</code></pre></div>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>nginx:latest
+</code></pre></div>
+<h4 id="2-liet-ke-tat-ca-images">2. Liệt kê tất cả Images<a class="headerlink" href="#2-liet-ke-tat-ca-images" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Hiển thị tất cả images được lưu cục bộ.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>images
+</code></pre></div>
+<h4 id="3-kiem-tra-chi-tiet-image-inspect">3. Kiểm tra chi tiết Image (Inspect)<a class="headerlink" href="#3-kiem-tra-chi-tiet-image-inspect" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Xem thông tin chi tiết về một image.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>inspect<span class="w"> </span>&lt;image-name&gt;<span class="o">[</span>:tag<span class="o">]</span>
+</code></pre></div>
+<h4 id="4-xoa-mot-image">4. Xóa một Image<a class="headerlink" href="#4-xoa-mot-image" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Xóa một image khỏi hệ thống của bạn.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rmi<span class="w"> </span>&lt;image-name&gt;<span class="o">[</span>:tag<span class="o">]</span>
+</code></pre></div>
+<h4 id="5-xoa-cac-images-khong-dung-en">5. Xóa các Images không dùng đến<a class="headerlink" href="#5-xoa-cac-images-khong-dung-en" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Xóa tất cả images dangling (không còn dùng đến).</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>image<span class="w"> </span>prune
+</code></pre></div>
+<h4 id="6-gan-tag-cho-image">6. Gắn Tag cho Image<a class="headerlink" href="#6-gan-tag-cho-image" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Tạo một tag mới cho image đã có.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>&lt;source-image&gt;<span class="o">[</span>:tag<span class="o">]</span><span class="w"> </span>&lt;new-image&gt;<span class="o">[</span>:tag<span class="o">]</span>
+</code></pre></div>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>nginx:latest<span class="w"> </span>my-nginx:web
+</code></pre></div>
+<h4 id="7-tim-kiem-image">7. Tìm kiếm Image<a class="headerlink" href="#7-tim-kiem-image" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Tìm kiếm images trên Docker Hub.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>search<span class="w"> </span>&lt;image-name&gt;
+</code></pre></div>
+<h3 id="2-dockerfile-va-cac-instructions-pho-bien">2. Dockerfile và các Instructions phổ biến<a class="headerlink" href="#2-dockerfile-va-cac-instructions-pho-bien" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1396_ghi-chu-ve-dockerfile-va-cac-instructions-pho-bien.jpg</code></p>
+</blockquote>
+<h4 id="dockerfile-la-gi">Dockerfile là gì?<a class="headerlink" href="#dockerfile-la-gi" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Dockerfile là một file văn bản (text file) chứa các instructions để tự động build một Docker image.</li>
+</ul>
+<h4 id="vi-sao-nen-dung-dockerfile">Vì sao nên dùng Dockerfile?<a class="headerlink" href="#vi-sao-nen-dung-dockerfile" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Tự động hóa việc tạo image.</p>
+</li>
+<li>
+<p>Giúp việc tạo image lặp lại được (repeatable) và nhất quán (consistent).</p>
+</li>
+<li>
+<p>Chia sẻ cấu hình ứng dụng của bạn với người khác.</p>
+</li>
+</ul>
+<h4 id="cau-truc-co-ban">Cấu trúc cơ bản<a class="headerlink" href="#cau-truc-co-ban" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Một Dockerfile được tạo từ các instructions. Mỗi instruction tạo ra một layer trong image cuối cùng.</li>
+</ul>
+<h4 id="cac-instructions-pho-bien">Các Instructions phổ biến<a class="headerlink" href="#cac-instructions-pho-bien" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>FROM</strong>: Thiết lập base image.</p>
+</li>
+<li>
+<p><strong>RUN</strong>: Chạy các lệnh trong image.</p>
+</li>
+<li>
+<p><strong>COPY</strong>: Copy files từ máy của bạn vào image.</p>
+</li>
+<li>
+<p><strong>WORKDIR</strong>: Thiết lập working directory bên trong image.</p>
+</li>
+<li>
+<p><strong>EXPOSE</strong>: Mở một port.</p>
+</li>
+<li>
+<p><strong>CMD</strong>: Chỉ định lệnh mặc định sẽ chạy khi container khởi động.</p>
+</li>
+</ul>
+<h4 id="vi-du-ve-dockerfile">Ví dụ về Dockerfile<a class="headerlink" href="#vi-du-ve-dockerfile" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span><span class="w">        </span><span class="c"># Base image</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app                 # Thiết lập working directory</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.<span class="w">                     </span>#<span class="w"> </span>Copy<span class="w"> </span>toàn<span class="w"> </span>bộ<span class="w"> </span>files<span class="w"> </span>hiện<span class="w"> </span>tại<span class="w"> </span>vào<span class="w"> </span>/app
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w">   </span>#<span class="w"> </span>Cài<span class="w"> </span>đặt<span class="w"> </span>dependencies
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">5000                  # Expose port 5000</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"python"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app.py"</span><span class="p">]</span><span class="w">     </span>#<span class="w"> </span>Lệnh<span class="w"> </span>để<span class="w"> </span>chạy<span class="w"> </span>ứng<span class="w"> </span>dụng
+</code></pre></div>
+<h4 id="build-mot-image">Build một Image<a class="headerlink" href="#build-mot-image" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Chạy lệnh này trong thư mục chứa Dockerfile:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my-image:latest<span class="w"> </span>.
+</code></pre></div>
+<h3 id="3-huong-dan-build-mot-docker-image-bang-docker-build">3. Hướng dẫn build một Docker Image bằng docker build<a class="headerlink" href="#3-huong-dan-build-mot-docker-image-bang-docker-build" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1397_huong-dan-build-mot-docker-image-bang-docker-build.jpg</code></p>
+</blockquote>
+<p>Chúng ta dùng một Dockerfile để build Docker image của riêng mình. Lệnh để build một image là <code>docker build</code>.</p>
+<h4 id="1-lenh-co-ban">1. Lệnh cơ bản<a class="headerlink" href="#1-lenh-co-ban" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Chạy lệnh này trong thư mục chứa Dockerfile của bạn.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;image-name&gt;:&lt;tag&gt;<span class="w"> </span>.
+</code></pre></div>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my-app:1.0<span class="w"> </span>.
+</code></pre></div>
+<ul>
+<li>
+<p><code>-t</code>: Gắn tag cho image với tên và phiên bản.</p>
+</li>
+<li>
+<p><code>.</code>: Báo cho Docker tìm Dockerfile trong thư mục hiện tại.</p>
+</li>
+</ul>
+<h4 id="2-ieu-gi-xay-ra-khi-ban-build">2. Điều gì xảy ra khi bạn build<a class="headerlink" href="#2-ieu-gi-xay-ra-khi-ban-build" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Docker đọc các instructions trong Dockerfile theo từng bước và tạo ra các layers.</p>
+</li>
+<li>
+<p>Mỗi instruction thêm một layer vào image.</p>
+</li>
+<li>
+<p>Cuối cùng, Docker gộp tất cả các layers thành một image duy nhất.</p>
+</li>
+</ul>
+<h4 id="3-kiem-tra-image-cua-ban">3. Kiểm tra Image của bạn<a class="headerlink" href="#3-kiem-tra-image-cua-ban" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Liệt kê tất cả images để xem image vừa build.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>images
+</code></pre></div>
+<h4 id="4-build-voi-dockerfile-khac-tuy-chon">4. Build với Dockerfile khác (Tùy chọn)<a class="headerlink" href="#4-build-voi-dockerfile-khac-tuy-chon" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Nếu Dockerfile của bạn có tên hoặc vị trí khác, dùng <code>-f</code> để chỉ định file.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>&lt;Dockerfile-name&gt;<span class="w"> </span>-t<span class="w"> </span>&lt;image-name&gt;:&lt;tag&gt;<span class="w"> </span>.
+</code></pre></div>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile.dev<span class="w"> </span>-t<span class="w"> </span>my-app:dev<span class="w"> </span>.
+</code></pre></div>
+<blockquote>
+<p>💡 Note: Build một image không có nghĩa là chạy nó. Nó chỉ tạo ra image mà thôi.</p>
+</blockquote>
+<h3 id="4-port-mapping-vi-du-nginx">4. Port Mapping (ví dụ Nginx)<a class="headerlink" href="#4-port-mapping-vi-du-nginx" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1398_ghi-chu-docker-port-mapping-vi-du-nginx.jpg</code></p>
+</blockquote>
+<p>Port mapping cho phép bạn access một service đang chạy bên trong container từ host machine của bạn.</p>
+<h4 id="1-port-mapping-la-gi">1. Port Mapping là gì?<a class="headerlink" href="#1-port-mapping-la-gi" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Containers có network nội bộ riêng. Port mapping (<code>-p</code>) sẽ ánh xạ (map) một port trên host sang một port bên trong container.</li>
+</ul>
+<h4 id="2-cu-phap-co-ban">2. Cú pháp cơ bản<a class="headerlink" href="#2-cu-phap-co-ban" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span>&lt;host-port&gt;:&lt;container-port&gt;<span class="w"> </span>&lt;image-name&gt;
+</code></pre></div>
+<ul>
+<li>
+<p><code>&lt;host-port&gt;</code> → Port trên host machine của bạn</p>
+</li>
+<li>
+<p><code>&lt;container-port&gt;</code> → Port trên container</p>
+</li>
+</ul>
+<h4 id="3-vi-du">3. Ví dụ<a class="headerlink" href="#3-vi-du" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Chạy một nginx container và map port 8080 trên host sang port 80 trong container.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>nginx
+</code></pre></div>
+<ul>
+<li>
+<p>Giờ mở trình duyệt và truy cập: <code>http://localhost:8080</code></p>
+</li>
+<li>
+<p>Bạn sẽ thấy trang chào mừng (welcome page) của nginx.</p>
+</li>
+</ul>
+<h4 id="4-mot-vi-du-khac">4. Một ví dụ khác<a class="headerlink" href="#4-mot-vi-du-khac" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Nếu ứng dụng của bạn chạy trên port 5000 bên trong container, hãy map nó sang port 3000 trên host.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3000</span>:5000<span class="w"> </span>my-app
+</code></pre></div>
+<ul>
+<li>Truy cập tại: <code>http://localhost:3000</code></li>
+</ul>
+<blockquote>
+<p>💡 Note: Bạn có thể map bất kỳ host port nào sang bất kỳ container port nào. Chỉ cần đảm bảo host port đó chưa được sử dụng.</p>
+</blockquote>
+<h3 id="5-docker-volumes-luu-tru-du-lieu-lau-dai">5. Docker Volumes - lưu trữ dữ liệu lâu dài<a class="headerlink" href="#5-docker-volumes-luu-tru-du-lieu-lau-dai" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1399_ghi-chu-docker-volumes-luu-tru-du-lieu-lau-dai.jpg</code></p>
+</blockquote>
+<p>Docker volumes là cách tốt nhất để lưu trữ lâu dài (persist) dữ liệu được tạo ra và sử dụng bởi Docker containers.</p>
+<h4 id="1-docker-volume-la-gi">1. Docker Volume là gì?<a class="headerlink" href="#1-docker-volume-la-gi" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Docker volume là một vị trí đặc biệt nằm ngoài filesystem của container.</p>
+</li>
+<li>
+<p>Dữ liệu trong volumes vẫn tồn tại (persist) ngay cả khi container bị dừng hoặc bị xóa.</p>
+</li>
+<li>
+<p>Volumes được Docker quản lý và dễ dàng back up cũng như chia sẻ.</p>
+</li>
+</ul>
+<h4 id="2-vi-sao-nen-dung-volumes">2. Vì sao nên dùng Volumes?<a class="headerlink" href="#2-vi-sao-nen-dung-volumes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Lưu trữ dữ liệu lâu dài, vượt ngoài vòng đời (lifecycle) của container.</p>
+</li>
+<li>
+<p>Chia sẻ dữ liệu giữa nhiều containers.</p>
+</li>
+<li>
+<p>Hiệu năng tốt hơn bind mounts đối với các tác vụ I/O nặng.</p>
+</li>
+<li>
+<p>Dễ dàng back up và migrate.</p>
+</li>
+</ul>
+<h4 id="3-cu-phap-co-ban">3. Cú pháp cơ bản<a class="headerlink" href="#3-cu-phap-co-ban" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>&lt;volume-name&gt;:&lt;container-path&gt;<span class="w"> </span>&lt;image-name&gt;
+</code></pre></div>
+<ul>
+<li>
+<p><code>&lt;volume-name&gt;</code> → Tên của volume trên host.</p>
+</li>
+<li>
+<p><code>&lt;container-path&gt;</code> → Đường dẫn bên trong container nơi volume được mount.</p>
+</li>
+<li>
+<p><code>&lt;image-name&gt;</code> → Docker image sẽ sử dụng.</p>
+</li>
+</ul>
+<h4 id="4-vi-du">4. Ví dụ<a class="headerlink" href="#4-vi-du" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Tạo và sử dụng một volume</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>mydata:/app/data<span class="w"> </span>nginx
+</code></pre></div>
+<ul>
+<li>Sử dụng volume với đường dẫn cụ thể trong container</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>mydata:/var/lib/mysql<span class="w"> </span>mysql
+</code></pre></div>
+<ul>
+<li>Volume chỉ đọc (read-only)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>mydata:/app/data:ro<span class="w"> </span>nginx
+</code></pre></div>
+<h4 id="5-quan-ly-volumes">5. Quản lý Volumes<a class="headerlink" href="#5-quan-ly-volumes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Liệt kê tất cả volumes</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>volume<span class="w"> </span>ls
+</code></pre></div>
+<ul>
+<li>Kiểm tra chi tiết một volume</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>volume<span class="w"> </span>inspect<span class="w"> </span>&lt;volume-name&gt;
+</code></pre></div>
+<ul>
+<li>Xóa một volume</li>
+</ul>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>volume<span class="w"> </span>rm<span class="w"> </span>&lt;volume-name&gt;
+</code></pre></div>
+<h3 id="6-docker-compose-file-yaml-multi-container">6. Docker Compose - file YAML multi-container<a class="headerlink" href="#6-docker-compose-file-yaml-multi-container" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1400_ghi-chu-docker-compose-file-yaml-multi-container.jpg</code></p>
+</blockquote>
+<p>Docker Compose là một công cụ (tool) để định nghĩa và chạy các ứng dụng Docker multi-container bằng một file YAML duy nhất.</p>
+<h4 id="1-docker-compose-la-gi">1. Docker Compose là gì?<a class="headerlink" href="#1-docker-compose-la-gi" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Nó cho phép bạn cấu hình nhiều containers, networks, volumes và services trong một file duy nhất.</p>
+</li>
+<li>
+<p>Chỉ với một lệnh, bạn có thể tạo và khởi động tất cả các services cùng lúc.</p>
+</li>
+<li>
+<p>Rất phù hợp cho local development và testing.</p>
+</li>
+</ul>
+<h4 id="2-file-compose">2. File Compose<a class="headerlink" href="#2-file-compose" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Docker Compose sử dụng một file YAML tên là <code>docker-compose.yml</code> theo mặc định.</p>
+</li>
+<li>
+<p>Nó định nghĩa:</p>
+<ul>
+<li>
+<p><strong>services</strong> → Các containers cần chạy</p>
+</li>
+<li>
+<p><strong>images</strong> → Các Docker images sử dụng</p>
+</li>
+<li>
+<p><strong>ports</strong> → Port mapping</p>
+</li>
+<li>
+<p><strong>volumes</strong> → Lưu trữ dữ liệu lâu dài</p>
+</li>
+<li>
+<p><strong>networks</strong> → Giao tiếp giữa các containers</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Ví dụ (docker-compose.yml):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">'3'</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">web</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"8080:80"</span>
+<span class="w">  </span><span class="nt">db</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql:8</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span>
+</code></pre></div>
+<h4 id="3-cac-lenh-thuong-dung">3. Các lệnh thường dùng<a class="headerlink" href="#3-cac-lenh-thuong-dung" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>docker compose up</code> → Build (nếu cần) và khởi động services</p>
+</li>
+<li>
+<p><code>docker compose up -d</code> → Khởi động services ở chế độ detached (nền)</p>
+</li>
+<li>
+<p><code>docker compose down</code> → Dừng và xóa containers, networks và volumes</p>
+</li>
+<li>
+<p><code>docker compose ps</code> → Liệt kê các services đang chạy</p>
+</li>
+<li>
+<p><code>docker compose logs</code> → Xem logs của services</p>
+</li>
+<li>
+<p><code>docker compose build</code> → Build hoặc rebuild lại services</p>
+</li>
+</ul>
+<h4 id="4-vi-sao-nen-dung-docker-compose">4. Vì sao nên dùng Docker Compose?<a class="headerlink" href="#4-vi-sao-nen-dung-docker-compose" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Quản lý các ứng dụng multi-container một cách dễ dàng.</p>
+</li>
+<li>
+<p>Tiết kiệm thời gian nhờ chỉ dùng một file và các lệnh đơn giản.</p>
+</li>
+<li>
+<p>Đảm bảo tất cả services hoạt động cùng nhau một cách nhất quán.</p>
+</li>
+</ul>
+<h3 id="7-cac-use-case-pho-bien-cua-docker">7. Các Use Case phổ biến của Docker<a class="headerlink" href="#7-cac-use-case-pho-bien-cua-docker" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1401_cac-use-case-pho-bien-cua-docker-ban-trung.jpg</code></p>
+</blockquote>
+<p>Docker được sử dụng trong rất nhiều lĩnh vực. Dưới đây là một số use case phổ biến nhất:</p>
+<h4 id="1-moi-truong-development-nhat-quan">1. Môi trường Development nhất quán<a class="headerlink" href="#1-moi-truong-development-nhat-quan" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Docker đảm bảo ứng dụng của bạn chạy giống nhau trên máy của mọi developer.</p>
+</li>
+<li>
+<p>Không còn tình trạng "chạy được trên máy tôi" (works on my machine) nữa.</p>
+</li>
+</ul>
+<h4 id="2-deploy-ung-dung-de-dang">2. Deploy ứng dụng dễ dàng<a class="headerlink" href="#2-deploy-ung-dung-de-dang" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Đóng gói ứng dụng và toàn bộ dependencies vào một container.</p>
+</li>
+<li>
+<p>Deploy nhanh chóng lên bất kỳ server hay cloud platform nào.</p>
+</li>
+</ul>
+<h4 id="3-kien-truc-microservices">3. Kiến trúc Microservices<a class="headerlink" href="#3-kien-truc-microservices" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Chạy mỗi service trong container riêng của nó.</p>
+</li>
+<li>
+<p>Dễ dàng scale, update và quản lý từng service riêng lẻ.</p>
+</li>
+</ul>
+<h4 id="4-cicd-pipelines">4. CI/CD Pipelines<a class="headerlink" href="#4-cicd-pipelines" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Docker phù hợp hoàn hảo với các CI/CD workflows.</p>
+</li>
+<li>
+<p>Build, test và deploy ứng dụng nhanh hơn và đáng tin cậy hơn.</p>
+</li>
+</ul>
+<h4 id="5-testing-cach-ly">5. Testing cách ly<a class="headerlink" href="#5-testing-cach-ly" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Test ứng dụng của bạn trong một môi trường cách ly (isolated).</p>
+</li>
+<li>
+<p>Không xung đột với các project khác hay cấu hình hệ thống.</p>
+</li>
+</ul>
+<h4 id="6-ho-tro-ung-dung-legacy">6. Hỗ trợ ứng dụng Legacy<a class="headerlink" href="#6-ho-tro-ung-dung-legacy" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Chạy các ứng dụng cũ cùng dependencies của chúng mà không cần thay đổi host system.</p>
+</li>
+<li>
+<p>Giữ cho các hệ thống legacy vận hành trơn tru.</p>
+</li>
+</ul>
+<h4 id="7-portable-tren-moi-nen-tang">7. Portable trên mọi nền tảng<a class="headerlink" href="#7-portable-tren-moi-nen-tang" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Build một lần và chạy ở mọi nơi – laptop, server hay cloud.</p>
+</li>
+<li>
+<p>Hoạt động trên Windows, macOS và Linux.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

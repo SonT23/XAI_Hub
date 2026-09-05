@@ -1,0 +1,4003 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/deep-learning/vae/">
+      
+      
+        <link rel="prev" href="../autoencoder/">
+      
+      
+        <link rel="next" href="../latent-space/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Variational Autoencoder (VAE) - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#variational-autoencoder-vae" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Variational Autoencoder (VAE)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../toan/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lap-trinh/docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../toan/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/giai-tich/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-vi-sao-can-vae-van-e-cua-autoencoder-thuong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Vì sao cần VAE? Vấn đề của Autoencoder thường
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Vì sao cần VAE? Vấn đề của Autoencoder thường">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ba-van-e-cua-latent-space-trong-ae-thuong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ba vấn đề của Latent Space trong AE thường
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-y-tuong-cot-loi-cua-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Ý tưởng cốt lõi của VAE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Ý tưởng cốt lõi của VAE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goc-nhin-xac-suat-e-hieu-ten-goi-variational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Góc nhìn xác suất (để hiểu tên gọi "Variational")
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-de-hieu-tam-ban-o-va-vung-at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ dễ hiểu: tấm bản đồ và vùng đất
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-kien-truc-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kiến trúc chi tiết
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-reparameterization-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Reparameterization Trick
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Reparameterization Trick">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#van-e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vấn đề
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#giai-phap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Giải pháp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-so-cu-the-cua-reparameterization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ số cụ thể của Reparameterization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ham-mat-mat-cua-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Hàm mất mát của VAE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Hàm mất mát của VAE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thanh-phan-1-reconstruction-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thành phần 1 — Reconstruction Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thanh-phan-2-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thành phần 2 — KL Divergence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-tinh-tay-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ tính tay KL Divergence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ba-van-e-thuc-te-khi-dung-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Ba vấn đề thực tế khi dùng VAE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-so-sanh-autoencoder-va-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. So sánh Autoencoder và VAE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. So sánh Autoencoder và VAE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#khi-nao-dung-cai-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Khi nào dùng cái nào?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7b-ba-vi-du-truc-quan-chi-vae-lam-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7b. Ba ví dụ trực quan chỉ VAE làm được
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7b. Ba ví dụ trực quan chỉ VAE làm được">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-1-noi-suy-bien-so-3-thanh-so-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ 1 — Nội suy: biến số 3 thành số 8
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-2-sinh-anh-hoan-toan-moi-tu-con-so-khong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ 2 — Sinh ảnh hoàn toàn mới từ con số không
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-3-i-doc-mot-chieu-latent-vi-du-cua-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ 3 — Đi dọc một chiều latent (ví dụ của β-VAE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-code-minh-hoa-pytorch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Code minh họa (PyTorch)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-nguon-hoc-tu-co-ban-en-nang-cao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Nguồn học — từ cơ bản đến nâng cao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Nguồn học — từ cơ bản đến nâng cao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buoc-1-hieu-truc-quan-oc-truoc-tien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 1 — Hiểu trực quan (đọc trước tiên)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-2-video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 2 — Video
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-3-tai-lieu-hoc-thuat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 3 — Tài liệu học thuật
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-4-bai-bao-goc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 4 — Bài báo gốc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-5-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 5 — Thực hành
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ghi-chu-cua-minh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ghi chú của mình
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../latent-space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-deep-learning-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-deep-learning-nen-tang-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-nang-cao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-mang-chuoi-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-trees-heap-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-automation-best-practices-on-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-vi-sao-can-vae-van-e-cua-autoencoder-thuong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Vì sao cần VAE? Vấn đề của Autoencoder thường
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Vì sao cần VAE? Vấn đề của Autoencoder thường">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ba-van-e-cua-latent-space-trong-ae-thuong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ba vấn đề của Latent Space trong AE thường
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-y-tuong-cot-loi-cua-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Ý tưởng cốt lõi của VAE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Ý tưởng cốt lõi của VAE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goc-nhin-xac-suat-e-hieu-ten-goi-variational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Góc nhìn xác suất (để hiểu tên gọi "Variational")
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-de-hieu-tam-ban-o-va-vung-at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ dễ hiểu: tấm bản đồ và vùng đất
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-kien-truc-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kiến trúc chi tiết
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-reparameterization-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Reparameterization Trick
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Reparameterization Trick">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#van-e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vấn đề
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#giai-phap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Giải pháp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-so-cu-the-cua-reparameterization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ số cụ thể của Reparameterization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ham-mat-mat-cua-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Hàm mất mát của VAE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Hàm mất mát của VAE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thanh-phan-1-reconstruction-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thành phần 1 — Reconstruction Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thanh-phan-2-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thành phần 2 — KL Divergence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-tinh-tay-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ tính tay KL Divergence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ba-van-e-thuc-te-khi-dung-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Ba vấn đề thực tế khi dùng VAE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-so-sanh-autoencoder-va-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. So sánh Autoencoder và VAE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. So sánh Autoencoder và VAE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#khi-nao-dung-cai-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Khi nào dùng cái nào?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7b-ba-vi-du-truc-quan-chi-vae-lam-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7b. Ba ví dụ trực quan chỉ VAE làm được
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7b. Ba ví dụ trực quan chỉ VAE làm được">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-1-noi-suy-bien-so-3-thanh-so-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ 1 — Nội suy: biến số 3 thành số 8
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-2-sinh-anh-hoan-toan-moi-tu-con-so-khong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ 2 — Sinh ảnh hoàn toàn mới từ con số không
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-3-i-doc-mot-chieu-latent-vi-du-cua-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ 3 — Đi dọc một chiều latent (ví dụ của β-VAE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-code-minh-hoa-pytorch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Code minh họa (PyTorch)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-nguon-hoc-tu-co-ban-en-nang-cao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Nguồn học — từ cơ bản đến nâng cao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Nguồn học — từ cơ bản đến nâng cao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buoc-1-hieu-truc-quan-oc-truoc-tien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 1 — Hiểu trực quan (đọc trước tiên)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-2-video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 2 — Video
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-3-tai-lieu-hoc-thuat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 3 — Tài liệu học thuật
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-4-bai-bao-goc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 4 — Bài báo gốc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-5-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 5 — Thực hành
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ghi-chu-cua-minh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ghi chú của mình
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="variational-autoencoder-vae">Variational Autoencoder (VAE)<a class="headerlink" href="#variational-autoencoder-vae" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🎓 <strong>NCKH</strong> / <strong>Deep Learning</strong> / <a href="../autoencoder/">Autoencoder</a> / <strong>Variational Autoencoder</strong></p>
+<p>📌 <strong>Nền tảng cần có trước:</strong> <strong>Autoencoder</strong> · <strong>Hàm mất mát Loss Function của Autoencoder</strong> · <a href="../latent-space/">Latent Space (Không gian tiềm ẩn)</a> · khái niệm <strong>KL Divergence</strong> trong bảng Thuật ngữ.</p>
+</blockquote>
+<hr />
+<h2 id="1-vi-sao-can-vae-van-e-cua-autoencoder-thuong">1. Vì sao cần VAE? Vấn đề của Autoencoder thường<a class="headerlink" href="#1-vi-sao-can-vae-van-e-cua-autoencoder-thuong" title="Permanent link">&para;</a></h2>
+<p>Autoencoder thường học rất tốt việc <strong>nén và tái tạo</strong>. Nhưng nếu bạn thử lấy một điểm ngẫu nhiên trong Latent Space rồi đưa qua Decoder, kết quả thường là <strong>một mớ vô nghĩa</strong>. Vì sao?</p>
+<h3 id="ba-van-e-cua-latent-space-trong-ae-thuong">Ba vấn đề của Latent Space trong AE thường<a class="headerlink" href="#ba-van-e-cua-latent-space-trong-ae-thuong" title="Permanent link">&para;</a></h3>
+<p><strong>1. Không liên tục (discontinuous).</strong> AE ánh xạ mỗi ảnh thành <strong>một điểm cố định</strong>. Không có gì bắt buộc các điểm phải nằm gần nhau hay lấp đầy không gian. Kết quả: Latent Space đầy <strong>"lỗ hổng"</strong> — những vùng mà Decoder chưa từng thấy trong lúc huấn luyện.</p>
+<p><strong>2. Không có cấu trúc.</strong> Hai ảnh giống nhau có thể bị ánh xạ tới hai điểm rất xa nhau. Không có ràng buộc nào về khoảng cách.</p>
+<p><strong>3. Không nội suy được.</strong> Lấy trung điểm giữa vector của ảnh số 3 và ảnh số 8, đưa qua Decoder — bạn không nhận được thứ gì "ở giữa 3 và 8", mà thường là nhiễu.</p>
+<blockquote>
+<p>💡 <strong>Ý tưởng giải quyết:</strong> thay vì ánh xạ mỗi ảnh thành <strong>một điểm</strong>, hãy ánh xạ nó thành <strong>một vùng</strong> — cụ thể là một <strong>phân phối xác suất</strong>. Khi mỗi ảnh chiếm một vùng và các vùng chồng lấn nhau, Latent Space trở nên <strong>liên tục và lấp đầy</strong>, không còn lỗ hổng.</p>
+</blockquote>
+<hr />
+<h2 id="2-y-tuong-cot-loi-cua-vae">2. Ý tưởng cốt lõi của VAE<a class="headerlink" href="#2-y-tuong-cot-loi-cua-vae" title="Permanent link">&para;</a></h2>
+<p>VAE do <strong>Kingma &amp; Welling</strong> đề xuất năm 2013. Điểm khác biệt căn bản: VAE là <strong>mô hình xác suất (probabilistic)</strong>, không phải mô hình xác định (deterministic) như AE thường.</p>
+<p><strong>Encoder của AE:</strong> ảnh x → vector z (một điểm)</p>
+<p><strong>Encoder của VAE:</strong> ảnh x → <strong>hai vector μ và σ</strong>, mô tả một phân phối chuẩn <span class="arithmatex">\(N(\mu, \sigma^2)\)</span></p>
+<p>Sau đó, một điểm z được <strong>lấy mẫu ngẫu nhiên</strong> từ phân phối đó rồi đưa vào Decoder.</p>
+<blockquote>
+<p>🎲 <strong>Hệ quả quan trọng:</strong> cùng một ảnh đầu vào, mỗi lần chạy sẽ cho z <strong>khác nhau một chút</strong>. Decoder buộc phải học cách tái tạo đúng ảnh đó từ <strong>cả một vùng</strong> trong Latent Space, chứ không phải từ đúng một điểm. Đây chính là cơ chế làm cho không gian trở nên liên tục.</p>
+</blockquote>
+<h3 id="goc-nhin-xac-suat-e-hieu-ten-goi-variational">Góc nhìn xác suất (để hiểu tên gọi "Variational")<a class="headerlink" href="#goc-nhin-xac-suat-e-hieu-ten-goi-variational" title="Permanent link">&para;</a></h3>
+<p>Mục tiêu thật sự của VAE là học phân phối dữ liệu <span class="arithmatex">\(p(x)\)</span>. Theo quy tắc xác suất:</p>
+<div class="arithmatex">\[p(x) = \int p(x|z) \, p(z) \, dz\]</div>
+<p>Tích phân này <strong>không tính được</strong> trong thực tế (intractable) vì phải duyệt qua mọi giá trị z có thể. Tương tự, hậu nghiệm <span class="arithmatex">\(p(z|x)\)</span> cũng không tính được.</p>
+<p><strong>Giải pháp — suy luận biến phân (variational inference):</strong> dùng một phân phối đơn giản <span class="arithmatex">\(q_\phi(z|x)\)</span> do Encoder học ra để <strong>xấp xỉ</strong> <span class="arithmatex">\(p(z|x)\)</span>. Chữ <strong>"Variational"</strong> trong tên VAE đến từ đây.</p>
+<h3 id="vi-du-de-hieu-tam-ban-o-va-vung-at">Ví dụ dễ hiểu: tấm bản đồ và vùng đất<a class="headerlink" href="#vi-du-de-hieu-tam-ban-o-va-vung-at" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🗺️ Hãy coi Latent Space là một <strong>tấm bản đồ</strong>.
+<strong>Autoencoder thường</strong> đóng cho mỗi bức ảnh một <strong>cái đinh ghăm</strong> tại một tọa độ chính xác. Giữa các cái đinh là <strong>biển khơi trống rỗng</strong> — Decoder chưa bao giờ đặt chân tới đó, nên hỏi nó "chỗ này có gì?" thì nó trả về nhiễu.</p>
+<p><strong>VAE</strong> thay mỗi cái đinh bằng một <strong>vệt mực loang</strong>: tâm vệt là <span class="arithmatex">\(\mu\)</span>, bán kính loang là <span class="arithmatex">\(\sigma\)</span>. Huấn luyện xong, các vệt mực <strong>chồng mép lên nhau</strong> và phủ kín tấm bản đồ. Giờ chọc vào <strong>bất kỳ điểm nào</strong>, Decoder đều trả về một bức ảnh có nghĩa.
+</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Ảnh đầu vào</th>
+<th>AE trả về</th>
+<th>VAE trả về</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số "3" viết rất rõ</td>
+<td>z = [1.2, −0.5]</td>
+<td>μ = [1.2, −0.5], σ = [<strong>0.1</strong>, <strong>0.1</strong>]</td>
+<td>Vệt mực <strong>nhỏ</strong> — mô hình rất chắc chắn</td>
+</tr>
+<tr>
+<td>Số "3" viết nguyệch ngoạc, giống "8"</td>
+<td>z = [0.4, 0.9]</td>
+<td>μ = [0.4, 0.9], σ = [<strong>0.9</strong>, <strong>1.1</strong>]</td>
+<td>Vệt mực <strong>to</strong> — mô hình tự nói "tôi không chắc"</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 Đây là điểm AE <strong>không bao giờ</strong> làm được: VAE không chỉ nói <strong>"ảnh này nằm ở đâu"</strong> mà còn nói <strong>"tôi chắc chắn tới mức nào"</strong> — tức là mô hình hóa được <strong>độ bất định (uncertainty)</strong>. Trong hướng XAI của bạn, đây là một tính chất rất đáng giá: nó liên quan trực tiếp tới nguyên tắc <strong>Knowledge Limits</strong> của NIST — mô hình biết khi nào mình không biết.</p>
+</blockquote>
+<hr />
+<h2 id="3-kien-truc-chi-tiet">3. Kiến trúc chi tiết<a class="headerlink" href="#3-kien-truc-chi-tiet" title="Permanent link">&para;</a></h2>
+<p>Luồng dữ liệu đi qua 5 bước:</p>
+<p><strong>Bước 1 — Encoder.</strong> Ảnh x đi qua mạng nơ-ron, cho ra <strong>hai vector cùng kích thước</strong>: <code>mu</code> (trung bình) và <code>logvar</code> (log của phương sai).</p>
+<p><strong>Bước 2 — Lấy mẫu.</strong> Từ <span class="arithmatex">\(N(\mu, \sigma^2)\)</span> lấy ra một điểm z.</p>
+<p><strong>Bước 3 — Decoder.</strong> z đi qua mạng giải mã, cho ra ảnh tái tạo x̂.</p>
+<p><strong>Bước 4 — Tính Loss.</strong> Gồm hai thành phần (mục 5).</p>
+<p><strong>Bước 5 — Backpropagation.</strong> Cập nhật trọng số của cả Encoder lẫn Decoder.</p>
+<blockquote>
+<p>⚠️ <strong>Vì sao Encoder xuất ra </strong><code>logvar</code><strong> chứ không phải </strong><code>σ</code><strong> trực tiếp?</strong>
+Vì phương sai <strong>bắt buộc phải dương</strong>, mà đầu ra của mạng nơ-ron thì có thể âm. Nếu để mạng xuất ra <span class="arithmatex">\(\log \sigma^2\)</span> (nhận giá trị âm thoải mái) rồi tính <span class="arithmatex">\(\sigma = \exp(\frac{1}{2}\log\sigma^2)\)</span> thì luôn được số dương. Đây là <strong>mẹo kỹ thuật bắt buộc phải biết khi đọc code VAE</strong>.
+</p>
+</blockquote>
+<hr />
+<h2 id="4-reparameterization-trick">4. Reparameterization Trick<a class="headerlink" href="#4-reparameterization-trick" title="Permanent link">&para;</a></h2>
+<p>Đây là <strong>đóng góp kỹ thuật quan trọng nhất</strong> của bài báo gốc.</p>
+<h3 id="van-e">Vấn đề<a class="headerlink" href="#van-e" title="Permanent link">&para;</a></h3>
+<p>Phép <strong>lấy mẫu ngẫu nhiên là một thao tác không khả vi (non-differentiable)</strong>. Gradient không thể chảy ngược qua nó. Nghĩa là ta không thể huấn luyện Encoder bằng backpropagation — mô hình bị "đứt" ngay giữa.</p>
+<h3 id="giai-phap">Giải pháp<a class="headerlink" href="#giai-phap" title="Permanent link">&para;</a></h3>
+<p>Tách phần ngẫu nhiên ra khỏi đường đi của gradient. Thay vì lấy mẫu trực tiếp <span class="arithmatex">\(z \sim N(\mu, \sigma^2)\)</span>, ta viết lại thành:</p>
+<div class="arithmatex">\[z = \mu + \sigma \odot \epsilon, \quad \text{với } \epsilon \sim N(0, I)\]</div>
+<p>Trong đó <span class="arithmatex">\(\odot\)</span> là phép nhân từng phần tử.</p>
+<blockquote>
+<p>🔑 <strong>Vì sao mẹo này hiệu quả:</strong> phần ngẫu nhiên giờ nằm ở <span class="arithmatex">\(\epsilon\)</span> — một <strong>hằng số được lấy mẫu từ bên ngoài</strong>, không phụ thuộc tham số mô hình. Còn <span class="arithmatex">\(\mu\)</span> và <span class="arithmatex">\(\sigma\)</span> tham gia vào z bằng <strong>phép cộng và phép nhân thông thường</strong> — hoàn toàn khả vi. Gradient chảy ngược qua chúng bình thường.
+Hình dung: thay vì "rút ngẫu nhiên từ một cái hộp do mô hình tạo ra", ta "rút ngẫu nhiên từ một cái hộp chuẩn cố định, rồi mô hình co giãn và dịch chuyển kết quả".
+</p>
+</blockquote>
+<h3 id="vi-du-so-cu-the-cua-reparameterization">Ví dụ số cụ thể của Reparameterization<a class="headerlink" href="#vi-du-so-cu-the-cua-reparameterization" title="Permanent link">&para;</a></h3>
+<p>Giả sử latent chỉ có <strong>2 chiều</strong>. Với một ảnh, Encoder xuất ra:</p>
+<div class="arithmatex">\[\mu = [\,1.2,\; -0.5\,], \qquad \sigma = [\,0.3,\; 0.8\,]\]</div>
+<p>Mỗi lần chạy, máy rút một <span class="arithmatex">\(\epsilon\)</span> mới từ <span class="arithmatex">\(N(0, I)\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th>Lần chạy</th>
+<th><span class="arithmatex">\(\epsilon\)</span> rút được</th>
+<th>Tính <span class="arithmatex">\(z = \mu + \sigma \odot \epsilon\)</span></th>
+<th>Kết quả z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>[0.5, −1.0]</td>
+<td>[1.2 + 0.3(0.5), −0.5 + 0.8(−1.0)]</td>
+<td><strong>[1.35, −1.30]</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>[−1.2, 0.4]</td>
+<td>[1.2 + 0.3(−1.2), −0.5 + 0.8(0.4)]</td>
+<td><strong>[0.84, −0.18]</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>[0.0, 0.0]</td>
+<td>[1.2 + 0, −0.5 + 0]</td>
+<td><strong>[1.20, −0.50]</strong> = đúng tâm μ</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🔍 <strong>Ba điều nhìn ra ngay từ bảng:</strong>
+1. Cùng một ảnh nhưng <strong>z mỗi lần một khác</strong> — Decoder buộc phải trả về đúng ảnh đó từ <strong>cả một vùng</strong>, chứ không phải từ một điểm.</p>
+<ol>
+<li>
+<p>Chiều thứ hai (<span class="arithmatex">\(\sigma = 0.8\)</span>) <strong>dao động mạnh hơn</strong> chiều thứ nhất (<span class="arithmatex">\(\sigma = 0.3\)</span>) — đúng như ý nghĩa của σ.</p>
+</li>
+<li>
+<p>Phần ngẫu nhiên nằm <strong>toàn bộ ở </strong><span class="arithmatex">\(\epsilon\)</span>. Với máy tính, khi đã rút xong <span class="arithmatex">\(\epsilon = 0.5\)</span> thì phép <code>1.2 + 0.3*0.5</code> chỉ là <strong>cộng và nhân bình thường</strong> — đạo hàm theo μ và σ tính được dễ dàng. Đó chính là toàn bộ phép màu của mẹo này.
+</p>
+</li>
+</ol>
+<p>🎰 <strong>Liên tưởng:</strong> tưởng tượng bạn cần một số ngẫu nhiên "quanh 1.2, lệch khoảng 0.3".
+<strong>Cách sai (không khả vi):</strong> đặt làm một con xúc xắc đặc biệt có sẵn hai thông số đó, rồi tung. Bạn không thể hỏi "nếu đổi 1.2 thành 1.3 thì kết quả đổi bao nhiêu" — vì phải đi đúc lại xúc xắc.</p>
+<p><strong>Cách đúng (khả vi):</strong> tung một con xúc xắc <strong>chuẩn, cố định</strong> ra <span class="arithmatex">\(\epsilon\)</span>, rồi tự tay tính <code>1.2 + 0.3*</code><span class="arithmatex">\(\epsilon\)</span>. Giờ thì câu hỏi trên trả lời được ngay.
+</p>
+</blockquote>
+<hr />
+<h2 id="5-ham-mat-mat-cua-vae">5. Hàm mất mát của VAE<a class="headerlink" href="#5-ham-mat-mat-cua-vae" title="Permanent link">&para;</a></h2>
+<p>Loss gồm <strong>hai thành phần đối kháng nhau</strong>:</p>
+<div class="arithmatex">\[\mathcal{L} = \underbrace{\mathbb{E}_{q(z|x)}[\log p(x|z)]}_{\text{Reconstruction Loss}} - \underbrace{D_{KL}(q(z|x) \, \| \, p(z))}_{\text{Regularization}}\]</div>
+<p>Biểu thức này gọi là <strong>ELBO (Evidence Lower Bound)</strong> — cận dưới của log-likelihood. Huấn luyện VAE chính là <strong>cực đại hóa ELBO</strong>, tương đương cực tiểu hóa giá trị âm của nó.</p>
+<h3 id="thanh-phan-1-reconstruction-loss">Thành phần 1 — Reconstruction Loss<a class="headerlink" href="#thanh-phan-1-reconstruction-loss" title="Permanent link">&para;</a></h3>
+<p>Giống hệt Autoencoder thường: đo độ giống giữa ảnh gốc và ảnh tái tạo. Dùng <strong>MSE</strong> cho dữ liệu liên tục, <strong>Binary Cross-Entropy</strong> cho dữ liệu đã chuẩn hóa về [0,1].</p>
+<p><strong>Vai trò:</strong> ép mô hình tái tạo cho đúng.</p>
+<h3 id="thanh-phan-2-kl-divergence">Thành phần 2 — KL Divergence<a class="headerlink" href="#thanh-phan-2-kl-divergence" title="Permanent link">&para;</a></h3>
+<p>Đo độ lệch giữa phân phối latent mà Encoder học được và <strong>phân phối tiên nghiệm chuẩn</strong> <span class="arithmatex">\(N(0, I)\)</span>.</p>
+<p>Với hai phân phối Gaussian, KL có <strong>dạng đóng (closed form)</strong> rất gọn:</p>
+<div class="arithmatex">\[D_{KL} = -\frac{1}{2} \sum_{j=1}^{J} \left( 1 + \log \sigma_j^2 - \mu_j^2 - \sigma_j^2 \right)\]</div>
+<p><strong>Vai trò:</strong> ép mọi phân phối latent <strong>tiến về gốc tọa độ và có phương sai gần 1</strong>. Điều này khiến các vùng chồng lấn nhau, lấp đầy không gian, và <strong>loại bỏ lỗ hổng</strong>.</p>
+<blockquote>
+<p>⚖️ <strong>Sự căng thẳng giữa hai thành phần — điểm cốt lõi phải hiểu:</strong>
+<strong>Reconstruction Loss</strong> muốn mỗi ảnh có một vùng latent <strong>riêng biệt, tách xa nhau</strong> để tái tạo cho chính xác.</p>
+<p><strong>KL Divergence</strong> muốn mọi vùng <strong>dồn về giữa và chồng lên nhau</strong> để không gian liên tục.</p>
+<p>Nếu chỉ có Reconstruction → quay về AE thường, latent space có lỗ hổng.</p>
+<p>Nếu KL quá mạnh → mọi ảnh dồn về cùng một chỗ, Decoder không phân biệt được gì (hiện tượng <strong>posterior collapse</strong>).</p>
+<p><strong>Huấn luyện VAE tốt = cân bằng được hai lực này.</strong>
+</p>
+</blockquote>
+<h3 id="vi-du-tinh-tay-kl-divergence">Ví dụ tính tay KL Divergence<a class="headerlink" href="#vi-du-tinh-tay-kl-divergence" title="Permanent link">&para;</a></h3>
+<p>Công thức dạng đóng ở trên trông đáng sợ, nhưng chỉ cần <strong>thế số vào một chiều latent</strong> là hiểu ngay nó đang phạt cái gì:</p>
+<table>
+<thead>
+<tr>
+<th>μ</th>
+<th>σ</th>
+<th>KL</th>
+<th>Mô hình đang làm gì — và bị phạt vì sao</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+<td>Đúng hệt <span class="arithmatex">\(N(0,1)\)</span> → <strong>không bị phạt gì cả</strong></td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>1</td>
+<td><strong>12.50</strong></td>
+<td>Trốn ra xa gốc tọa độ để khỏi chồng lấn ảnh khác → phạt <strong>rất nặng</strong></td>
+</tr>
+<tr>
+<td>0</td>
+<td><strong>0.1</strong></td>
+<td><strong>1.81</strong></td>
+<td>Thu vệt mực thật nhỏ để tái tạo cho sắc nét (hành vi của AE thường) → bị phạt</td>
+</tr>
+<tr>
+<td>0</td>
+<td><strong>3.0</strong></td>
+<td><strong>2.90</strong></td>
+<td>Vệt mực loang quá rộng, nuốt cả ảnh khác → cũng bị phạt</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚖️ <strong>Đây chính là "sự căng thẳng" ở trên, nhưng nhìn bằng số:</strong>
+Reconstruction Loss luôn muốn đẩy mô hình về hàng <strong>μ = 5</strong> (tách xa nhau) hoặc <strong>σ = 0.1</strong> (thật gọn) — vì như vậy tái tạo sẽ chính xác nhất.</p>
+<p>KL thì phạt đúng hai hành vi đó (12.50 và 1.81) để kéo mọi thứ về hàng đầu — nơi KL = 0.</p>
+<p><strong>Điểm tối ưu thực tế nằm ở đâu đó giữa</strong> — đó là lý do huấn luyện VAE khó hơn AE.
+</p>
+</blockquote>
+<hr />
+<h2 id="6-ba-van-e-thuc-te-khi-dung-vae">6. Ba vấn đề thực tế khi dùng VAE<a class="headerlink" href="#6-ba-van-e-thuc-te-khi-dung-vae" title="Permanent link">&para;</a></h2>
+<p><strong>Ảnh sinh ra bị mờ (blurry).</strong> Đây là nhược điểm nổi tiếng nhất của VAE. Nguyên nhân: Reconstruction Loss dạng MSE khiến mô hình có xu hướng <strong>xuất ra trung bình của nhiều khả năng</strong> thay vì chọn dứt khoát một khả năng. Đây là lý do GAN và Diffusion Model cho ảnh sắc nét hơn VAE.</p>
+<p><strong>Posterior collapse.</strong> Khi Decoder quá mạnh, nó có thể bỏ qua z hoàn toàn và tự sinh ảnh. Lúc đó KL bị đẩy về 0, latent space <strong>mất hết thông tin</strong>. Cách khắc phục thường dùng: <strong>KL annealing</strong> — cho trọng số KL tăng dần từ 0 trong các epoch đầu.</p>
+<p><strong>Cân bằng hai thành phần.</strong> Dẫn tới biến thể <strong>β-VAE</strong> (Higgins et al., 2017): thêm hệ số β vào trước KL. β &gt; 1 ép latent space <strong>phân tách (disentangled)</strong> hơn — mỗi chiều mang một ý nghĩa riêng — nhưng đánh đổi bằng chất lượng tái tạo.</p>
+<blockquote>
+<p>🔗 <strong>β-VAE chính là cầu nối giữa Autoencoder và đề tài CBM của bạn:</strong> nếu mỗi chiều latent mang một ý nghĩa độc lập, đó chính là <strong>khái niệm không cần nhãn</strong>. Xem <a href="https://openreview.net/forum?id=Sy2fzU9gl">beta-VAE: Learning Basic Visual Concepts with a Constrained VAE</a> trong Thư viện bài báo.</p>
+</blockquote>
+<hr />
+<h2 id="7-so-sanh-autoencoder-va-vae">7. So sánh Autoencoder và VAE<a class="headerlink" href="#7-so-sanh-autoencoder-va-vae" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tiêu chí</th>
+<th>Autoencoder (AE)</th>
+<th>Variational Autoencoder (VAE)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bản chất</td>
+<td>Xác định (deterministic)</td>
+<td>Xác suất (probabilistic)</td>
+</tr>
+<tr>
+<td>Encoder xuất ra</td>
+<td>Một vector z duy nhất</td>
+<td>Hai vector μ và σ (một phân phối)</td>
+</tr>
+<tr>
+<td>Cùng input, chạy 2 lần</td>
+<td>Cho kết quả giống hệt nhau</td>
+<td>Cho kết quả khác nhau (do lấy mẫu)</td>
+</tr>
+<tr>
+<td>Hàm mất mát</td>
+<td>Chỉ Reconstruction Loss</td>
+<td>Reconstruction Loss + KL Divergence</td>
+</tr>
+<tr>
+<td>Latent Space</td>
+<td>Rời rạc, có lỗ hổng, không có cấu trúc</td>
+<td>Liên tục, lấp đầy, có cấu trúc quanh gốc</td>
+</tr>
+<tr>
+<td>Nội suy giữa 2 điểm</td>
+<td>Thường ra nhiễu vô nghĩa</td>
+<td>Ra kết quả trung gian có nghĩa, chuyển mượt</td>
+</tr>
+<tr>
+<td>Sinh dữ liệu mới</td>
+<td>Không (lấy z ngẫu nhiên ra rác)</td>
+<td>Có — đây là mục đích chính</td>
+</tr>
+<tr>
+<td>Là mô hình sinh?</td>
+<td>Không</td>
+<td>Có (generative model)</td>
+</tr>
+<tr>
+<td>Chất lượng tái tạo</td>
+<td>Sắc nét hơn</td>
+<td>Mờ hơn (do Loss trung bình hóa)</td>
+</tr>
+<tr>
+<td>Độ khó huấn luyện</td>
+<td>Đơn giản, ổn định</td>
+<td>Khó hơn: cân bằng KL, tránh posterior collapse</td>
+</tr>
+<tr>
+<td>Nền tảng toán học</td>
+<td>Tối ưu hóa thuần túy</td>
+<td>Suy luận biến phân, Bayes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="khi-nao-dung-cai-nao">Khi nào dùng cái nào?<a class="headerlink" href="#khi-nao-dung-cai-nao" title="Permanent link">&para;</a></h3>
+<p><strong>Dùng AE khi:</strong> giảm chiều dữ liệu, khử nhiễu, phát hiện bất thường, trích xuất đặc trưng để đưa vào mô hình khác. Nói chung — khi bạn chỉ cần <strong>nén và tái tạo</strong>.</p>
+<p><strong>Dùng VAE khi:</strong> cần <strong>sinh dữ liệu mới</strong>, cần <strong>nội suy mượt</strong> giữa các mẫu, cần latent space <strong>có cấu trúc và diễn giải được</strong>, hoặc cần mô hình hóa <strong>độ bất định</strong> của biểu diễn.</p>
+<blockquote>
+<p>🎯 <strong>Câu trả lời gọn nếu thầy hỏi:</strong> <em>"AE học cách nén một điểm thành một điểm. VAE học cách nén một điểm thành một phân phối. Chính sự thay đổi đó — cộng với ràng buộc KL — biến một mạng nén dữ liệu thành một mô hình sinh."</em></p>
+</blockquote>
+<hr />
+<h2 id="7b-ba-vi-du-truc-quan-chi-vae-lam-uoc">7b. Ba ví dụ trực quan chỉ VAE làm được<a class="headerlink" href="#7b-ba-vi-du-truc-quan-chi-vae-lam-uoc" title="Permanent link">&para;</a></h2>
+<p>Bảng so sánh ở mục 7 liệt kê sự khác biệt. Ba ví dụ dưới đây cho bạn <strong>nhìn thấy</strong> sự khác biệt đó — và đều chạy được trong một buổi.</p>
+<h3 id="vi-du-1-noi-suy-bien-so-3-thanh-so-8">Ví dụ 1 — Nội suy: biến số 3 thành số 8<a class="headerlink" href="#vi-du-1-noi-suy-bien-so-3-thanh-so-8" title="Permanent link">&para;</a></h3>
+<p>Lấy ảnh một số <strong>3</strong> và một số <strong>8</strong>, mã hóa thành <span class="arithmatex">\(z_3\)</span> và <span class="arithmatex">\(z_8\)</span>, rồi đi dần từ điểm này sang điểm kia:</p>
+<div class="arithmatex">\[z_{\alpha} = (1-\alpha)\, z_3 + \alpha\, z_8, \qquad \alpha = 0,\; 0.25,\; 0.5,\; 0.75,\; 1\]</div>
+<table>
+<thead>
+<tr>
+<th>α</th>
+<th>AE thường cho ra</th>
+<th>VAE cho ra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.00</td>
+<td>Số 3 rõ ràng</td>
+<td>Số 3 rõ ràng</td>
+</tr>
+<tr>
+<td>0.25</td>
+<td>Số 3 bắt đầu vỡ ra, lấm tấm</td>
+<td>Số 3 hơi đóng nét tròn bên trái</td>
+</tr>
+<tr>
+<td>0.50</td>
+<td><strong>Một mảng nhiễu</strong>, không ra chữ số nào</td>
+<td><strong>Một ký tự lai 3–8</strong> — vẫn trông như chữ viết tay</td>
+</tr>
+<tr>
+<td>0.75</td>
+<td>Nhiễu mờ</td>
+<td>Gần thành số 8, vòng trên chưa kín hẳn</td>
+</tr>
+<tr>
+<td>1.00</td>
+<td>Số 8 rõ ràng</td>
+<td>Số 8 rõ ràng</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🔎 <strong>Ô α = 0.50 là ô quan trọng nhất của cả bảng.</strong> Đó chính là <strong>cái "lỗ hổng"</strong> đã nói ở mục 1 — AE chưa từng được huấn luyện ở vùng đó nên trả về rác; còn KL Divergence của VAE đã <strong>ép các vệt mực chồng lấn</strong>, nên vùng đó vẫn nằm trong phạm vi mà Decoder biết.</p>
+</blockquote>
+<h3 id="vi-du-2-sinh-anh-hoan-toan-moi-tu-con-so-khong">Ví dụ 2 — Sinh ảnh hoàn toàn mới từ con số không<a class="headerlink" href="#vi-du-2-sinh-anh-hoan-toan-moi-tu-con-so-khong" title="Permanent link">&para;</a></h3>
+<p>Không cần ảnh đầu vào nào cả — <strong>vứt luôn Encoder đi</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>        <span class="c1"># 16 điểm ngẫu nhiên từ N(0, I)</span>
+<span class="n">imgs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>         <span class="c1"># -&gt; 16 chữ số viết tay CHƯA TẮNG TỒN TẠI</span>
+</code></pre></div>
+<blockquote>
+<p>✨ Đoạn code này chạy được <strong>chính xác vì KL đã ép latent về </strong><span class="arithmatex">\(N(0,I)\)</span>. Ta biết chắc ở đâu trong không gian thì có dữ liệu, nên lấy mẫu đúng chỗ đó.
+Chạy đúng hai dòng này với một <strong>AE thường</strong> thì sẽ ra 16 mảng nhiễu — vì không ai biết latent của AE phân bố ở đâu.</p>
+<p><strong>Đây là câu trả lời ngắn nhất cho câu hỏi "VAE hơn AE chỗ nào": đúng hai dòng code này.</strong>
+</p>
+</blockquote>
+<h3 id="vi-du-3-i-doc-mot-chieu-latent-vi-du-cua-vae">Ví dụ 3 — Đi dọc một chiều latent (ví dụ của β-VAE)<a class="headerlink" href="#vi-du-3-i-doc-mot-chieu-latent-vi-du-cua-vae" title="Permanent link">&para;</a></h3>
+<p>Giữ nguyên toàn bộ vectơ z, chỉ <strong>kéo một chiều duy nhất</strong> từ −3 đến +3 rồi xem ảnh đổi thế nào:</p>
+<table>
+<thead>
+<tr>
+<th>Chiều bị kéo</th>
+<th>Ảnh thay đổi ra sao (trên khuôn mặt CelebA)</th>
+<th>Diễn giải</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(z_4\)</span></td>
+<td>Mặt xoay dần từ trái sang phải</td>
+<td>Chiều này đã học được khái niệm <strong>"góc quay"</strong></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(z_{11}\)</span></td>
+<td>Miệng chuyển từ mím sang cười</td>
+<td>Khái niệm <strong>"nụ cười"</strong></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(z_{17}\)</span></td>
+<td>Tóc dài dần ra</td>
+<td>Khái niệm <strong>"độ dài tóc"</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🔗 <strong>Đây chính là cầu nối trực tiếp tới đề tài NCKH của bạn.</strong> Mỗi chiều latent mang đúng <strong>một khái niệm con người đọc được</strong> — nhưng <strong>không ai gán nhãn cho chúng cả</strong>, chúng tự nổi lên từ ràng buộc β·KL. Đó là <strong>disentanglement</strong>.
+Đặt cạnh <strong>CBM</strong> — vốn bắt buộc phải có nhãn khái niệm do người gán — thì đây là <strong>hướng đối lập</strong>, và khoảng trống giữa hai hướng chính là chỗ có thể đặt câu hỏi nghiên cứu: <em>làm sao có khái niệm diễn giải được mà không cần nhãn thủ công?</em>
+</p>
+<p>🧪 <strong>Bài thực hành đáng làm nhất (1 buổi):</strong> huấn luyện <strong>một AE</strong> và <strong>một VAE</strong> trên MNIST với <code>latent_dim = 2</code>, rồi vẽ toàn bộ tập test lên mặt phẳng, tô màu theo chữ số.
+Bạn sẽ thấy: <strong>AE</strong> cho các cụm rời rạc, tản mát, giữa chúng là khoảng trống. <strong>VAE</strong> cho một đám mây tròn đặc quanh gốc tọa độ, các cụm tiếp giáp nhau.</p>
+<p>Sau đó lấy một lưới đều 20×20 điểm trên mặt phẳng đó và giải mã hết — <strong>một tấm poster 400 chữ số</strong> cho bạn thấy toàn bộ không gian trên một bức ảnh. Đây là hình minh họa tốt nhất để đưa vào báo cáo.
+</p>
+</blockquote>
+<hr />
+<h2 id="8-code-minh-hoa-pytorch">8. Code minh họa (PyTorch)<a class="headerlink" href="#8-code-minh-hoa-pytorch" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">VAE</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">784</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">latent_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># Encoder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc_mu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">latent_dim</span><span class="p">)</span>      <span class="c1"># trung bình</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc_logvar</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">latent_dim</span><span class="p">)</span>  <span class="c1"># log phương sai</span>
+        <span class="c1"># Decoder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">latent_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc4</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_mu</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_logvar</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">reparameterize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">logvar</span><span class="p">):</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">logvar</span><span class="p">)</span>   <span class="c1"># sigma = exp(0.5 * log sigma^2)</span>
+        <span class="n">eps</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn_like</span><span class="p">(</span><span class="n">std</span><span class="p">)</span>     <span class="c1"># epsilon ~ N(0, I)</span>
+        <span class="k">return</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">eps</span> <span class="o">*</span> <span class="n">std</span>           <span class="c1"># z = mu + sigma * epsilon</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc4</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">mu</span><span class="p">,</span> <span class="n">logvar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reparameterize</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">logvar</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="n">mu</span><span class="p">,</span> <span class="n">logvar</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">vae_loss</span><span class="p">(</span><span class="n">recon_x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">logvar</span><span class="p">):</span>
+    <span class="c1"># Thanh phan 1: Reconstruction Loss</span>
+    <span class="n">recon</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">binary_cross_entropy</span><span class="p">(</span><span class="n">recon_x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">'sum'</span><span class="p">)</span>
+    <span class="c1"># Thanh phan 2: KL Divergence (dang dong cho Gaussian)</span>
+    <span class="n">kld</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">logvar</span> <span class="o">-</span> <span class="n">mu</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">logvar</span><span class="o">.</span><span class="n">exp</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">recon</span> <span class="o">+</span> <span class="n">kld</span>
+</code></pre></div>
+<blockquote>
+<p>👀 Đọc kỹ hàm <code>reparameterize</code> và dòng tính <code>kld</code> — hai dòng đó chính là <strong>toàn bộ sự khác biệt về code</strong> giữa VAE và một Autoencoder thường.</p>
+</blockquote>
+<hr />
+<h2 id="9-nguon-hoc-tu-co-ban-en-nang-cao">9. Nguồn học — từ cơ bản đến nâng cao<a class="headerlink" href="#9-nguon-hoc-tu-co-ban-en-nang-cao" title="Permanent link">&para;</a></h2>
+<h3 id="buoc-1-hieu-truc-quan-oc-truoc-tien">Bước 1 — Hiểu trực quan (đọc trước tiên)<a class="headerlink" href="#buoc-1-hieu-truc-quan-oc-truoc-tien" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="https://lilianweng.github.io/posts/2018-08-12-vae/">From Autoencoder to Beta-VAE — Lilian Weng (Lil'Log)</a> — <strong>nguồn tốt nhất để bắt đầu</strong>. Đi từ AE cơ bản qua từng biến thể tới VAE và β-VAE, có hình minh họa và công thức đầy đủ.</p>
+</li>
+<li>
+<p><a href="https://www.jeremyjordan.me/variational-autoencoders/">Variational autoencoders — Jeremy Jordan</a> — giải thích rất trực quan về vấn đề "lỗ hổng trong latent space".</p>
+</li>
+<li>
+<p><a href="https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73">Understanding Variational Autoencoders (VAEs) — Joseph Rocca</a> — nhiều hình vẽ, giải thích rõ vì sao cần phân phối thay vì điểm.</p>
+</li>
+</ul>
+<h3 id="buoc-2-video">Bước 2 — Video<a class="headerlink" href="#buoc-2-video" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="https://www.youtube.com/watch?v=9zKuYvjFFS8">Variational Autoencoders — Arxiv Insights (YouTube)</a> — 15 phút, giải thích trực quan xuất sắc.</p>
+</li>
+<li>
+<p><a href="https://cs231n.github.io/">CS231n — Stanford: Generative Models</a> — bài giảng chính thức, có phần VAE.</p>
+</li>
+</ul>
+<h3 id="buoc-3-tai-lieu-hoc-thuat">Bước 3 — Tài liệu học thuật<a class="headerlink" href="#buoc-3-tai-lieu-hoc-thuat" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="https://arxiv.org/abs/1606.05908">Tutorial on Variational Autoencoders — Carl Doersch, 2016 (arXiv:1606.05908)</a> — <strong>tài liệu bắc cầu tốt nhất</strong> giữa blog và bài báo gốc. Giải thích cặn kẽ phần toán mà bài báo gốc viết quá súc tích.</p>
+</li>
+<li>
+<p><a href="https://arxiv.org/abs/1906.02691">An Introduction to Variational Autoencoders — Kingma &amp; Welling, 2019 (arXiv:1906.02691)</a> — chính tác giả viết lại đầy đủ hơn sau 6 năm. Nếu đọc bài gốc thấy khó, đọc cái này.</p>
+</li>
+</ul>
+<h3 id="buoc-4-bai-bao-goc">Bước 4 — Bài báo gốc<a class="headerlink" href="#buoc-4-bai-bao-goc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="https://arxiv.org/abs/1312.6114">Auto-Encoding Variational Bayes — Kingma &amp; Welling, 2013 (arXiv:1312.6114)</a> — <strong>bài gốc, bắt buộc trích dẫn</strong>. Ngắn nhưng rất đặc, nên đọc sau khi đã nắm trực giác.</p>
+</li>
+<li>
+<p><a href="https://openreview.net/forum?id=Sy2fzU9gl">β-VAE — Higgins et al., ICLR 2017</a> — biến thể quan trọng cho hướng disentanglement.</p>
+</li>
+</ul>
+<h3 id="buoc-5-thuc-hanh">Bước 5 — Thực hành<a class="headerlink" href="#buoc-5-thuc-hanh" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="https://github.com/pytorch/examples/tree/main/vae">PyTorch official VAE example</a> — code chuẩn, chạy trên MNIST, đọc rất dễ.</p>
+</li>
+<li>
+<p><a href="https://keras.io/examples/generative/vae/">Keras VAE tutorial</a> — bản TensorFlow/Keras tương đương.</p>
+</li>
+</ul>
+<blockquote>
+<p>🧭 <strong>Thứ tự mình khuyên:</strong> xem video Arxiv Insights (15 phút) → đọc Lil'Log → chạy thử code PyTorch trên MNIST và tự vẽ latent space 2 chiều → đọc Doersch tutorial → cuối cùng mới đọc bài báo gốc Kingma &amp; Welling.
+Việc <strong>tự vẽ latent space 2 chiều</strong> rồi so sánh giữa AE và VAE trên cùng bộ MNIST là bài tập cho bạn thấy rõ nhất sự khác biệt — chỉ mất khoảng 1 buổi.
+</p>
+</blockquote>
+<hr />
+<h2 id="10-ghi-chu-cua-minh">10. Ghi chú của mình<a class="headerlink" href="#10-ghi-chu-cua-minh" title="Permanent link">&para;</a></h2>
+<p><em>(Điền sau khi học: chỗ nào còn vướng, câu hỏi cần hỏi thầy.)</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

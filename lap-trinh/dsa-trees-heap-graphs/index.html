@@ -1,0 +1,4452 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/lap-trinh/dsa-trees-heap-graphs/">
+      
+      
+        <link rel="prev" href="../dsa-de-quy-tim-kiem-sap-xep/">
+      
+      
+        <link rel="next" href="../dsa-dp-greedy/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>DSA: Trees, Heap & Graphs - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dsa-trees-heap-graphs" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DSA: Trees, Heap & Graphs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../toan/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../deep-learning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../toan/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/giai-tich/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/vae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/latent-space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-nen-tang-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-nang-cao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-mang-chuoi-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cay-trees-binary-search-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cây (Trees &amp; Binary Search Tree)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cây (Trees &amp; Binary Search Tree)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tree-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tree là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thuat-ngu-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thuật ngữ cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-search-tree-bst-va-tinh-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Search Tree (BST) và tính chất
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-va-search-trong-bst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insert và Search trong BST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-loai-duyet-cay-tree-traversals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các loại duyệt cây (Tree Traversals)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-phuc-tap-thao-tac-tren-bst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Độ phức tạp thao tác trên BST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-toan-kinh-ien-ve-treebst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài toán kinh điển về Tree/BST
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heap-priority-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap &amp; Priority Queue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heap &amp; Priority Queue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#heap-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#min-heap-vs-max-heap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Min-Heap vs Max-Heap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heapify-insert-deleteextract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heapify, Insert, Delete/Extract
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-thao-tac-va-o-phuc-tap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các thao tác và độ phức tạp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heap-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap Sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-queue-va-ung-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority Queue và ứng dụng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heap-vs-bst-so-sanh-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap vs BST — so sánh nhanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-python-dung-heapq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Python dùng heapq
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-thi-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đồ thị (Graphs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Đồ thị (Graphs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vertex-edge-phan-loai-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vertex, Edge &amp; phân loại Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#degree-cua-mot-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Degree của một Vertex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connected-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connected Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bieu-dien-o-thi-adjacency-matrix-adjacency-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Biểu diễn đồ thị: Adjacency Matrix &amp; Adjacency List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-breadth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS (Breadth First Search)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-depth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS (Depth First Search)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-vs-dfs-so-sanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS vs DFS — so sánh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dijkstras-shortest-path-trong-so-khong-am" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dijkstra's Shortest Path (trọng số không âm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#topological-sort-cho-dag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topological Sort (cho DAG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phat-hien-chu-trinh-cycle-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phát hiện chu trình (Cycle Detection)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#union-find-cho-components-mst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Union-Find (cho components / MST)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ung-dung-thuc-te-cua-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ứng dụng thực tế của Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-automation-best-practices-on-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cay-trees-binary-search-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cây (Trees &amp; Binary Search Tree)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cây (Trees &amp; Binary Search Tree)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tree-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tree là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thuat-ngu-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thuật ngữ cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-search-tree-bst-va-tinh-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Search Tree (BST) và tính chất
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-va-search-trong-bst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insert và Search trong BST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-loai-duyet-cay-tree-traversals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các loại duyệt cây (Tree Traversals)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-phuc-tap-thao-tac-tren-bst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Độ phức tạp thao tác trên BST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-toan-kinh-ien-ve-treebst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài toán kinh điển về Tree/BST
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heap-priority-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap &amp; Priority Queue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heap &amp; Priority Queue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#heap-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#min-heap-vs-max-heap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Min-Heap vs Max-Heap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heapify-insert-deleteextract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heapify, Insert, Delete/Extract
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-thao-tac-va-o-phuc-tap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các thao tác và độ phức tạp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heap-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap Sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-queue-va-ung-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority Queue và ứng dụng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heap-vs-bst-so-sanh-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap vs BST — so sánh nhanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-python-dung-heapq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Python dùng heapq
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-thi-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đồ thị (Graphs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Đồ thị (Graphs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vertex-edge-phan-loai-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vertex, Edge &amp; phân loại Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#degree-cua-mot-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Degree của một Vertex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connected-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connected Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bieu-dien-o-thi-adjacency-matrix-adjacency-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Biểu diễn đồ thị: Adjacency Matrix &amp; Adjacency List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-breadth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS (Breadth First Search)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-depth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS (Depth First Search)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-vs-dfs-so-sanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS vs DFS — so sánh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dijkstras-shortest-path-trong-so-khong-am" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dijkstra's Shortest Path (trọng số không âm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#topological-sort-cho-dag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topological Sort (cho DAG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phat-hien-chu-trinh-cycle-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phát hiện chu trình (Cycle Detection)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#union-find-cho-components-mst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Union-Find (cho components / MST)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ung-dung-thuc-te-cua-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ứng dụng thực tế của Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="dsa-trees-heap-graphs">DSA: Trees, Heap &amp; Graphs<a class="headerlink" href="#dsa-trees-heap-graphs" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🖼️ Trang này tổng hợp nội dung từ 8 ảnh ghi chú học tập gốc:
+1. 1329_cam-nang-dsa-trees-binary-tree-bst-traversal.jpg</p>
+<ol>
+<li>
+<p>1330_cam-nang-dsa-heap-priority-queue.jpg</p>
+</li>
+<li>
+<p>1331_cam-nang-dsa-graphs-bfs-dfs-adjacency-matrix.jpg</p>
+</li>
+<li>
+<p>1332_cam-nang-dsa-graphs-tiep-theo-bfs-dfs-chi-tiet.jpg</p>
+</li>
+<li>
+<p>1346_ghi-chu-dsa-trees-bst.jpg</p>
+</li>
+<li>
+<p>1347_ghi-chu-dsa-heaps-priority-queue.jpg</p>
+</li>
+<li>
+<p>1348_ghi-chu-dsa-graphs-bfs-dfs.jpg</p>
+</li>
+<li>
+<p>1349_ghi-chu-dsa-graphs-paths-order-dijkstra-topo-sort.jpg
+</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="cay-trees-binary-search-tree">Cây (Trees &amp; Binary Search Tree)<a class="headerlink" href="#cay-trees-binary-search-tree" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>📌 Ảnh thuộc mục này: 1329_cam-nang-dsa-trees-binary-tree-bst-traversal.jpg, 1346_ghi-chu-dsa-trees-bst.jpg</p>
+</blockquote>
+<h4 id="tree-la-gi">Tree là gì?<a class="headerlink" href="#tree-la-gi" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Tree</strong> là một <strong>non-linear data structure</strong>, biểu diễn các mối quan hệ phân cấp (hierarchical) một cách gọn gàng, hiệu quả.</p>
+</li>
+<li>
+<p>Gồm các <strong>node</strong> được kết nối bằng <strong>edge</strong>.</p>
+</li>
+<li>
+<p>Chỉ có duy nhất <strong>1 đường đi</strong> từ root tới bất kỳ node nào.</p>
+</li>
+<li>
+<p>Một tree với <strong>n node</strong> có <strong>(n-1) edge</strong>.</p>
+</li>
+</ul>
+<h4 id="thuat-ngu-co-ban">Thuật ngữ cơ bản<a class="headerlink" href="#thuat-ngu-co-ban" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Root</strong>: Node trên cùng (không có parent)</p>
+</li>
+<li>
+<p><strong>Parent</strong>: Node có children</p>
+</li>
+<li>
+<p><strong>Child</strong>: Node được kết nối trực tiếp bên dưới</p>
+</li>
+<li>
+<p><strong>Leaf Node</strong>: Node không có children</p>
+</li>
+<li>
+<p><strong>Edge</strong>: Kết nối giữa 2 node</p>
+</li>
+<li>
+<p><strong>Siblings</strong>: Các node có cùng parent</p>
+</li>
+<li>
+<p><strong>Depth of Node</strong>: Số edge từ root tới node đó</p>
+</li>
+<li>
+<p><strong>Height of Tree</strong>: Depth lớn nhất của bất kỳ node nào (tính từ root) = số cạnh trên đường dài nhất từ root tới một leaf</p>
+</li>
+</ul>
+<p>Ví dụ Binary Tree:</p>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="mf">1</span><span class="w"> </span><span class="p">(</span><span class="nx">Root</span><span class="p">)</span>
+<span class="w">    </span><span class="o">/</span><span class="w">  </span><span class="o">\</span>
+<span class="mf">2</span><span class="p">(</span><span class="nx">Edge</span><span class="p">)</span><span class="w"> </span><span class="mf">3</span>
+<span class="w"> </span><span class="o">/</span><span class="err">\</span><span class="w">     </span><span class="o">/\</span>
+<span class="mf">4</span><span class="w">  </span><span class="mf">5</span><span class="w">   </span><span class="mf">6</span><span class="w">  </span><span class="mf">7</span>
+<span class="o">|</span>
+<span class="mf">8</span><span class="w"> </span><span class="p">(</span><span class="nx">Leaf</span><span class="p">)</span>
+</code></pre></div>
+<p>Depth(1)=0, Depth(2)=1, Depth(3)=1, Depth(4)=2, Depth(5)=2, Depth(6)=2, Depth(7)=2, Depth(8)=3. Height của Tree = 3 (max depth).</p>
+<h4 id="binary-search-tree-bst-va-tinh-chat">Binary Search Tree (BST) và tính chất<a class="headerlink" href="#binary-search-tree-bst-va-tinh-chat" title="Permanent link">&para;</a></h4>
+<p>Ví dụ BST:</p>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="mf">50</span>
+<span class="w">    </span><span class="o">/</span><span class="w">  </span><span class="o">\</span>
+<span class="w">  </span><span class="mf">30</span><span class="w">    </span><span class="mf">70</span>
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="w">    </span><span class="o">/\</span>
+<span class="mf">20</span><span class="w"> </span><span class="mf">40</span><span class="w"> </span><span class="mf">60</span><span class="w"> </span><span class="mf">80</span>
+</code></pre></div>
+<p><strong>Tính chất BST</strong> — với mọi node: <code>left &lt; root &lt; right</code></p>
+<ul>
+<li>
+<p>Left subtree values &lt; Node</p>
+</li>
+<li>
+<p>Right subtree values &gt; Node</p>
+</li>
+<li>
+<p>Left &amp; Right subtree cũng phải là BST</p>
+</li>
+<li>
+<p>Duyệt <strong>inorder</strong> của BST cho kết quả theo thứ tự <strong>đã sort</strong></p>
+</li>
+</ul>
+<p><strong>Balanced Tree</strong>: với mọi node, |height(left) − height(right)| ≤ 1 → giữ các thao tác ở mức ~O(log n).</p>
+<blockquote>
+<p>⚠️ Lỗi thường gặp: nhầm lẫn giữa BST với Heap.
+- BST → sắp theo <strong>giá trị</strong> (left &lt; root &lt; right)</p>
+<ul>
+<li>Heap → sắp theo <strong>độ ưu tiên</strong> (parent ≥ children hoặc ≤ children)
+</li>
+</ul>
+</blockquote>
+<h4 id="insert-va-search-trong-bst">Insert và Search trong BST<a class="headerlink" href="#insert-va-search-trong-bst" title="Permanent link">&para;</a></h4>
+<p>Ví dụ Insert 45, 65, 10 vào BST (bắt đầu từ cây trên):</p>
+<ul>
+<li>
+<p>Insert 45: 50&gt;45 → trái, 30&lt;45 → phải, 40&lt;45 → phải</p>
+</li>
+<li>
+<p>Insert 65: 50&lt;65 → phải, 70&gt;65 → trái, 60&lt;65 → phải</p>
+</li>
+<li>
+<p>Insert 10: 50&gt;10 → trái, 30&gt;10 → trái, 20&gt;10 → trái</p>
+</li>
+</ul>
+<p>Ví dụ Search 65 trong BST:</p>
+<ul>
+<li>
+<p>50: 65&gt;50 → đi phải</p>
+</li>
+<li>
+<p>70: 65&lt;70 → đi trái</p>
+</li>
+<li>
+<p>60: 65&gt;60 → đi phải</p>
+</li>
+<li>
+<p>65: Found!</p>
+</li>
+</ul>
+<h4 id="cac-loai-duyet-cay-tree-traversals">Các loại duyệt cây (Tree Traversals)<a class="headerlink" href="#cac-loai-duyet-cay-tree-traversals" title="Permanent link">&para;</a></h4>
+<p>Ví dụ minh hoạ (ghi chú 2):</p>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="mf">10</span>
+<span class="w">   </span><span class="o">/</span><span class="w">    </span><span class="o">\</span>
+<span class="w">  </span><span class="mf">5</span><span class="w">      </span><span class="mf">15</span>
+<span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">\</span><span class="w">    </span><span class="o">/</span><span class="w">  </span><span class="o">\</span>
+<span class="mf">3</span><span class="w">   </span><span class="mf">7</span><span class="w">  </span><span class="mf">12</span><span class="w">   </span><span class="mf">18</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th><strong>Loại duyệt</strong></th>
+<th><strong>Thứ tự</strong></th>
+<th><strong>Kết quả ví dụ</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preorder</td>
+<td>Root, Left, Right</td>
+<td>[10, 5, 3, 7, 15, 12, 18]</td>
+</tr>
+<tr>
+<td>Inorder</td>
+<td>Left, Root, Right</td>
+<td>[3, 5, 7, 10, 12, 15, 18] (đã sort)</td>
+</tr>
+<tr>
+<td>Postorder</td>
+<td>Left, Right, Root</td>
+<td>[3, 7, 5, 12, 18, 15, 10]</td>
+</tr>
+<tr>
+<td>Level-order (BFS)</td>
+<td>Theo từng tầng, dùng Queue</td>
+<td>[10, 5, 15, 3, 7, 12, 18]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ý tưởng đệ quy của traversal</strong>: Preorder, Inorder, Postorder đều theo ý tưởng đệ quy tương tự nhau — base case là node null, xử lý + đệ quy trên left &amp; right.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">inorder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">]</span> <span class="o">+</span> <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">preorder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">]</span> <span class="o">+</span> <span class="n">preorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">preorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">postorder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="n">postorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">postorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">level_order</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">result</span><span class="p">,</span> <span class="n">queue</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">bst_search</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">root</span>
+    <span class="k">if</span> <span class="n">target</span> <span class="o">&lt;</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">bst_search</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bst_search</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">bst_insert</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Node</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">bst_insert</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">bst_insert</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">root</span>
+</code></pre></div>
+<h4 id="o-phuc-tap-thao-tac-tren-bst">Độ phức tạp thao tác trên BST<a class="headerlink" href="#o-phuc-tap-thao-tac-tren-bst" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Average</th>
+<th>Worst (cây lệch)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search</td>
+<td>O(log n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Insert</td>
+<td>O(log n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>O(log n)</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bai-toan-kinh-ien-ve-treebst">Bài toán kinh điển về Tree/BST<a class="headerlink" href="#bai-toan-kinh-ien-ve-treebst" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Lowest Common Ancestor (LCA)</p>
+</li>
+<li>
+<p>Diameter of Binary Tree</p>
+</li>
+<li>
+<p>Validate BST</p>
+</li>
+<li>
+<p>Path Sum (Root to Leaf)</p>
+</li>
+<li>
+<p>... và nhiều hơn nữa!</p>
+</li>
+</ul>
+<hr />
+<h3 id="heap-priority-queue">Heap &amp; Priority Queue<a class="headerlink" href="#heap-priority-queue" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>📌 Ảnh thuộc mục này: 1330_cam-nang-dsa-heap-priority-queue.jpg, 1347_ghi-chu-dsa-heaps-priority-queue.jpg</p>
+</blockquote>
+<h4 id="heap-la-gi">Heap là gì?<a class="headerlink" href="#heap-la-gi" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Heap</strong> là một <strong>complete binary tree</strong> (cây nhị phân hoàn chỉnh — mọi tầng được lấp đầy, trừ có thể tầng cuối được lấp từ trái sang phải) thoả mãn <strong>heap property</strong>.</p>
+</li>
+<li>
+<p><strong>Priority Queue</strong> được xây dựng dựa trên Heap.</p>
+</li>
+<li>
+<p>Root luôn là phần tử <strong>min</strong> (Min-Heap) hoặc <strong>max</strong> (Max-Heap).</p>
+</li>
+</ul>
+<h4 id="min-heap-vs-max-heap">Min-Heap vs Max-Heap<a class="headerlink" href="#min-heap-vs-max-heap" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Đặc điểm</th>
+<th>Min-Heap</th>
+<th>Max-Heap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quan hệ Parent-Child</td>
+<td>Parent ≤ Child</td>
+<td>Parent ≥ Child</td>
+</tr>
+<tr>
+<td>Root</td>
+<td>Nhỏ nhất</td>
+<td>Lớn nhất</td>
+</tr>
+<tr>
+<td>Dùng khi</td>
+<td>Cần giá trị nhỏ nhất</td>
+<td>Cần giá trị lớn nhất</td>
+</tr>
+</tbody>
+</table>
+<p>Ví dụ Min-Heap:</p>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="mf">1</span>
+<span class="w">   </span><span class="o">/</span><span class="w">   </span><span class="o">\</span>
+<span class="w">  </span><span class="mf">3</span><span class="w">     </span><span class="mf">4</span>
+<span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">\</span><span class="w">   </span><span class="o">/</span><span class="w"> </span><span class="o">\</span>
+<span class="mf">5</span><span class="w">   </span><span class="mf">9</span><span class="w"> </span><span class="mf">6</span><span class="w">   </span><span class="mf">7</span>
+</code></pre></div>
+<p>Array dạng level-order: <code>[1, 3, 4, 5, 9, 6, 7]</code></p>
+<p><strong>Quan hệ chỉ số (cho phần tử tại index i, i &gt; 0)</strong></p>
+<ul>
+<li>
+<p>Left Child Index = 2*i + 1</p>
+</li>
+<li>
+<p>Right Child Index = 2*i + 2</p>
+</li>
+<li>
+<p>Parent Index = (i-1)/2</p>
+</li>
+</ul>
+<h4 id="heapify-insert-deleteextract">Heapify, Insert, Delete/Extract<a class="headerlink" href="#heapify-insert-deleteextract" title="Permanent link">&para;</a></h4>
+<p><strong>Heapify (Down-Heap)</strong> — độ phức tạp O(log n):</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">heapify</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="n">smallest</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">smallest</span><span class="p">]:</span>
+        <span class="n">smallest</span> <span class="o">=</span> <span class="n">left</span>
+    <span class="k">if</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">smallest</span><span class="p">]:</span>
+        <span class="n">smallest</span> <span class="o">=</span> <span class="n">right</span>
+    <span class="k">if</span> <span class="n">smallest</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">smallest</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">smallest</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">heapify</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">smallest</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Insert vào Heap</strong>: (1) Thêm phần tử ở cuối (làm leaf kế tiếp). (2) Heapify Up — so sánh với parent và swap nếu cần.</p>
+<p>Ví dụ (Min-Heap): <code>[4,7,9]</code> —insert 3→ <code>[3,7,9,4]</code> → heapify up → <code>[3,4,9,7]</code></p>
+<p><strong>Delete/Extract</strong>: Xoá root (min hoặc max) → thay root bằng phần tử cuối → Heapify Down.</p>
+<p>Ví dụ (Min-Heap): <code>[1,3,6,5]</code> —deleteMin→ <code>[3,5,6]</code> → heapify down → <code>[3,5,6]</code></p>
+<p><strong>Peek</strong>: lấy phần tử root trong O(1) — <code>peek() → arr[0]</code></p>
+<h4 id="cac-thao-tac-va-o-phuc-tap">Các thao tác và độ phức tạp<a class="headerlink" href="#cac-thao-tac-va-o-phuc-tap" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Min-Heap</th>
+<th>Max-Heap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insert (push)</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Delete (pop/extract)</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Peek (top)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="heap-sort">Heap Sort<a class="headerlink" href="#heap-sort" title="Permanent link">&para;</a></h4>
+<p>Ý tưởng: Dùng Max Heap (thứ tự tăng dần) / Min Heap (thứ tự giảm dần).</p>
+<ol>
+<li>
+<p>Build Heap.</p>
+</li>
+<li>
+<p>Extract root và đặt ở cuối.</p>
+</li>
+<li>
+<p>Lặp lại cho n phần tử.</p>
+</li>
+</ol>
+<p>Time Complexity: <strong>O(n log n)</strong></p>
+<h4 id="priority-queue-va-ung-dung">Priority Queue và ứng dụng<a class="headerlink" href="#priority-queue-va-ung-dung" title="Permanent link">&para;</a></h4>
+<p>Priority Queue là một data structure phục vụ phần tử có priority cao nhất/thấp nhất trước, được cài đặt dùng Heap.</p>
+<p><strong>Ứng dụng thực tế:</strong></p>
+<ul>
+<li>
+<p>Top-K elements (K phần tử lớn/nhỏ nhất)</p>
+</li>
+<li>
+<p>Merge K sorted lists</p>
+</li>
+<li>
+<p>Dijkstra's shortest path</p>
+</li>
+<li>
+<p>Median in a stream (dùng hai heap)</p>
+</li>
+<li>
+<p>Priority Queues (CPU scheduling)</p>
+</li>
+<li>
+<p>Huffman Coding</p>
+</li>
+<li>
+<p>Event simulation</p>
+</li>
+</ul>
+<h4 id="heap-vs-bst-so-sanh-nhanh">Heap vs BST — so sánh nhanh<a class="headerlink" href="#heap-vs-bst-so-sanh-nhanh" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Heap</th>
+<th>BST</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Complete Binary Tree</td>
+<td>Binary Search Tree</td>
+</tr>
+<tr>
+<td>Ordering</td>
+<td>Partial (Heap Order)</td>
+<td>Total Order</td>
+</tr>
+<tr>
+<td>Insert/Delete</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>O(n) (không tối ưu cho search)</td>
+<td>O(log n)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="code-python-dung-heapq">Code Python dùng heapq<a class="headerlink" href="#code-python-dung-heapq" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+
+<span class="c1"># Min-Heap mặc định trong Python</span>
+<span class="n">min_heap</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">min_heap</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">min_heap</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">min_heap</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">min_heap</span><span class="p">))</span>  <span class="c1"># 3 (nhỏ nhất)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">min_heap</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>              <span class="c1"># peek: phần tử nhỏ nhất hiện có</span>
+
+<span class="c1"># Max-Heap: đảo dấu giá trị khi push/pop</span>
+<span class="n">max_heap</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">max_heap</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">max_heap</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">max_heap</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="o">-</span><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">max_heap</span><span class="p">))</span>  <span class="c1"># 8 (lớn nhất)</span>
+
+<span class="c1"># Priority Queue với heapq: dùng tuple (priority, item)</span>
+<span class="n">pq</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">pq</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"task B"</span><span class="p">))</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">pq</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"task A"</span><span class="p">))</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">pq</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"task C"</span><span class="p">))</span>
+<span class="k">while</span> <span class="n">pq</span><span class="p">:</span>
+    <span class="n">priority</span><span class="p">,</span> <span class="n">task</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">pq</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">priority</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+
+<span class="c1"># Heapify một list có sẵn: O(n)</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div>
+<blockquote>
+<p>👤 <strong>Góc phỏng vấn</strong> — Vì sao heap tốt hơn sorted array cho streaming data?
+Heap hỗ trợ insert &amp; extract trong O(log n); sorted array cần O(n) insert (phải dịch chuyển); heap luôn giữ sẵn giá trị cực trị (min/max).
+</p>
+<p>⚠️ <strong>Lỗi thường gặp</strong>: dùng heap khi bạn chỉ cần sort <strong>một lần</strong>. Nếu có sẵn toàn bộ dữ liệu, sort một lần → O(n log n) đơn giản &amp; nhanh hơn heapify + nhiều thao tác. Dùng heap cho dữ liệu động/streaming, không phải cho sort một lần.</p>
+</blockquote>
+<hr />
+<h3 id="o-thi-graphs">Đồ thị (Graphs)<a class="headerlink" href="#o-thi-graphs" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>📌 Ảnh thuộc mục này: 1331_cam-nang-dsa-graphs-bfs-dfs-adjacency-matrix.jpg, 1332_cam-nang-dsa-graphs-tiep-theo-bfs-dfs-chi-tiet.jpg, 1348_ghi-chu-dsa-graphs-bfs-dfs.jpg, 1349_ghi-chu-dsa-graphs-paths-order-dijkstra-topo-sort.jpg</p>
+</blockquote>
+<h4 id="graph-la-gi">Graph là gì?<a class="headerlink" href="#graph-la-gi" title="Permanent link">&para;</a></h4>
+<p>Một <strong>Graph G = (V, E)</strong>, trong đó:</p>
+<ul>
+<li>
+<p>V = tập các <strong>vertices</strong> (node)</p>
+</li>
+<li>
+<p>E = tập các <strong>edges</strong> (kết nối)</p>
+</li>
+</ul>
+<p>Graph dùng để biểu diễn các mối quan hệ, mạng lưới và kết nối giữa các object. Có thể là <strong>directed/undirected</strong>, <strong>weighted/unweighted</strong>.</p>
+<p>Ví dụ Graph (Undirected): V = {A,B,C,D,E,F}, E = {(A,B),(A,C),(B,D),(C,E),(D,F),(C,F)}</p>
+<h4 id="vertex-edge-phan-loai-graph">Vertex, Edge &amp; phân loại Graph<a class="headerlink" href="#vertex-edge-phan-loai-graph" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Vertex (Node)</strong>: một điểm trong graph.</p>
+</li>
+<li>
+<p><strong>Edge</strong>: kết nối giữa 2 vertex.</p>
+</li>
+<li>
+<p><strong>Directed Graph</strong>: edge có hướng (A→B khác B→A).</p>
+</li>
+<li>
+<p><strong>Undirected Graph</strong>: không có hướng (A—B giống B—A).</p>
+</li>
+<li>
+<p><strong>Weighted Graph</strong>: edge có weight (giá trị cost, distance...).</p>
+</li>
+<li>
+<p><strong>Unweighted Graph</strong>: mọi edge coi như bằng nhau (thường =1).</p>
+</li>
+</ul>
+<h4 id="degree-cua-mot-vertex">Degree của một Vertex<a class="headerlink" href="#degree-cua-mot-vertex" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Degree = số edge liên thuộc với vertex đó (ở undirected graph, degree ≥ 0).</p>
+</li>
+<li>
+<p>Ở directed graph: <strong>In-degree</strong> = số edge đi vào; <strong>Out-degree</strong> = số edge đi ra.</p>
+</li>
+</ul>
+<h4 id="connected-graph">Connected Graph<a class="headerlink" href="#connected-graph" title="Permanent link">&para;</a></h4>
+<p>Một graph là <strong>connected</strong> nếu tồn tại đường đi giữa mọi cặp vertex. Nếu 1 vertex bất kỳ không thể tới được từ các vertex khác → Not Connected.</p>
+<h4 id="bieu-dien-o-thi-adjacency-matrix-adjacency-list">Biểu diễn đồ thị: Adjacency Matrix &amp; Adjacency List<a class="headerlink" href="#bieu-dien-o-thi-adjacency-matrix-adjacency-list" title="Permanent link">&para;</a></h4>
+<p><strong>Adjacency Matrix</strong>: mảng 2D kích thước V×V. <code>mat[i][j] = 1</code> (hoặc weight) nếu có edge giữa i và j, ngược lại là 0 (hoặc ∞ nếu weighted). Space: <strong>O(V²)</strong>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>C</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>D</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>E</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>F</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Adjacency List</strong>: với mỗi vertex, lưu list các vertex kề (adjacent). Space: <strong>O(V+E)</strong> (tốt hơn matrix cho sparse graph).</p>
+<div class="highlight"><pre><span></span><code><span class="nx">A</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">C</span>
+<span class="nx">B</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">D</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">F</span>
+<span class="nx">C</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">E</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">F</span>
+<span class="nx">D</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">E</span>
+<span class="nx">E</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">C</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">D</span>
+<span class="nx">F</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">C</span>
+</code></pre></div>
+<p><strong>So sánh độ phức tạp:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Adjacency Matrix</th>
+<th>Adjacency List</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add Edge</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Remove Edge</td>
+<td>O(1)</td>
+<td>O(deg(v))</td>
+</tr>
+<tr>
+<td>Check Edge (u,v)</td>
+<td>O(1)</td>
+<td>O(deg(u))</td>
+</tr>
+<tr>
+<td>BFS / DFS</td>
+<td>O(V²)</td>
+<td>O(V+E)</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>O(V²)</td>
+<td>O(V+E)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bfs-breadth-first-search">BFS (Breadth First Search)<a class="headerlink" href="#bfs-breadth-first-search" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Duyệt theo từng <strong>level</strong> (đi càng rộng càng tốt trước).</p>
+</li>
+<li>
+<p>Dùng <strong>Queue (FIFO)</strong>.</p>
+</li>
+<li>
+<p>Time Complexity: <strong>O(V+E)</strong>, Space: <strong>O(V)</strong>.</p>
+</li>
+<li>
+<p>Queue = tìm <strong>đường đi ngắn nhất không trọng số</strong> / duyệt theo các level.</p>
+</li>
+<li>
+<p>Use case: Shortest path (đồ thị unweighted).</p>
+</li>
+</ul>
+<p>Ví dụ (adjacency list: 1:[2,3,4], 2:[1,3,6], 3:[1,2,5,6], 4:[1,5], 5:[3,4,6], 6:[2,3,5]), BFS bắt đầu từ 1:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">L0</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span>
+<span class="nx">L1</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span>
+<span class="nx">L2</span><span class="o">:</span><span class="w"> </span><span class="mf">6</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span>
+<span class="nx">L3</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">không</span><span class="w"> </span><span class="nx">còn</span><span class="p">)</span>
+</code></pre></div>
+<p>Đường đi ngắn nhất tới 5 từ 1: 1→3→5 (2 cạnh).</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">bfs</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="p">{</span><span class="n">start</span><span class="p">}</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">start</span><span class="p">])</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">order</span>
+</code></pre></div>
+<h4 id="dfs-depth-first-search">DFS (Depth First Search)<a class="headerlink" href="#dfs-depth-first-search" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Duyệt càng sâu càng tốt (đi sâu vào 1 nhánh trước).</p>
+</li>
+<li>
+<p>Dùng <strong>Stack (LIFO)</strong> hoặc <strong>Recursion</strong>.</p>
+</li>
+<li>
+<p>Time Complexity: <strong>O(V+E)</strong>, Space: <strong>O(V)</strong>.</p>
+</li>
+<li>
+<p>Stack/Recursion = reachability, connected components, phát hiện chu trình (cycles).</p>
+</li>
+<li>
+<p>Use case: Topological sort, Cycle detection.</p>
+</li>
+</ul>
+<p>Ví dụ DFS bắt đầu từ 1 (một thứ tự khả dĩ, có thể có nhiều thứ tự khác nhau): 1, 2, 3, 5, 4, 6.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">visited</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">visited</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">visited</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span> <span class="p">[]</span>
+    <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">start</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">dfs</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">order</span>
+
+<span class="c1"># Phiên bản iterative dùng stack</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dfs_iterative</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="p">{</span><span class="n">start</span><span class="p">}</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">order</span>
+</code></pre></div>
+<blockquote>
+<p>⚠️ <strong>Visited set là bắt buộc</strong>: duy trì một visited set để tránh ghé lại các node, đánh dấu ngay khi push/enqueue. Thiếu visited set → vòng lặp vô hạn (đặc biệt trong graph có chu trình hoặc grid).</p>
+</blockquote>
+<h4 id="bfs-vs-dfs-so-sanh">BFS vs DFS — so sánh<a class="headerlink" href="#bfs-vs-dfs-so-sanh" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>BFS</th>
+<th>DFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strategy</td>
+<td>Level by level</td>
+<td>Đi sâu trước</td>
+</tr>
+<tr>
+<td>Data Structure</td>
+<td>Queue (FIFO)</td>
+<td>Stack / Recursion</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>O(V+E)</td>
+<td>O(V+E)</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>O(V)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>Nhiều hơn</td>
+<td>Ít hơn</td>
+</tr>
+<tr>
+<td>Shortest Path (unweighted)</td>
+<td>Có</td>
+<td>Không</td>
+</tr>
+<tr>
+<td>Use Case</td>
+<td>Level Search, Shortest path</td>
+<td>Topo sort, Cycle detection, Path/Components</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Grid như một Graph</strong>: mỗi ô (cell) = một node, cạnh nối tới neighbor hợp lệ — dùng mô hình <strong>4-neighbors</strong> (trên/dưới/trái/phải) hoặc <strong>8-neighbors</strong> (thêm 4 đường chéo).</p>
+<h4 id="dijkstras-shortest-path-trong-so-khong-am">Dijkstra's Shortest Path (trọng số không âm)<a class="headerlink" href="#dijkstras-shortest-path-trong-so-khong-am" title="Permanent link">&para;</a></h4>
+<p>Áp dụng cho graph có <strong>trọng số không âm</strong> (heap + dist[]).</p>
+<p><strong>Ý tưởng</strong>: tham lam theo khoảng cách nhỏ nhất. Dùng <strong>min-heap</strong> (node, dist). Relax cạnh, cập nhật dist[]. Time: <strong>O((V+E) log V)</strong>.</p>
+<p>Ví dụ: A→B(4), A→C(1), B→D(2), C→B(2), C→D(5), C→E(4). Kết quả dist[]: A=0, B=4, C=1, D=3, E=4.</p>
+<blockquote>
+<p>Nếu graph có trọng số <strong>âm</strong>, dùng <strong>Bellman-Ford</strong> thay vì Dijkstra: relax tất cả cạnh |V|-1 lần, phát hiện chu trình âm ở lần lặp thứ |V|.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dijkstra</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+    <span class="c1"># graph: {node: [(neighbor, weight), ...]}</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s1">'inf'</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">}</span>
+    <span class="n">dist</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pq</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span><span class="p">)]</span>
+    <span class="k">while</span> <span class="n">pq</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">pq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="n">dist</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="n">new_dist</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">weight</span>
+            <span class="k">if</span> <span class="n">new_dist</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]:</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_dist</span>
+                <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">pq</span><span class="p">,</span> <span class="p">(</span><span class="n">new_dist</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">dist</span>
+</code></pre></div>
+<h4 id="topological-sort-cho-dag">Topological Sort (cho DAG)<a class="headerlink" href="#topological-sort-cho-dag" title="Permanent link">&para;</a></h4>
+<p>Áp dụng cho <strong>Directed Acyclic Graph (DAG)</strong>. Hai cách cài đặt: <strong>Kahn (BFS)</strong> hoặc <strong>DFS finish order</strong>.</p>
+<ul>
+<li>
+<p><strong>Kahn (BFS)</strong>: dùng in-degree. Đẩy các node có in-degree = 0 vào queue. Pop, thêm vào order, giảm in-degree của các neighbor.</p>
+</li>
+<li>
+<p><strong>DFS finish</strong>: DFS và đẩy node vào stack khi finish (duyệt xong toàn bộ nhánh con), sau đó đảo ngược stack để ra thứ tự topo.</p>
+</li>
+</ul>
+<p>Ví dụ: A→B→D→F, A→C→E→F. Kết quả order khả dĩ: A, B, C, E, D, F.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">topo_sort_kahn</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">):</span>
+    <span class="n">indegree</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="n">indegree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">indegree</span> <span class="k">if</span> <span class="n">indegree</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="n">indegree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">indegree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">num_nodes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Graph có chu trình, không thể topo sort"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">order</span>
+</code></pre></div>
+<h4 id="phat-hien-chu-trinh-cycle-detection">Phát hiện chu trình (Cycle Detection)<a class="headerlink" href="#phat-hien-chu-trinh-cycle-detection" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Loại Graph</th>
+<th>Cách phát hiện</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directed Graph</td>
+<td>DFS với recursion stack (3 màu: white, gray, black), hoặc dùng Kahn's: nếu topo order size &lt; V → tồn tại chu trình</td>
+</tr>
+<tr>
+<td>Undirected Graph</td>
+<td>DFS/BFS với parent tracking — nếu ghé một neighbor không phải parent → có chu trình</td>
+</tr>
+</tbody>
+</table>
+<h4 id="union-find-cho-components-mst">Union-Find (cho components / MST)<a class="headerlink" href="#union-find-cho-components-mst" title="Permanent link">&para;</a></h4>
+<p>Dùng để đếm <strong>connected components</strong> và trong <strong>Kruskal's MST</strong> để tránh chu trình khi thêm cạnh.</p>
+<p>Ops chính: <code>find(x)</code>, <code>union(x, y)</code> — kèm tối ưu <strong>path compression</strong> và <strong>union by rank</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">UnionFind</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="n">x</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  <span class="c1"># path compression</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rx</span> <span class="o">==</span> <span class="n">ry</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">rx</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">ry</span><span class="p">]:</span>
+            <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span> <span class="o">=</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">ry</span><span class="p">]</span> <span class="o">=</span> <span class="n">rx</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">rx</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">ry</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">rx</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+<h4 id="ung-dung-thuc-te-cua-graph">Ứng dụng thực tế của Graph<a class="headerlink" href="#ung-dung-thuc-te-cua-graph" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Social Networks → Người dùng là node, tình bạn là edge.</p>
+</li>
+<li>
+<p>Maps &amp; Navigation (Google Maps) → Địa điểm là node, đường là edge; tìm shortest path.</p>
+</li>
+<li>
+<p>Web Pages → Trang web là node, link là edge (Web Crawlers).</p>
+</li>
+<li>
+<p>Recommendation Systems → User &amp; item là node.</p>
+</li>
+<li>
+<p>Network Routing → Router là node, link là edge.</p>
+</li>
+</ul>
+<blockquote>
+<p>💡 Ghi nhớ: BFS → tìm shortest path (đồ thị unweighted). Graph có ở khắp mọi nơi trong thực tế.</p>
+<p>👤 <strong>Mẹo phỏng vấn</strong>: chọn thuật toán dựa trên ràng buộc bài toán — trọng số không âm? → Dijkstra.</p>
+<p>⚠️ <strong>Lỗi thường gặp</strong>: dùng Dijkstra với cạnh có trọng số âm (sai) — phải dùng Bellman-Ford trong trường hợp này.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>🔗 <strong>Ghi chú bổ sung — liên hệ giữa các cấu trúc</strong>
+- <strong>Heap</strong> không chỉ dùng cho Priority Queue mà còn là thành phần cốt lõi để cài đặt <strong>Dijkstra's shortest path</strong> (min-heap lưu (dist, node)) và <strong>Heap Sort</strong>.</p>
+<ul>
+<li>
+<p><strong>BFS/DFS</strong> vốn là ý tưởng duyệt của Tree (Level-order chính là BFS, Preorder/Inorder/Postorder là các biến thể của DFS) được <strong>mở rộng sang Graph</strong> — điểm khác biệt quan trọng là Graph cần thêm <strong>visited set</strong> để tránh lặp vô hạn do có thể tồn tại chu trình, điều mà Tree (không có chu trình) không gặp phải.</p>
+</li>
+<li>
+<p><strong>BST</strong> là một dạng đặc biệt của Tree với tính chất sắp xếp theo giá trị, trong khi <strong>Heap</strong> cũng là cây nhị phân hoàn chỉnh nhưng chỉ đảm bảo thứ tự một phần (partial order) theo độ ưu tiên — dễ nhầm lẫn nhưng bản chất và ứng dụng khác nhau.</p>
+</li>
+<li>
+<p><strong>Topological Sort</strong> (dùng cho DAG) có thể cài bằng BFS (Kahn) hoặc DFS (finish order), cho thấy hai kỹ thuật duyệt graph nền tảng (BFS, DFS) là công cụ chung để giải nhiều bài toán khác nhau: shortest path, cycle detection, ordering, connectivity.</p>
+</li>
+<li>
+<p><strong>Union-Find</strong> thường được dùng song song với DFS/BFS để giải các bài toán về connected components và là nền tảng cho thuật toán MST (Kruskal).
+</p>
+</li>
+</ul>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4244 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/lap-trinh/python-automation-best-practices-on-tap/">
+      
+      
+        <link rel="prev" href="../python-nang-cao-thu-vien/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Python: Automation, Best Practices & Ôn tập - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-automation-best-practices-on-tap-tong-hop" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python: Automation, Best Practices & Ôn tập
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../toan/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../deep-learning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../toan/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/giai-tich/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/vae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/latent-space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-nen-tang-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-nang-cao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-mang-chuoi-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-trees-heap-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#automation-voi-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation với Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Automation với Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-file-organizer-sap-xep-file-tu-ong-theo-phan-mo-rong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. File Organizer — sắp xếp file tự động theo phần mở rộng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-csv-processor-oc-loc-bien-oi-va-ghi-lai-du-lieu-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. CSV Processor — đọc, lọc, biến đổi và ghi lại dữ liệu CSV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-log-analyzer-trich-loisu-kien-quan-trong-tu-file-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Log Analyzer — trích lỗi/sự kiện quan trọng từ file log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-rest-api-caller-goi-api-bang-module-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. REST API Caller — gọi API bằng module requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-folder-backup-tao-ban-backup-co-timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Folder Backup — tạo bản backup có timestamp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-automation-scripts-ket-hop-nhieu-buoc-thanh-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Automation Scripts — kết hợp nhiều bước thành pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ung-dung-trong-devops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ứng dụng trong DevOps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pep-8-chuan-viet-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PEP 8 — chuẩn viết code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-truc-du-an" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cấu trúc dự án
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quy-tac-at-ten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quy tắc đặt tên
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-environments-cach-ly-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Environments — cách ly dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirementstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        requirements.txt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tinh-de-oc-cua-code-docstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tính dễ đọc của code &amp; docstring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loi-thuong-gap-can-tranh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lỗi thường gặp cần tránh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#giai-quyet-van-e-voi-python-problem-solving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Giải quyết vấn đề với Python (Problem Solving)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Giải quyết vấn đề với Python (Problem Solving)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-searching-tim-kiem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Searching (Tìm kiếm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sorting-sap-xep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Sorting (Sắp xếp)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-two-pointers-hai-con-tro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Two Pointers (Hai con trỏ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-sliding-window-cua-so-truot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sliding Window (Cửa sổ trượt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        So sánh nhanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tong-on-tap-cau-hoi-phong-van" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tổng ôn tập &amp; Câu hỏi phỏng vấn
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tổng ôn tập &amp; Câu hỏi phỏng vấn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cheat-sheet-cac-khai-niem-cot-loi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet — các khái niệm cốt lõi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-hoi-phong-van-ly-thuyet-kem-goi-y-tra-loi-ngan-gon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi phỏng vấn lý thuyết (kèm gợi ý trả lời ngắn gọn)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-hoi-phong-van-dang-coding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi phỏng vấn dạng coding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-thuc-hanh-e-xuat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài tập thực hành đề xuất
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-toan-thu-thach-nang-cao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài toán thử thách (nâng cao)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bang-o-phuc-tap-thoi-gian-big-o" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bảng độ phức tạp thời gian (Big-O)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meo-cai-thien-nen-tang-luyen-tap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mẹo cải thiện &amp; nền tảng luyện tập
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#automation-voi-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation với Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Automation với Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-file-organizer-sap-xep-file-tu-ong-theo-phan-mo-rong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. File Organizer — sắp xếp file tự động theo phần mở rộng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-csv-processor-oc-loc-bien-oi-va-ghi-lai-du-lieu-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. CSV Processor — đọc, lọc, biến đổi và ghi lại dữ liệu CSV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-log-analyzer-trich-loisu-kien-quan-trong-tu-file-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Log Analyzer — trích lỗi/sự kiện quan trọng từ file log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-rest-api-caller-goi-api-bang-module-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. REST API Caller — gọi API bằng module requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-folder-backup-tao-ban-backup-co-timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Folder Backup — tạo bản backup có timestamp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-automation-scripts-ket-hop-nhieu-buoc-thanh-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Automation Scripts — kết hợp nhiều bước thành pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ung-dung-trong-devops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ứng dụng trong DevOps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pep-8-chuan-viet-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PEP 8 — chuẩn viết code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-truc-du-an" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cấu trúc dự án
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quy-tac-at-ten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quy tắc đặt tên
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-environments-cach-ly-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Environments — cách ly dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirementstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        requirements.txt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tinh-de-oc-cua-code-docstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tính dễ đọc của code &amp; docstring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loi-thuong-gap-can-tranh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lỗi thường gặp cần tránh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#giai-quyet-van-e-voi-python-problem-solving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Giải quyết vấn đề với Python (Problem Solving)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Giải quyết vấn đề với Python (Problem Solving)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-searching-tim-kiem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Searching (Tìm kiếm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sorting-sap-xep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Sorting (Sắp xếp)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-two-pointers-hai-con-tro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Two Pointers (Hai con trỏ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-sliding-window-cua-so-truot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sliding Window (Cửa sổ trượt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        So sánh nhanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tong-on-tap-cau-hoi-phong-van" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tổng ôn tập &amp; Câu hỏi phỏng vấn
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tổng ôn tập &amp; Câu hỏi phỏng vấn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cheat-sheet-cac-khai-niem-cot-loi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cheat sheet — các khái niệm cốt lõi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-hoi-phong-van-ly-thuyet-kem-goi-y-tra-loi-ngan-gon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi phỏng vấn lý thuyết (kèm gợi ý trả lời ngắn gọn)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-hoi-phong-van-dang-coding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi phỏng vấn dạng coding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-thuc-hanh-e-xuat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài tập thực hành đề xuất
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-toan-thu-thach-nang-cao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài toán thử thách (nâng cao)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bang-o-phuc-tap-thoi-gian-big-o" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bảng độ phức tạp thời gian (Big-O)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meo-cai-thien-nen-tang-luyen-tap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mẹo cải thiện &amp; nền tảng luyện tập
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="python-automation-best-practices-on-tap-tong-hop">Python: Automation, Best Practices &amp; Ôn tập tổng hợp<a class="headerlink" href="#python-automation-best-practices-on-tap-tong-hop" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🖼️ <strong>Tổng hợp từ 5 ảnh ghi chú gốc (bộ CamNangPython &amp; Ghi chú Python):</strong>
+1. 1385_automation-python-file-organizer-csv-processor-api.jpg</p>
+<ol>
+<li>
+<p>1386_python-best-practices-pep8-cau-truc-du-an-dat-ten-.jpg</p>
+</li>
+<li>
+<p>1387_python-ultimate-cheat-sheet-on-tap-phong-van-tong-.jpg</p>
+</li>
+<li>
+<p>1443_ghi-chu-python-giai-quyet-van-de-searching-sorting.jpg</p>
+</li>
+<li>
+<p>1444_ghi-chu-python-bai-tap-thuc-hanh-va-cau-hoi-phong-.jpg
+</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="automation-voi-python">Automation với Python<a class="headerlink" href="#automation-voi-python" title="Permanent link">&para;</a></h3>
+<p>Python giúp tự động hóa các tác vụ lặp lại, xử lý dữ liệu, tương tác API và quản lý hệ thống hiệu quả — rất phổ biến trong DevOps/SRE (cấp phát server, Docker, CI/CD, giám sát log, bảo trì hạ tầng).</p>
+<h4 id="1-file-organizer-sap-xep-file-tu-ong-theo-phan-mo-rong">1. File Organizer — sắp xếp file tự động theo phần mở rộng<a class="headerlink" href="#1-file-organizer-sap-xep-file-tu-ong-theo-phan-mo-rong" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">shutil</span>
+
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">'src'</span><span class="p">):</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="sa">f</span><span class="s1">'src/</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s1">/'</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Ứng dụng:</strong> giữ thư mục downloads/reports gọn gàng tự động.</p>
+<h4 id="2-csv-processor-oc-loc-bien-oi-va-ghi-lai-du-lieu-csv">2. CSV Processor — đọc, lọc, biến đổi và ghi lại dữ liệu CSV<a class="headerlink" href="#2-csv-processor-oc-loc-bien-oi-va-ghi-lai-du-lieu-csv" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'input.csv'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'output.csv'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">reader</span><span class="o">.</span><span class="n">fieldnames</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">'status'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'active'</span><span class="p">:</span>   <span class="c1"># ví dụ lọc thêm</span>
+                <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Ứng dụng:</strong> xử lý báo cáo, lọc dữ liệu, tạo tóm tắt.</p>
+<h4 id="3-log-analyzer-trich-loisu-kien-quan-trong-tu-file-log">3. Log Analyzer — trích lỗi/sự kiện quan trọng từ file log<a class="headerlink" href="#3-log-analyzer-trich-loisu-kien-quan-trong-tu-file-log" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'app.log'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">'ERROR'</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Ứng dụng:</strong> giám sát ứng dụng, theo dõi sự cố.</p>
+<h4 id="4-rest-api-caller-goi-api-bang-module-requests">4. REST API Caller — gọi API bằng module <code>requests</code><a class="headerlink" href="#4-rest-api-caller-goi-api-bang-module-requests" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">"https://api.example.com/users"</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">res</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'name'</span><span class="p">])</span>
+</code></pre></div>
+<p><strong>Ví dụ bổ sung — POST dữ liệu lên API:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Alice"</span><span class="p">,</span> <span class="s2">"role"</span><span class="p">:</span> <span class="s2">"admin"</span><span class="p">}</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"https://api.example.com/users"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Ứng dụng:</strong> kiểm tra API, lấy dữ liệu, tích hợp hệ thống.</p>
+<h4 id="5-folder-backup-tao-ban-backup-co-timestamp">5. Folder Backup — tạo bản backup có timestamp<a class="headerlink" href="#5-folder-backup-tao-ban-backup-co-timestamp" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span><span class="o">,</span><span class="w"> </span><span class="nn">datetime</span>
+
+<span class="n">src</span> <span class="o">=</span> <span class="s1">'important_data/'</span>
+<span class="n">backup</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"backup_</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="si">:</span><span class="s2">%Y%m%d</span><span class="si">}</span><span class="s2">.zip"</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">(</span><span class="n">backup</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.zip'</span><span class="p">,</span> <span class="s1">''</span><span class="p">),</span> <span class="s1">'zip'</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Ứng dụng:</strong> backup hằng ngày, an toàn dữ liệu, khôi phục sự cố.</p>
+<h4 id="6-automation-scripts-ket-hop-nhieu-buoc-thanh-pipeline">6. Automation Scripts — kết hợp nhiều bước thành pipeline<a class="headerlink" href="#6-automation-scripts-ket-hop-nhieu-buoc-thanh-pipeline" title="Permanent link">&para;</a></h4>
+<p><code>Đọc File → Xử lý → Sinh Report</code></p>
+<p><strong>Ứng dụng:</strong> tự động hóa quy trình nghiệp vụ từ đầu đến cuối (ví dụ: đọc CSV → làm sạch dữ liệu → gọi API cập nhật → gửi báo cáo qua email).</p>
+<h4 id="ung-dung-trong-devops">Ứng dụng trong DevOps<a class="headerlink" href="#ung-dung-trong-devops" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Tự động cấp phát server (AWS, Azure, GCP)</p>
+</li>
+<li>
+<p>Tự động hóa Docker</p>
+</li>
+<li>
+<p>Trigger Jenkins jobs (CI/CD)</p>
+</li>
+<li>
+<p>Upload log/artifact lên cloud storage</p>
+</li>
+<li>
+<p>Giám sát và cảnh báo hệ thống</p>
+</li>
+<li>
+<p>Bảo trì hạ tầng &amp; dọn dẹp</p>
+</li>
+</ul>
+<p><strong>💡 Mẹo hay</strong></p>
+<ul>
+<li>
+<p>Dùng <code>logging</code> thay vì <code>print</code> để dễ theo dõi hơn.</p>
+</li>
+<li>
+<p>Xử lý exception mềm dẻo (try/except cụ thể).</p>
+</li>
+<li>
+<p>Lập lịch tác vụ bằng cron/Task Scheduler.</p>
+</li>
+</ul>
+<p><strong>⭐ Best Practices</strong></p>
+<ul>
+<li>
+<p>Viết code module hóa, tái sử dụng.</p>
+</li>
+<li>
+<p>Dùng config file cho cài đặt (không hardcode).</p>
+</li>
+<li>
+<p>Thêm log và validation đầy đủ.</p>
+</li>
+</ul>
+<p><strong>⚠️ Lỗi thường gặp</strong></p>
+<ul>
+<li>
+<p>Hardcode đường dẫn và credentials.</p>
+</li>
+<li>
+<p>Bỏ qua exception handling (<code>except: pass</code>).</p>
+</li>
+<li>
+<p>Chạy tác vụ nặng trên main thread.</p>
+</li>
+</ul>
+<hr />
+<h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<p>Viết code Python sạch, dễ đọc và dễ bảo trì bằng cách tuân theo chuẩn, cấu trúc dự án rõ ràng và tránh các lỗi thường gặp.</p>
+<h4 id="pep-8-chuan-viet-code">PEP 8 — chuẩn viết code<a class="headerlink" href="#pep-8-chuan-viet-code" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Tuân theo style guide chính thức của Python.</p>
+</li>
+<li>
+<p>Dùng 4 dấu cách để thụt lề (không dùng tab).</p>
+</li>
+<li>
+<p>Giới hạn độ dài dòng ở 79–99 kí tự.</p>
+</li>
+<li>
+<p>Dùng tên có ý nghĩa cho biến và hàm.</p>
+</li>
+<li>
+<p>Thêm khoảng trắng quanh toán tử và sau dấu phẩy.</p>
+</li>
+<li>
+<p>Giữ code nhất quán và sạch sẽ.</p>
+</li>
+</ul>
+<blockquote>
+<p>Mẹo: dùng công cụ như <code>flake8</code>, <code>black</code>, <code>pylint</code> để tự động kiểm tra và format code.</p>
+</blockquote>
+<h4 id="cau-truc-du-an">Cấu trúc dự án<a class="headerlink" href="#cau-truc-du-an" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nx">my_project</span><span class="o">/</span>
+<span class="w">  </span><span class="nx">src</span><span class="o">/</span>
+<span class="w">    </span><span class="nx">my_package</span><span class="o">/</span>
+<span class="w">      </span><span class="nx">__init__</span><span class="p">.</span><span class="nx">py</span>
+<span class="w">      </span><span class="nx">core</span><span class="p">.</span><span class="nx">py</span>
+<span class="w">  </span><span class="nx">tests</span><span class="o">/</span>
+<span class="w">    </span><span class="nx">test_core</span><span class="p">.</span><span class="nx">py</span>
+<span class="w">  </span><span class="nx">requirements</span><span class="p">.</span><span class="nx">txt</span>
+<span class="w">  </span><span class="nx">README</span><span class="p">.</span><span class="nx">md</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">gitignore</span>
+</code></pre></div>
+<ul>
+<li>
+<p>Giữ source code trong <code>src/</code></p>
+</li>
+<li>
+<p>Tách riêng test trong <code>tests/</code></p>
+</li>
+<li>
+<p>Thêm <code>README.md</code></p>
+</li>
+<li>
+<p>Bỏ qua file không cần thiết bằng <code>.gitignore</code></p>
+</li>
+</ul>
+<h4 id="quy-tac-at-ten">Quy tắc đặt tên<a class="headerlink" href="#quy-tac-at-ten" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Loại</th>
+<th>Quy tắc</th>
+<th>Ví dụ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>variable_name</td>
+<td>snake_case</td>
+<td><code>user_name</code></td>
+</tr>
+<tr>
+<td>function_name()</td>
+<td>snake_case</td>
+<td><code>calculate_total()</code></td>
+</tr>
+<tr>
+<td>ClassName</td>
+<td>PascalCase</td>
+<td><code>CustomerManager</code></td>
+</tr>
+<tr>
+<td>CONSTANT_NAME</td>
+<td>UPPER_SNAKE_CASE</td>
+<td><code>MAX_RETRY_COUNT</code></td>
+</tr>
+<tr>
+<td>module_<a href="http://name.py/">name.py</a></td>
+<td>snake_case</td>
+<td><code>data_utils.py</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="virtual-environments-cach-ly-dependencies">Virtual Environments — cách ly dependencies<a class="headerlink" href="#virtual-environments-cach-ly-dependencies" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Tạo</span>
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="c1"># Kích hoạt (Windows)</span>
+venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+<span class="c1"># Kích hoạt (Linux/Mac)</span>
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</code></pre></div>
+<p>Giúp tránh xung đột phiên bản và giữ các package gọn gàng.</p>
+<h4 id="requirementstxt">requirements.txt<a class="headerlink" href="#requirementstxt" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nx">requests</span><span class="o">==</span><span class="mf">2.31.0</span>
+<span class="nx">numpy</span><span class="o">==</span><span class="mf">1.26.4</span>
+<span class="nx">pandas</span><span class="o">==</span><span class="mf">2.2.2</span>
+<span class="nx">pytest</span><span class="o">==</span><span class="mf">8.2.0</span>
+</code></pre></div>
+<p>Cài đặt bằng: <code>pip install -r requirements.txt</code></p>
+<h4 id="tinh-de-oc-cua-code-docstring">Tính dễ đọc của code &amp; docstring<a class="headerlink" href="#tinh-de-oc-cua-code-docstring" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Viết hàm nhỏ, tập trung một việc.</p>
+</li>
+<li>
+<p>Dùng tên có ý nghĩa.</p>
+</li>
+<li>
+<p>Thêm comment và <strong>docstring</strong>.</p>
+</li>
+<li>
+<p>Tránh lồng nhiều tầng quá sâu.</p>
+</li>
+<li>
+<p>Tuân theo nguyên tắc <strong>DRY</strong> (Don't Repeat Yourself).</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Trả về tổng của hai số."""</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div>
+<h4 id="loi-thuong-gap-can-tranh">Lỗi thường gặp cần tránh<a class="headerlink" href="#loi-thuong-gap-can-tranh" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Lỗi</th>
+<th>Ví dụ sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dùng mutable default argument</td>
+<td><code>def fun(lst=[]):</code></td>
+</tr>
+<tr>
+<td>Không đóng file</td>
+<td><code>f = open('file.txt')</code> (nên dùng <code>with</code>)</td>
+</tr>
+<tr>
+<td>Copy-paste code</td>
+<td>dẫn đến lỗi và khó bảo trì</td>
+</tr>
+<tr>
+<td>Bỏ qua exception</td>
+<td><code>except: pass</code></td>
+</tr>
+<tr>
+<td>Dùng biến global</td>
+<td><code>global count</code></td>
+</tr>
+<tr>
+<td>Không viết test</td>
+<td>luôn kiểm thử code của bạn</td>
+</tr>
+<tr>
+<td>Hardcode giá trị</td>
+<td><code>API_KEY = "12345"</code></td>
+</tr>
+<tr>
+<td>Làm code phức tạp quá mức</td>
+<td>dùng giải pháp đơn giản, đúng chuẩn Python</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ Ghi nhớ: Thói quen tốt hôm nay, code tuyệt vời ngày mai!</p>
+</blockquote>
+<hr />
+<h3 id="giai-quyet-van-e-voi-python-problem-solving">Giải quyết vấn đề với Python (Problem Solving)<a class="headerlink" href="#giai-quyet-van-e-voi-python-problem-solving" title="Permanent link">&para;</a></h3>
+<p>Rèn tư duy logic và khả năng nhận diện mẫu (pattern) — hỗ trợ phỏng vấn coding và ứng dụng thực tế. <strong>Quy trình:</strong> Xác định pattern → Chọn đúng cách tiếp cận → Chia nhỏ vấn đề → Giải → Tối ưu → Kiểm thử.</p>
+<h4 id="1-searching-tim-kiem">1. Searching (Tìm kiếm)<a class="headerlink" href="#1-searching-tim-kiem" title="Permanent link">&para;</a></h4>
+<p><strong>Linear Search</strong> — O(n), hoạt động trên dữ liệu chưa sắp xếp hoặc đã sắp xếp:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">linear_search</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># Không tìm thấy</span>
+</code></pre></div>
+<p><strong>Binary Search</strong> — O(log n), chỉ hoạt động trên dữ liệu đã sắp xếp:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">binary_search</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mid</span>
+        <span class="k">elif</span> <span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div>
+<p>Ví dụ: <code>arr = [1,3,5,7,9,11,13]</code>, <code>target=7</code> → Output: <code>3</code></p>
+<p><strong>Khi nào dùng:</strong> Linear cho dữ liệu nhỏ/chưa sắp xếp; Binary cho dữ liệu đã sắp xếp (lớn, nhanh hơn nhiều).</p>
+<h4 id="2-sorting-sap-xep">2. Sorting (Sắp xếp)<a class="headerlink" href="#2-sorting-sap-xep" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Thuật toán</th>
+<th>Độ phức tạp</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bubble Sort</td>
+<td>O(n²)</td>
+<td>Hoán đổi liên tục các phần tử liền kề nếu sai thứ tự</td>
+</tr>
+<tr>
+<td>Selection Sort</td>
+<td>O(n²)</td>
+<td>Tìm phần tử nhỏ nhất, đặt vào đúng vị trí</td>
+</tr>
+<tr>
+<td>Merge Sort</td>
+<td>O(n log n)</td>
+<td>Chia mảng thành hai nửa, sắp xếp rồi trộn lại</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">arr</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">[:</span><span class="n">mid</span><span class="p">])</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>  <span class="c1"># merge() gộp 2 mảng đã sort</span>
+</code></pre></div>
+<p><strong>Khi nào dùng:</strong> Bubble/Selection cho dữ liệu nhỏ; Merge Sort cho dữ liệu lớn (ổn định, nhanh). Mẹo: ưu tiên <code>sorted()</code>/<code>.sort()</code> dựng sẵn trong Python.</p>
+<h4 id="3-two-pointers-hai-con-tro">3. Two Pointers (Hai con trỏ)<a class="headerlink" href="#3-two-pointers-hai-con-tro" title="Permanent link">&para;</a></h4>
+<p>Dùng hai con trỏ (trái &amp; phải) để giải bài toán trong O(n) — phù hợp với mảng đã sắp xếp, cặp đôi, đối xứng (palindrome).</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pair_with_sum</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+            <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Ví dụ: <code>arr = [2,4,6,8,10,14]</code>, <code>target=16</code> → tìm thấy <code>(2, 14)</code>.</p>
+<h4 id="4-sliding-window-cua-so-truot">4. Sliding Window (Cửa sổ trượt)<a class="headerlink" href="#4-sliding-window-cua-so-truot" title="Permanent link">&para;</a></h4>
+<p>Duy trì một "cửa sổ" trượt trên mảng/chuỗi để có kết quả trong O(n).</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">max_sum_k</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">window_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">arr</span><span class="p">[:</span><span class="n">k</span><span class="p">])</span>
+    <span class="n">max_sum</span> <span class="o">=</span> <span class="n">window_sum</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)):</span>
+        <span class="n">window_sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">max_sum</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_sum</span><span class="p">,</span> <span class="n">window_sum</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">max_sum</span>
+</code></pre></div>
+<p>Ví dụ: <code>arr = [2,1,5,1,3,2]</code>, <code>k=3</code> → cửa sổ <code>[5,1,3]</code>, tổng lớn nhất = 9.</p>
+<p><strong>Ứng dụng phổ biến:</strong> mảng con Max/Min kích thước K, chuỗi con dài nhất không lặp ký tự, đếm anagram trong chuỗi.</p>
+<h4 id="so-sanh-nhanh">So sánh nhanh<a class="headerlink" href="#so-sanh-nhanh" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Kỹ thuật</th>
+<th>Phù hợp nhất cho</th>
+<th>Time</th>
+<th>Space</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear Search</td>
+<td>Dữ liệu bất kỳ</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Binary Search</td>
+<td>Dữ liệu đã sort</td>
+<td>O(log n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Bubble/Selection Sort</td>
+<td>Dữ liệu nhỏ</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Merge Sort</td>
+<td>Dữ liệu lớn</td>
+<td>O(n log n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Two Pointers</td>
+<td>Đã sort / Cặp đôi</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Sliding Window</td>
+<td>Mảng con / Chuỗi con</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Ghi chú liên hệ: các kỹ thuật Two Pointers, Sliding Window và độ phức tạp thời gian (Big-O) ở trên cũng là nền tảng chung cho các trang Cấu trúc dữ liệu &amp; Giải thuật (DSA) khác trong hub kiến thức — nên tham khảo chéo khi ôn tập LeetCode/HackerRank.</p>
+</blockquote>
+<hr />
+<h3 id="tong-on-tap-cau-hoi-phong-van">Tổng ôn tập &amp; Câu hỏi phỏng vấn<a class="headerlink" href="#tong-on-tap-cau-hoi-phong-van" title="Permanent link">&para;</a></h3>
+<h4 id="cheat-sheet-cac-khai-niem-cot-loi">Cheat sheet — các khái niệm cốt lõi<a class="headerlink" href="#cheat-sheet-cac-khai-niem-cot-loi" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Chủ đề</th>
+<th>Tóm tắt nhanh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Variables</td>
+<td>Không cần khai báo kiểu, dynamic typing (<code>name = "Alice"</code>)</td>
+</tr>
+<tr>
+<td>Data Types</td>
+<td>str, int, float, bool, list, dict...</td>
+</tr>
+<tr>
+<td>Operators</td>
+<td>Arithmetic (+ - * / // % **), Comparison, Logical (and/or/not), Membership (in/not in), Identity (is/is not)</td>
+</tr>
+<tr>
+<td>Conditions</td>
+<td>if / elif / else</td>
+</tr>
+<tr>
+<td>Loops</td>
+<td>for, while</td>
+</tr>
+<tr>
+<td>Functions</td>
+<td><code>def add(a, b): return a + b</code></td>
+</tr>
+<tr>
+<td>Collections</td>
+<td>List (mutable), Tuple (immutable), Set (unique), Dict (key-value)</td>
+</tr>
+<tr>
+<td>File Handling</td>
+<td><code>with open('data.txt') as f: content = f.read()</code></td>
+</tr>
+<tr>
+<td>Exceptions</td>
+<td>try / except / finally</td>
+</tr>
+<tr>
+<td>OOP</td>
+<td>Class, Object, Inheritance, Encapsulation, Polymorphism</td>
+</tr>
+<tr>
+<td>Hàm built-in</td>
+<td>print, len, type, range, min, max, sum, sorted, enumerate, zip, map, filter, round</td>
+</tr>
+<tr>
+<td>Module thường dùng</td>
+<td>os, sys, math, datetime, json, re</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cau-hoi-phong-van-ly-thuyet-kem-goi-y-tra-loi-ngan-gon">Câu hỏi phỏng vấn lý thuyết (kèm gợi ý trả lời ngắn gọn)<a class="headerlink" href="#cau-hoi-phong-van-ly-thuyet-kem-goi-y-tra-loi-ngan-gon" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Câu hỏi</th>
+<th>Trả lời ngắn gọn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Python là gì?</td>
+<td>Ngôn ngữ lập trình bậc cao, thông dịch (interpreted), đa mục đích.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Khác nhau giữa list và tuple?</td>
+<td>List có thể thay đổi (mutable), tuple thì không (immutable).</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Khác nhau giữa <code>==</code> và <code>is</code>?</td>
+<td><code>==</code> so sánh giá trị, <code>is</code> so sánh vị trí bộ nhớ (identity).</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Dictionary trong Python là gì?</td>
+<td>Tập hợp các cặp key-value, không có thứ tự cố định, có thể thay đổi.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>self</code> dùng để làm gì?</td>
+<td>Tham chiếu đến instance hiện tại của class.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Hàm lambda là gì?</td>
+<td>Hàm ẩn danh viết trong một dòng, ví dụ <code>lambda x: x*2</code>.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Khác nhau giữa <code>append()</code> và <code>extend()</code>?</td>
+<td><code>append()</code> thêm một phần tử; <code>extend()</code> thêm từng phần tử từ một iterable.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Recursion (đệ quy) là gì?</td>
+<td>Hàm tự gọi lại chính nó để giải bài toán nhỏ hơn.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Module là gì?</td>
+<td>File Python chứa hàm, class, biến để tái sử dụng.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>PEP 8 là gì?</td>
+<td>Python Enhancement Proposal 8 — hướng dẫn phong cách viết code Python chuẩn.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cau-hoi-phong-van-dang-coding">Câu hỏi phỏng vấn dạng coding<a class="headerlink" href="#cau-hoi-phong-van-dang-coding" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Câu hỏi</th>
+<th>Hướng tiếp cận</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Viết chương trình tìm giai thừa của một số.</td>
+<td>Dùng vòng lặp hoặc đệ quy.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Viết chương trình kiểm tra số nguyên tố.</td>
+<td>Kiểm tra chia hết từ 2 đến sqrt(n).</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Viết chương trình đảo ngược một chuỗi.</td>
+<td>Dùng slicing <code>s[::-1]</code> hoặc vòng lặp.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Tìm phần tử lớn nhất trong list.</td>
+<td>Khởi tạo max, duyệt qua list (hoặc dùng <code>max()</code>).</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Xóa phần tử trùng lặp trong list.</td>
+<td>Chuyển list thành set rồi chuyển lại.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Đếm nguyên âm trong chuỗi.</td>
+<td>Kiểm tra từng ký tự trong <code>'aeiouAEIOU'</code>.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Tìm số lớn thứ hai trong list.</td>
+<td>Xóa max, tìm max lần nữa (hoặc sort rồi lấy phần tử áp chót).</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bai-tap-thuc-hanh-e-xuat">Bài tập thực hành đề xuất<a class="headerlink" href="#bai-tap-thuc-hanh-e-xuat" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>[ ] In bảng cửu chương của n</p>
+</li>
+<li>
+<p>[ ] Nhập n số và in tổng của chúng</p>
+</li>
+<li>
+<p>[ ] Kiểm tra một chuỗi có phải palindrome không</p>
+</li>
+<li>
+<p>[ ] In các phần tử chung của hai list</p>
+</li>
+<li>
+<p>[ ] Gộp hai list đã sắp xếp</p>
+</li>
+<li>
+<p>[ ] Đếm tần suất mỗi phần tử trong list</p>
+</li>
+<li>
+<p>[ ] Chuyển thập phân sang nhị phân</p>
+</li>
+<li>
+<p>[ ] Đếm số từ trong câu</p>
+</li>
+<li>
+<p>[ ] Sắp xếp list mà không dùng <code>sort()</code></p>
+</li>
+<li>
+<p>[ ] Tìm số còn thiếu trong dãy 1 đến n</p>
+</li>
+</ul>
+<h4 id="bai-toan-thu-thach-nang-cao">Bài toán thử thách (nâng cao)<a class="headerlink" href="#bai-toan-thu-thach-nang-cao" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>[ ] Cài đặt tìm kiếm nhị phân (binary search)</p>
+</li>
+<li>
+<p>[ ] Giải bài toán Tháp Hà Nội (Tower of Hanoi)</p>
+</li>
+<li>
+<p>[ ] Kiểm tra hai chuỗi có phải anagram không</p>
+</li>
+<li>
+<p>[ ] Tìm tiền tố chung dài nhất (longest common prefix)</p>
+</li>
+<li>
+<p>[ ] Cài đặt LRU Cache (cơ bản)</p>
+</li>
+<li>
+<p>[ ] Xoay ma trận 90 độ</p>
+</li>
+<li>
+<p>[ ] Tìm tất cả chuỗi con của một chuỗi</p>
+</li>
+<li>
+<p>[ ] Giải bài toán N-Queens</p>
+</li>
+</ul>
+<h4 id="bang-o-phuc-tap-thoi-gian-big-o">Bảng độ phức tạp thời gian (Big-O)<a class="headerlink" href="#bang-o-phuc-tap-thoi-gian-big-o" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Ký hiệu</th>
+<th>Tên gọi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O(1)</td>
+<td>Hằng số (Constant)</td>
+</tr>
+<tr>
+<td>O(log n)</td>
+<td>Logarit (Logarithmic)</td>
+</tr>
+<tr>
+<td>O(n)</td>
+<td>Tuyến tính (Linear)</td>
+</tr>
+<tr>
+<td>O(n log n)</td>
+<td>Linearithmic</td>
+</tr>
+<tr>
+<td>O(n²)</td>
+<td>Bậc hai (Quadratic)</td>
+</tr>
+<tr>
+<td>O(2ⁿ)</td>
+<td>Hàm mũ (Exponential)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="meo-cai-thien-nen-tang-luyen-tap">Mẹo cải thiện &amp; nền tảng luyện tập<a class="headerlink" href="#meo-cai-thien-nen-tang-luyen-tap" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Giải bài hàng ngày (ít nhất 1–2 bài).</p>
+</li>
+<li>
+<p>Hiểu rõ trước khi học thuộc.</p>
+</li>
+<li>
+<p>Tự viết code, đừng chỉ đọc.</p>
+</li>
+<li>
+<p>Kiểm thử các trường hợp biên (edge case).</p>
+</li>
+<li>
+<p>Xem lại và phân tích lời giải của mình.</p>
+</li>
+<li>
+<p>Nền tảng luyện tập: LeetCode, HackerRank, Codeforces, GeeksforGeeks, InterviewBit, Coding Ninjas, Exercism.</p>
+</li>
+</ul>
+<blockquote>
+<p>Tư duy thông minh. Code tốt hơn. Tối ưu mọi lúc!</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>📝 <strong>Ghi chú bổ sung:</strong> Trang này tổng hợp và diễn giải lại nội dung từ 5 ảnh ghi chú gốc (đã liệt kê ở đầu trang), có bổ sung một số ví dụ code riêng (POST API, bảng so sánh, liên hệ DSA) để nội dung liền mạch và dễ tra cứu hơn. Khi cần xem lại chi tiết hình ảnh gốc, tham khảo đường dẫn file trong callout đầu trang.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

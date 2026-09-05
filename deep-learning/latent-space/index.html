@@ -1,0 +1,3493 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/deep-learning/latent-space/">
+      
+      
+        <link rel="prev" href="../vae/">
+      
+      
+        <link rel="next" href="../cnn/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Latent Space - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#latent-space-khong-gian-tiem-an" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Latent Space
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../toan/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lap-trinh/docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../toan/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/giai-tich/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-inh-nghia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Định nghĩa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vi-du-de-hieu-nhat-ho-so-khuon-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Ví dụ dễ hiểu nhất: hồ sơ khuôn mặt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ba-tinh-chat-quyet-inh-latent-space-tot-hay-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Ba tính chất quyết định latent space tốt hay dở
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-pham-vi-ap-dung-khong-chi-autoencoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Phạm vi áp dụng — không chỉ Autoencoder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Phạm vi áp dụng — không chỉ Autoencoder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iem-chung-cua-moi-latent-space-trong-bang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Điểm chung của mọi latent space trong bảng
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-phan-biet-cac-thuat-ngu-hay-bi-dung-lan-lon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Phân biệt các thuật ngữ hay bị dùng lẫn lộn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-lam-uoc-gi-trong-latent-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Làm được gì trong Latent Space
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Làm được gì trong Latent Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phep-cong-tru-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phép cộng trừ vector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noi-suy-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nội suy (interpolation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tim-kiem-theo-ngu-nghia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tìm kiếm theo ngữ nghĩa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phat-hien-bat-thuong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phát hiện bất thường
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-lam-sao-nhin-thay-uoc-latent-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Làm sao nhìn thấy được Latent Space?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-lien-he-truc-tiep-voi-e-tai-nckh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Liên hệ trực tiếp với đề tài NCKH
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-nguon-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Nguồn học
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ghi-chu-cua-minh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ghi chú của mình
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-deep-learning-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-deep-learning-nen-tang-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-nang-cao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-mang-chuoi-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-trees-heap-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-automation-best-practices-on-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-inh-nghia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Định nghĩa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vi-du-de-hieu-nhat-ho-so-khuon-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Ví dụ dễ hiểu nhất: hồ sơ khuôn mặt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ba-tinh-chat-quyet-inh-latent-space-tot-hay-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Ba tính chất quyết định latent space tốt hay dở
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-pham-vi-ap-dung-khong-chi-autoencoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Phạm vi áp dụng — không chỉ Autoencoder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Phạm vi áp dụng — không chỉ Autoencoder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iem-chung-cua-moi-latent-space-trong-bang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Điểm chung của mọi latent space trong bảng
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-phan-biet-cac-thuat-ngu-hay-bi-dung-lan-lon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Phân biệt các thuật ngữ hay bị dùng lẫn lộn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-lam-uoc-gi-trong-latent-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Làm được gì trong Latent Space
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Làm được gì trong Latent Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phep-cong-tru-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phép cộng trừ vector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noi-suy-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nội suy (interpolation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tim-kiem-theo-ngu-nghia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tìm kiếm theo ngữ nghĩa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phat-hien-bat-thuong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phát hiện bất thường
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-lam-sao-nhin-thay-uoc-latent-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Làm sao nhìn thấy được Latent Space?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-lien-he-truc-tiep-voi-e-tai-nckh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Liên hệ trực tiếp với đề tài NCKH
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-nguon-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Nguồn học
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ghi-chu-cua-minh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ghi chú của mình
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="latent-space-khong-gian-tiem-an">Latent Space (Không gian tiềm ẩn)<a class="headerlink" href="#latent-space-khong-gian-tiem-an" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🎓 <strong>NCKH</strong> / <strong>Deep Learning</strong> / <strong>Latent Space</strong></p>
+<p>❓ <strong>Vì sao trang này nằm ở cấp Deep Learning chứ không nằm trong Autoencoder?</strong>
+Vì Latent Space <strong>không phải khái niệm riêng của Autoencoder</strong>. Bạn gặp nó lần đầu ở AE, nhưng nó xuất hiện ở gần như <strong>mọi mô hình học sâu</strong>: GAN, Diffusion, Word2Vec, BERT, CLIP, ViT — và cả <strong>CBM</strong> trong đề tài của bạn. Đặt nó ngang hàng với AE và CNN là đúng phạm vi của nó.
+</p>
+</blockquote>
+<hr />
+<h2 id="1-inh-nghia">1. Định nghĩa<a class="headerlink" href="#1-inh-nghia" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>📌 <strong>Latent Space (không gian tiềm ẩn)</strong> là <strong>không gian vectơ nhiều chiều mà mô hình dùng để biểu diễn dữ liệu ở dạng nén, trừu tượng</strong> — nơi mỗi mẫu dữ liệu trở thành <strong>một điểm</strong>, và <strong>khoảng cách giữa các điểm phản ánh mức độ giống nhau về ý nghĩa</strong>.</p>
+</blockquote>
+<p>Chữ <strong>"latent"</strong> trong tiếng Anh nghĩa là <strong>ẩn, tiềm tàng, chưa lộ ra</strong>. Nó ẩn theo hai nghĩa:</p>
+<ul>
+<li>
+<p><strong>Ẩn về mặt vật lý:</strong> nó nằm bên trong mạng, không phải đầu vào cũng không phải đầu ra. Bạn không nhìn thấy nó trừ khi cố tình lấy ra.</p>
+</li>
+<li>
+<p><strong>Ẩn về mặt ý nghĩa:</strong> các chiều của nó là những <strong>yếu tố sinh ra dữ liệu</strong> (latent factors) mà không ai gán nhãn cả — mô hình tự tìm ra. Với ảnh khuôn mặt thì đó có thể là góc quay, tuổi, độ dài tóc; nhưng chúng <strong>không được ghi tên ở đâu cả</strong>.</p>
+</li>
+</ul>
+<p>Một cách viết gọn: nếu <span class="arithmatex">\(x\)</span> là dữ liệu gốc và <span class="arithmatex">\(f\)</span> là mạng mã hóa thì</p>
+<div class="arithmatex">\[z = f(x) \in \mathbb{R}^d, \qquad d \ll \dim(x)\]</div>
+<p>Tập hợp mọi giá trị <span class="arithmatex">\(z\)</span> có thể có chính là <strong>Latent Space</strong>, và <span class="arithmatex">\(d\)</span> là <strong>số chiều</strong> của nó.</p>
+<hr />
+<h2 id="2-vi-du-de-hieu-nhat-ho-so-khuon-mat">2. Ví dụ dễ hiểu nhất: hồ sơ khuôn mặt<a class="headerlink" href="#2-vi-du-de-hieu-nhat-ho-so-khuon-mat" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>👤 Một ảnh khuôn mặt 256×256 màu có <strong>196.608</strong> con số. Nhưng nếu chỉ cần mô tả để người khác hình dung ra, bạn cần bao nhiêu?
+Khoảng <strong>5 con số</strong> là đủ dùng: <em>tuổi, giới tính, độ dài tóc, đang cười hay không, góc quay mặt</em>.</p>
+<p><strong>Không gian 5 chiều đó chính là một Latent Space.</strong> Ảnh gốc sống trong không gian 196.608 chiều; latent space nén nó xuống 5 chiều mà vẫn giữ được những gì thật sự quan trọng.
+</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Không gian</th>
+<th>Số chiều</th>
+<th>Một điểm trong đó là gì</th>
+<th>Khoảng cách nghĩa là gì</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Không gian ảnh gốc (pixel space)</td>
+<td>196.608</td>
+<td>Một danh sách giá trị pixel</td>
+<td><strong>Gần như vô nghĩa</strong> — cùng một người, chỉ cần dịch ảnh 5 pixel là khoảng cách đã rất lớn</td>
+</tr>
+<tr>
+<td><strong>Latent Space</strong></td>
+<td>5 (hoặc 128, 512...)</td>
+<td>Một "bản mô tả" cô đọng</td>
+<td><strong>Rất có nghĩa</strong> — hai điểm gần nhau nghĩa là hai khuôn mặt giống nhau về bản chất</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Đây là điều quan trọng nhất của cả trang.</strong> Giá trị của latent space không nằm ở chỗ nó <strong>nhỏ hơn</strong>, mà nằm ở chỗ <strong>khoảng cách trong đó mang ý nghĩa ngữ nghĩa</strong>.
+Trong không gian pixel, ảnh số 1 màu trắng và ảnh số 1 màu xám cách xa nhau hơn ảnh số 1 và ảnh số 7 cùng độ sáng. Trong latent space tốt thì ngược lại — và đó mới là điều ta cần.
+</p>
+</blockquote>
+<hr />
+<h2 id="3-ba-tinh-chat-quyet-inh-latent-space-tot-hay-do">3. Ba tính chất quyết định latent space tốt hay dở<a class="headerlink" href="#3-ba-tinh-chat-quyet-inh-latent-space-tot-hay-do" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>📐 <strong>Cô đọng (compact)</strong>
+Số chiều nhỏ hơn hẳn dữ liệu gốc, đã loại bỏ nhiễu và phần dư thừa.
+</p>
+<p>🧭 <strong>Có cấu trúc (structured)</strong>
+Điểm gần nhau thì giống nhau về ngữ nghĩa. Đây là tính chất khiến latent space dùng được cho tìm kiếm, gom cụm, phân loại.
+</p>
+<p>🎚️ <strong>Tách bạch (disentangled)</strong>
+Mỗi chiều mang <strong>một</strong> yếu tố độc lập. Đây là tính chất <strong>khó nhất</strong>, và cũng là tính chất mà XAI quan tâm nhất.
+</p>
+<p>⚠️ Phần lớn latent space trong thực tế đạt được tính chất <strong>1</strong> và <strong>2</strong> một cách tự nhiên, nhưng <strong>không</strong> đạt tính chất <strong>3</strong>. Trong một latent space chưa tách bạch, thay đổi chiều thứ 7 có thể vừa làm người trong ảnh già đi vừa làm tóc dài ra — <strong>hai khái niệm bị trộn vào cùng một chiều</strong>.
+Làm sao ép được tính tách bạch là cả một hướng nghiên cứu riêng (β-VAE, FactorVAE), và nó nằm rất gần đề tài của bạn.
+</p>
+</blockquote>
+<hr />
+<h2 id="4-pham-vi-ap-dung-khong-chi-autoencoder">4. Phạm vi áp dụng — không chỉ Autoencoder<a class="headerlink" href="#4-pham-vi-ap-dung-khong-chi-autoencoder" title="Permanent link">&para;</a></h2>
+<p>Đây là phần trả lời trực tiếp cho câu hỏi <em>"latent space chỉ dùng cho AE hay cả lĩnh vực khác?"</em>. Câu trả lời: <strong>nó có mặt ở gần như mọi nơi trong học sâu</strong>, chỉ khác nhau ở chỗ nó <strong>nằm ở đâu trong mô hình</strong> và <strong>ai quyết định cấu trúc của nó</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Lĩnh vực / Mô hình</th>
+<th>Latent Space nằm ở đâu</th>
+<th>Số chiều điển hình</th>
+<th>Dùng để làm gì</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Autoencoder</strong></td>
+<td>Vector z tại Bottleneck</td>
+<td>16 – 128</td>
+<td>Giảm chiều, khử nhiễu, phát hiện bất thường</td>
+</tr>
+<tr>
+<td><strong>VAE</strong></td>
+<td>Phân phối <span class="arithmatex">\(N(\mu, \sigma^2)\)</span> tại Bottleneck</td>
+<td>20 – 256</td>
+<td>Sinh dữ liệu mới, nội suy mượt</td>
+</tr>
+<tr>
+<td><strong>GAN</strong></td>
+<td>Vector nhiễu z <strong>đầu vào</strong> của Generator</td>
+<td>100 – 512</td>
+<td>Sinh ảnh; StyleGAN còn có thêm không gian W tách bạch hơn</td>
+</tr>
+<tr>
+<td><strong>Diffusion / Stable Diffusion</strong></td>
+<td>Khuếch tán diễn ra <strong>trong latent space</strong> thay vì trên pixel</td>
+<td>64×64×4</td>
+<td>Đây chính là chữ "Latent" trong <strong>Latent Diffusion Model</strong> — làm việc ở latent nhẹ hơn pixel khoảng 48 lần</td>
+</tr>
+<tr>
+<td><strong>NLP — Word2Vec, GloVe</strong></td>
+<td>Vector nhúng của mỗi từ</td>
+<td>100 – 300</td>
+<td>Đo độ giống nghĩa giữa các từ; đây là latent space nổi tiếng nhất lịch sử</td>
+</tr>
+<tr>
+<td><strong>NLP — BERT, GPT</strong></td>
+<td>Vector ẩn ở mỗi lớp Transformer</td>
+<td>768 – 4096</td>
+<td>Biểu diễn câu/đoạn theo ngữ cảnh; nền của tìm kiếm ngữ nghĩa và RAG</td>
+</tr>
+<tr>
+<td><strong>CLIP</strong></td>
+<td><strong>Một</strong> không gian dùng chung cho <strong>cả ảnh và chữ</strong></td>
+<td>512</td>
+<td>Ảnh con mèo và dòng chữ "a photo of a cat" rơi vào <strong>gần cùng một điểm</strong> — nền của phân loại zero-shot</td>
+</tr>
+<tr>
+<td><strong>CNN / ViT (phân loại)</strong></td>
+<td>Vector ngay <strong>trước</strong> lớp FC cuối (penultimate layer)</td>
+<td>512 – 2048</td>
+<td>Transfer learning, tìm ảnh tương tự, trích xuất đặc trưng</td>
+</tr>
+<tr>
+<td><strong>Hệ gợi ý (Netflix, Spotify)</strong></td>
+<td>Vector latent của <strong>người dùng</strong> và của <strong>bộ phim</strong></td>
+<td>50 – 200</td>
+<td>Tích vô hướng hai vector = mức độ người này sẽ thích phim kia</td>
+</tr>
+<tr>
+<td><strong>Giảm chiều cổ điển (PCA)</strong></td>
+<td>Các thành phần chính</td>
+<td>2 – 50</td>
+<td>Latent space <strong>tuyến tính</strong> — tổ tiên của mọi thứ ở trên</td>
+</tr>
+<tr>
+<td><strong>Tin sinh học</strong></td>
+<td>Vector nhúng của mỗi tế bào / chuỗi protein</td>
+<td>30 – 1280</td>
+<td>Gom cụm loại tế bào, dự đoán cấu trúc protein (AlphaFold)</td>
+</tr>
+<tr>
+<td><strong>CBM (đề tài của bạn)</strong></td>
+<td>Lớp Bottleneck khái niệm giữa mạng</td>
+<td>= số khái niệm (112 với CUB)</td>
+<td><strong>Trường hợp đặc biệt</strong>: mỗi chiều được <strong>gán nhãn sẵn</strong> một khái niệm con người hiểu được</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🧩 <strong>Hàng cuối cùng của bảng chính là chìa khóa của đề tài NCKH.</strong>
+Ở <strong>mọi dòng khác</strong>, latent space là <strong>ẩn theo cả hai nghĩa</strong> — không ai biết chiều thứ 42 nghĩa là gì.</p>
+<p>Ở <strong>CBM</strong>, người ta cố tình <strong>ép mỗi chiều phải mang một khái niệm đã được đặt tên</strong> ("có mỏ vàng", "cánh có sọc"). Nói cách khác:</p>
+<p><strong>CBM = một latent space bị buộc phải diễn giải được.</strong></p>
+<p>Đó là toàn bộ ý tưởng của Concept Bottleneck Model, phát biểu bằng ngôn ngữ latent space. Nếu thầy hỏi "CBM khác gì AE", đây là câu trả lời gọn nhất: cùng là nút thắt, nhưng một bên để trống cho máy tự học, một bên bắt buộc phải có nghĩa với người.
+</p>
+</blockquote>
+<h3 id="iem-chung-cua-moi-latent-space-trong-bang">Điểm chung của mọi latent space trong bảng<a class="headerlink" href="#iem-chung-cua-moi-latent-space-trong-bang" title="Permanent link">&para;</a></h3>
+<p>Dù ở lĩnh vực nào, cả 12 dòng trên đều chia sẻ đúng bốn tính chất:</p>
+<ol>
+<li>
+<p><strong>Là vector số thực nhiều chiều</strong> — không phải ảnh, không phải chữ, chỉ là một dãy số.</p>
+</li>
+<li>
+<p><strong>Số chiều nhỏ hơn hẳn dữ liệu gốc</strong> — nén là điều kiện để mô hình buộc phải khái quát hóa thay vì ghi nhớ.</p>
+</li>
+<li>
+<p><strong>Khoảng cách mang ý nghĩa ngữ nghĩa</strong> — đây là thứ khiến nó hữu dụng, không phải việc nó nhỏ.</p>
+</li>
+<li>
+<p><strong>Do mô hình tự học ra, không phải do người thiết kế</strong> — trừ đúng trường hợp CBM.</p>
+</li>
+</ol>
+<blockquote>
+<p>🎯 <strong>Cách nhận ra latent space khi đọc bài báo:</strong> cứ tìm chỗ nào tác giả nói tới <code>embedding</code>, <code>representation</code>, <code>feature vector</code>, <code>code</code>, <code>bottleneck</code>, <code>hidden state</code>, hay ký hiệu <span class="arithmatex">\(z\)</span> / <span class="arithmatex">\(h\)</span> — gần như chắc chắn họ đang nói tới một latent space, chỉ là gọi bằng tên khác.</p>
+</blockquote>
+<hr />
+<h2 id="5-phan-biet-cac-thuat-ngu-hay-bi-dung-lan-lon">5. Phân biệt các thuật ngữ hay bị dùng lẫn lộn<a class="headerlink" href="#5-phan-biet-cac-thuat-ngu-hay-bi-dung-lan-lon" title="Permanent link">&para;</a></h2>
+<p>Đây là chỗ gây rối nhất khi mới đọc bài báo, vì nhiều từ chỉ <strong>gần như</strong> cùng một thứ.</p>
+<table>
+<thead>
+<tr>
+<th>Thuật ngữ</th>
+<th>Nghĩa chính xác</th>
+<th>Khác biệt cần nhớ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Latent Space</strong></td>
+<td><strong>Cả không gian</strong> — tập hợp mọi vector có thể có</td>
+<td>Là cái <strong>không gian</strong>, không phải một điểm</td>
+</tr>
+<tr>
+<td><strong>Latent Vector / Latent Code (z)</strong></td>
+<td><strong>Một điểm</strong> cụ thể trong không gian đó</td>
+<td>Là <strong>một phần tử</strong> của Latent Space</td>
+</tr>
+<tr>
+<td><strong>Embedding</strong></td>
+<td>Vector biểu diễn của một đối tượng rời rạc (từ, ảnh, người dùng)</td>
+<td>Gần như đồng nghĩa với latent vector; hay dùng hơn trong NLP và tìm kiếm</td>
+</tr>
+<tr>
+<td><strong>Feature Vector</strong></td>
+<td>Vector đặc trưng, thường lấy từ lớp áp chót của mạng phân loại</td>
+<td>Nhấn mạnh <strong>công dụng</strong> (đưa vào bộ phân loại), latent nhấn mạnh <strong>tính ẩn</strong></td>
+</tr>
+<tr>
+<td><strong>Representation</strong></td>
+<td>Từ bao trùm nhất, chỉ mọi cách máy biểu diễn dữ liệu</td>
+<td>Chữ trong "<strong>Representation</strong> Learning" — tên gọi chung của cả lĩnh vực</td>
+</tr>
+<tr>
+<td><strong>Feature Map</strong></td>
+<td>Đầu ra của một lớp Conv, còn giữ <strong>cấu trúc không gian</strong> H×W×C</td>
+<td>Là tensor <strong>3 chiều</strong>, chưa bị duỗi phẳng. Xem <a href="../cnn/">Untitled</a></td>
+</tr>
+<tr>
+<td><strong>Concept Space</strong></td>
+<td>Latent space mà mỗi chiều <strong>đã được gán nhãn</strong> một khái niệm</td>
+<td>Chính là thứ CBM tạo ra — latent space có nghĩa</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💬 <strong>Nói ngắn gọn:</strong> <em>Latent Space</em> là <strong>cái sân</strong>, <em>latent vector z</em> là <strong>một người đứng trong sân</strong>, <em>embedding</em> là cách gọi khác của người đó khi bạn đang làm NLP, và <em>Concept Space</em> là cái sân đã được kẻ vạch và ghi tên từng ô.</p>
+</blockquote>
+<hr />
+<h2 id="6-lam-uoc-gi-trong-latent-space">6. Làm được gì trong Latent Space<a class="headerlink" href="#6-lam-uoc-gi-trong-latent-space" title="Permanent link">&para;</a></h2>
+<p>Vì latent space là không gian vector, ta có thể <strong>làm toán</strong> trên nó — và phép toán lại ra kết quả có nghĩa. Đây là điều làm nhiều người kinh ngạc khi mới gặp.</p>
+<h3 id="phep-cong-tru-vector">Phép cộng trừ vector<a class="headerlink" href="#phep-cong-tru-vector" title="Permanent link">&para;</a></h3>
+<p>Ví dụ kinh điển của <strong>Word2Vec</strong> (Mikolov, 2013):</p>
+<div class="arithmatex">\[\text{vec}(\text{"king"}) - \text{vec}(\text{"man"}) + \text{vec}(\text{"woman"}) \approx \text{vec}(\text{"queen"})\]</div>
+<p>Điều tương tự xảy ra với ảnh khuôn mặt trong latent space của GAN:</p>
+<div class="arithmatex">\[\text{(người đàn ông đeo kính)} - \text{(người đàn ông)} + \text{(người phụ nữ)} = \text{(người phụ nữ đeo kính)}\]</div>
+<blockquote>
+<p>✨ <strong>Ý nghĩa sâu xa:</strong> phép trừ vừa rồi <strong>cô lập được khái niệm "đeo kính"</strong> thành một <strong>hướng</strong> trong không gian. Mô hình chưa bao giờ được dạy từ "kính", nhưng khái niệm đó vẫn tồn tại như một hướng đi trong latent space.
+Đây chính là nền tảng toán học của <strong>TCAV</strong> (Testing with Concept Activation Vectors) — một trong những phương pháp XAI quan trọng nhất và là tiền thân trực tiếp của CBM. TCAV chỉ làm đúng một việc: <strong>đi tìm hướng vector ứng với một khái niệm</strong>, rồi đo xem quyết định của mô hình nhạy cảm với hướng đó tới mức nào.
+</p>
+</blockquote>
+<h3 id="noi-suy-interpolation">Nội suy (interpolation)<a class="headerlink" href="#noi-suy-interpolation" title="Permanent link">&para;</a></h3>
+<p>Đi dần từ điểm này sang điểm kia trên đường thẳng nối chúng:</p>
+<div class="arithmatex">\[z_{\alpha} = (1-\alpha)\, z_A + \alpha\, z_B, \qquad \alpha \in [0, 1]\]</div>
+<p>Nếu latent space <strong>liên tục</strong>, mọi điểm giữa đường đều giải mã ra kết quả có nghĩa (số 3 biến dần thành số 8). Nếu không liên tục, phần giữa ra nhiễu. Đây đúng là khác biệt giữa AE và VAE — xem <a href="../vae/">Variational Autoencoder (VAE)</a>.</p>
+<h3 id="tim-kiem-theo-ngu-nghia">Tìm kiếm theo ngữ nghĩa<a class="headerlink" href="#tim-kiem-theo-ngu-nghia" title="Permanent link">&para;</a></h3>
+<p>Muốn tìm ảnh giống một ảnh cho trước: mã hóa tất cả thành vector, rồi <strong>tìm vector gần nhất</strong> theo cosine similarity. Toàn bộ ngành <strong>vector database</strong> (Pinecone, FAISS, Qdrant) và kỹ thuật <strong>RAG</strong> đứng trên đúng một ý tưởng này.</p>
+<h3 id="phat-hien-bat-thuong">Phát hiện bất thường<a class="headerlink" href="#phat-hien-bat-thuong" title="Permanent link">&para;</a></h3>
+<p>Dữ liệu bình thường rơi vào vùng dày đặc của latent space; dữ liệu lạ rơi ra ngoài rìa và cho Reconstruction Loss cao. Đây là ứng dụng phổ biến nhất của Autoencoder trong công nghiệp.</p>
+<hr />
+<h2 id="7-lam-sao-nhin-thay-uoc-latent-space">7. Làm sao nhìn thấy được Latent Space?<a class="headerlink" href="#7-lam-sao-nhin-thay-uoc-latent-space" title="Permanent link">&para;</a></h2>
+<p>Latent space có 128 hay 512 chiều — mắt người không hình dung nổi. Có ba cách thông dụng để "nhìn" nó:</p>
+<table>
+<thead>
+<tr>
+<th>Cách</th>
+<th>Làm gì</th>
+<th>Nhìn ra được điều gì</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chiếu xuống 2D</strong> (t-SNE, UMAP, PCA)</td>
+<td>Ép 128 chiều xuống 2 chiều rồi vẽ lên mặt phẳng, tô màu theo nhãn</td>
+<td>Các lớp có <strong>tách thành cụm riêng</strong> không. Cách kiểm tra nhanh nhất xem biểu diễn có tốt hay không</td>
+</tr>
+<tr>
+<td><strong>Nội suy</strong> (interpolation)</td>
+<td>Đi từ mẫu A sang mẫu B, giải mã từng bước</td>
+<td>Không gian có <strong>liên tục</strong> không, hay có lỗ hổng</td>
+</tr>
+<tr>
+<td><strong>Đi dọc một chiều</strong> (latent traversal)</td>
+<td>Giữ nguyên z, chỉ kéo <strong>một</strong> chiều từ −3 đến +3</td>
+<td>Chiều đó có mang <strong>một khái niệm riêng</strong> không — tức mức độ <strong>disentangled</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Lưu ý khi dùng t-SNE — rất hay bị hiểu sai trong báo cáo:</strong> t-SNE chỉ bảo toàn <strong>quan hệ lân cận cục bộ</strong>, không bảo toàn khoảng cách toàn cục. Vì vậy <strong>kích thước của các cụm</strong> và <strong>khoảng cách giữa các cụm</strong> trên hình t-SNE <strong>không mang ý nghĩa gì cả</strong>. Chỉ nên kết luận "các lớp có tách rời nhau hay không", đừng kết luận "cụm A gần cụm B hơn cụm C".</p>
+</blockquote>
+<hr />
+<h2 id="8-lien-he-truc-tiep-voi-e-tai-nckh">8. Liên hệ trực tiếp với đề tài NCKH<a class="headerlink" href="#8-lien-he-truc-tiep-voi-e-tai-nckh" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔗 <strong>Toàn bộ hướng XAI dựa trên khái niệm có thể phát biểu lại bằng ngôn ngữ latent space:</strong>
+<strong>Vấn đề gốc.</strong> Mạng nơ-ron ra quyết định dựa trên một vector latent 2048 chiều mà <strong>không ai đọc hiểu được</strong>. Đó chính là "hộp đen".</p>
+<p><strong>Hướng giải quyết 1 — hậu kiểm (post-hoc).</strong> Giữ nguyên mô hình, đi tìm ý nghĩa trong latent space đã có: <strong>TCAV</strong> tìm hướng ứng với khái niệm; <strong>Sparse Autoencoder</strong> trong mechanistic interpretability tách latent thành nhiều đặc trưng thưa dễ đọc hơn.</p>
+<p><strong>Hướng giải quyết 2 — thiết kế sẵn (intrinsic).</strong> Bắt latent space phải có nghĩa <strong>ngay từ đầu</strong>: đó là <strong>CBM</strong>. Mỗi chiều được gán một khái niệm, và quyết định cuối cùng chỉ được phép dựa trên các chiều đó.</p>
+<p><strong>Chỗ đứng của β-VAE.</strong> Nằm giữa hai hướng: khái niệm <strong>tự nổi lên</strong> mà không cần nhãn, nhưng lại <strong>không kiểm soát được</strong> chúng là khái niệm gì.</p>
+<p><strong>Khoảng trống nghiên cứu đáng chú ý:</strong> liệu có cách nào có được tính diễn giải của CBM mà <strong>không phải trả giá bằng nhãn khái niệm thủ công</strong>? Đây đúng là câu hỏi mà Label-free CBM và các hướng dùng CLIP đang cố trả lời.
+</p>
+<p>🕳️ <strong>Một cạm bẫy phải biết — Concept Leakage.</strong> Ngay cả trong CBM, latent space vẫn có thể "gian lận": lớp bottleneck khái niệm học cách <strong>giấu thêm thông tin không liên quan tới khái niệm</strong> vào chính các giá trị khái niệm đó (ví dụ dùng giá trị 0.63 thay vì 0 hoặc 1 để mã hóa lén một thứ khác). Khi đó phần giải thích <strong>trông thì có nghĩa nhưng thực ra không phản ánh đúng thứ mô hình đang dùng</strong>.
+Đây là lý do phải phân biệt <strong>faithfulness</strong> (giải thích có đúng với những gì mô hình thật sự làm không) và <strong>plausibility</strong> (giải thích nghe có hợp lý với người không). Xem <a href="../../xai/06-danh-gia/">6. Đánh giá chất lượng lời giải thích</a>.
+</p>
+</blockquote>
+<hr />
+<h2 id="9-nguon-hoc">9. Nguồn học<a class="headerlink" href="#9-nguon-hoc" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="https://towardsdatascience.com/understanding-latent-space-in-machine-learning-de5a7c687d8d">Understanding Latent Space in Machine Learning — Ekin Tiu (Towards Data Science)</a> — bài giới thiệu ngắn gọn, dễ đọc nhất để bắt đầu.</p>
+</li>
+<li>
+<p><a href="https://lilianweng.github.io/posts/2018-08-12-vae/">From Autoencoder to Beta-VAE — Lilian Weng</a> — nói rất kỹ về cấu trúc latent space và tính disentanglement.</p>
+</li>
+<li>
+<p><a href="https://www.deeplearningbook.org/contents/representation.html">Deep Learning Book — Chapter 15: Representation Learning (Goodfellow et al.)</a> — <strong>chương sách chuẩn để trích dẫn học thuật</strong> khi viết về biểu diễn.</p>
+</li>
+<li>
+<p><a href="https://arxiv.org/abs/1301.3781">Efficient Estimation of Word Representations in Vector Space — Mikolov et al., 2013</a> — bài Word2Vec gốc, nơi phép "king − man + woman" xuất hiện.</p>
+</li>
+<li>
+<p><a href="https://arxiv.org/abs/1711.11279">Interpretability Beyond Feature Attribution: TCAV — Kim et al., ICML 2018</a> — <strong>bài phải đọc cho đề tài của bạn</strong>: định nghĩa khái niệm như một hướng vector trong latent space.</p>
+</li>
+<li>
+<p><a href="https://arxiv.org/abs/2112.10752">High-Resolution Image Synthesis with Latent Diffusion Models — Rombach et al., CVPR 2022</a> — bài Stable Diffusion, cho thấy vì sao làm việc trong latent space lại rẻ hơn pixel space rất nhiều.</p>
+</li>
+<li>
+<p><a href="https://distill.pub/2016/misread-tsne/">Distill — How to Use t-SNE Effectively</a> — bài tương tác giải thích các bẫy khi đọc hình t-SNE.</p>
+</li>
+</ul>
+<blockquote>
+<p>🧪 <strong>Bài thực hành liên kết mọi thứ trong trang này (khoảng một buổi):</strong>
+Huấn luyện một Autoencoder trên MNIST với <code>code size = 2</code>, rồi vẽ toàn bộ tập test lên mặt phẳng và tô màu theo chữ số. Bạn sẽ <strong>nhìn thấy tận mắt một latent space</strong>.</p>
+<p>Sau đó làm ba việc: (1) thử nội suy giữa một số 3 và một số 8; (2) làm lại y hệt với VAE và so sánh hai tấm hình; (3) thử tính <code>vec(số 8) − vec(số 3)</code> xem hướng đó có nghĩa gì không.</p>
+<p>Ba thí nghiệm nhỏ này chính là phiên bản thu nhỏ của TCAV, của Latent Diffusion và của β-VAE.
+</p>
+</blockquote>
+<hr />
+<h2 id="10-ghi-chu-cua-minh">10. Ghi chú của mình<a class="headerlink" href="#10-ghi-chu-cua-minh" title="Permanent link">&para;</a></h2>
+<p><em>(Điền sau khi học: chỗ nào còn vướng, câu hỏi cần hỏi thầy.)</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

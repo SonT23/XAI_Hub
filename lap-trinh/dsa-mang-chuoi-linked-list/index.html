@@ -1,0 +1,4371 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/lap-trinh/dsa-mang-chuoi-linked-list/">
+      
+      
+        <link rel="prev" href="../dsa-nhap-mon-big-o/">
+      
+      
+        <link rel="next" href="../dsa-stack-queue-hashing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>DSA: Mảng, Chuỗi & Linked List - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dsa-mang-chuoi-danh-sach-lien-ket" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DSA: Mảng, Chuỗi & Linked List
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../toan/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../deep-learning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../toan/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/giai-tich/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/vae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/latent-space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep-learning/cam-nang-deep-learning-nen-tang-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-nang-cao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mang-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mảng (Arrays)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mảng (Arrays)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inh-nghia-bieu-dien-bo-nho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Định nghĩa &amp; biểu diễn bộ nhớ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#khai-bao-khoi-tao-vi-du-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Khai báo &amp; khởi tạo (ví dụ C++)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duyet-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duyệt (Traversal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chen-insertion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chèn (Insertion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xoa-deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Xóa (Deletion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cap-nhat-updating-tim-kiem-searching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cập nhật (Updating) &amp; Tìm kiếm (Searching)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uu-iem-nhuoc-iem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ưu điểm &amp; Nhược điểm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ung-dung-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ứng dụng thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bang-o-phuc-tap-thoi-gian-tong-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bảng độ phức tạp thời gian tổng hợp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-pattern-thuong-gap-khi-phong-van-voi-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các pattern thường gặp khi phỏng vấn với Array
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chuoi-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chuỗi (Strings)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chuỗi (Strings)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chuoi-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chuỗi là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duyet-chuoi-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duyệt chuỗi (Traversal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-thao-tac-co-ban-voi-chuoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các thao tác cơ bản với chuỗi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ao-nguoc-chuoi-reverse-a-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đảo ngược chuỗi (Reverse a String)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra-palindrome" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra Palindrome
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra-anagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra Anagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#em-tan-suat-ky-tu-character-frequency-counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đếm tần suất ký tự (Character Frequency Counting)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutable-vs-immutable-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutable vs Immutable String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bang-o-phuc-tap-thoi-gian-cac-thao-tac-chuoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bảng độ phức tạp thời gian các thao tác chuỗi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-pattern-thuong-gap-khi-phong-van-voi-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các pattern thường gặp khi phỏng vấn với String
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#danh-sach-lien-ket-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Danh sách liên kết (Linked List)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Danh sách liên kết (Linked List)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linked-list-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linked List là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Singly Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duyet-traversal_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duyệt (Traversal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chen-insertion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chèn (Insertion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xoa-deletion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Xóa (Deletion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Doubly Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#circular-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Circular Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meo-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mẹo thực hành
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-array-vs-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        So sánh Array vs Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bang-o-phuc-tap-thoi-gian-singly-doubly-circular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bảng độ phức tạp thời gian (Singly / Doubly / Circular)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-pattern-thuong-gap-khi-phong-van-voi-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các pattern thường gặp khi phỏng vấn với Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-trees-heap-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-automation-best-practices-on-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mang-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mảng (Arrays)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mảng (Arrays)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inh-nghia-bieu-dien-bo-nho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Định nghĩa &amp; biểu diễn bộ nhớ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#khai-bao-khoi-tao-vi-du-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Khai báo &amp; khởi tạo (ví dụ C++)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duyet-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duyệt (Traversal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chen-insertion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chèn (Insertion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xoa-deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Xóa (Deletion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cap-nhat-updating-tim-kiem-searching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cập nhật (Updating) &amp; Tìm kiếm (Searching)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uu-iem-nhuoc-iem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ưu điểm &amp; Nhược điểm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ung-dung-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ứng dụng thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bang-o-phuc-tap-thoi-gian-tong-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bảng độ phức tạp thời gian tổng hợp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-pattern-thuong-gap-khi-phong-van-voi-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các pattern thường gặp khi phỏng vấn với Array
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chuoi-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chuỗi (Strings)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chuỗi (Strings)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chuoi-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chuỗi là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duyet-chuoi-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duyệt chuỗi (Traversal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-thao-tac-co-ban-voi-chuoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các thao tác cơ bản với chuỗi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ao-nguoc-chuoi-reverse-a-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đảo ngược chuỗi (Reverse a String)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra-palindrome" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra Palindrome
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra-anagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra Anagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#em-tan-suat-ky-tu-character-frequency-counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đếm tần suất ký tự (Character Frequency Counting)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutable-vs-immutable-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutable vs Immutable String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bang-o-phuc-tap-thoi-gian-cac-thao-tac-chuoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bảng độ phức tạp thời gian các thao tác chuỗi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-pattern-thuong-gap-khi-phong-van-voi-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các pattern thường gặp khi phỏng vấn với String
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#danh-sach-lien-ket-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Danh sách liên kết (Linked List)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Danh sách liên kết (Linked List)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linked-list-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linked List là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Singly Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duyet-traversal_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duyệt (Traversal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chen-insertion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chèn (Insertion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xoa-deletion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Xóa (Deletion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Doubly Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#circular-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Circular Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meo-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mẹo thực hành
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-array-vs-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        So sánh Array vs Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bang-o-phuc-tap-thoi-gian-singly-doubly-circular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bảng độ phức tạp thời gian (Singly / Doubly / Circular)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-pattern-thuong-gap-khi-phong-van-voi-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các pattern thường gặp khi phỏng vấn với Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="dsa-mang-chuoi-danh-sach-lien-ket">DSA: Mảng, Chuỗi &amp; Danh sách liên kết<a class="headerlink" href="#dsa-mang-chuoi-danh-sach-lien-ket" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🖼️ Trang này tổng hợp từ 8 ảnh ghi chú học tập gốc sau (dán ảnh tương ứng vào từng mục bên dưới khi cần):
+1. <code>1321_cam-nang-dsa-arrays-khai-bao-insertion-deletion.jpg</code></p>
+<ol>
+<li>
+<p><code>1322_cam-nang-dsa-strings-operations-palindrome-anagram.jpg</code></p>
+</li>
+<li>
+<p><code>1323_cam-nang-dsa-linked-list-insertion-deletion.jpg</code></p>
+</li>
+<li>
+<p><code>1338_ghi-chu-dsa-arrays-strings-khong-lien-quan-ml.jpg</code></p>
+</li>
+<li>
+<p><code>1342_ghi-chu-dsa-linked-lists.jpg</code></p>
+</li>
+<li>
+<p><code>1407_ghi-chu-ve-cau-truc-du-lieu-mang-arrays.jpg</code></p>
+</li>
+<li>
+<p><code>1408_ghi-chu-ve-cau-truc-du-lieu-chuoi-strings.jpg</code></p>
+</li>
+<li>
+<p><code>1418_ghi-chu-danh-sach-lien-ket-linked-list.jpg</code>
+</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="mang-arrays">Mảng (Arrays)<a class="headerlink" href="#mang-arrays" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>📌 Ảnh thuộc mục này: <code>1321_cam-nang-dsa-arrays-khai-bao-insertion-deletion.jpg</code>, <code>1338_ghi-chu-dsa-arrays-strings-khong-lien-quan-ml.jpg</code>, <code>1407_ghi-chu-ve-cau-truc-du-lieu-mang-arrays.jpg</code></p>
+</blockquote>
+<h4 id="inh-nghia-bieu-dien-bo-nho">Định nghĩa &amp; biểu diễn bộ nhớ<a class="headerlink" href="#inh-nghia-bieu-dien-bo-nho" title="Permanent link">&para;</a></h4>
+<p>Mảng (Array) là cấu trúc dữ liệu tuyến tính lưu trữ các phần tử <strong>cùng kiểu dữ liệu</strong> tại các vị trí bộ nhớ <strong>liên tiếp (contiguous)</strong>. Các phần tử được truy cập thông qua chỉ số (index), và ở hầu hết các ngôn ngữ lập trình, indexing bắt đầu từ 0.</p>
+<p>Vì bộ nhớ liên tiếp, địa chỉ của phần tử <code>arr[i]</code> có thể tính trực tiếp:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">address</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">base_address</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="nx">i</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="nx">kích_thước_1_phần_tử</span><span class="p">)</span>
+</code></pre></div>
+<p>Ví dụ: nếu <code>base = 1000</code> và mỗi số nguyên (int) chiếm 4 byte:</p>
+<table>
+<thead>
+<tr>
+<th>Index</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Giá trị</td>
+<td>10</td>
+<td>20</td>
+<td>30</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Địa chỉ</td>
+<td>1000</td>
+<td>1004</td>
+<td>1008</td>
+<td>1012</td>
+</tr>
+</tbody>
+</table>
+<h4 id="khai-bao-khoi-tao-vi-du-c">Khai báo &amp; khởi tạo (ví dụ C++)<a class="headerlink" href="#khai-bao-khoi-tao-vi-du-c" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Khai báo</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span><span class="w">              </span><span class="c1">// array kích thước 5</span>
+
+<span class="c1">// Khởi tạo</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">arr1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">arr2</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">};</span><span class="w">   </span><span class="c1">// size được suy ra</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">arr3</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span><span class="w">         </span><span class="c1">// các phần tử còn lại mặc định là 0</span>
+</code></pre></div>
+<p><strong>Mảng 1D và 2D:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1D</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span>
+<span class="c1">// Truy cập: arr[0], arr[1], ..., arr[4]</span>
+
+<span class="c1">// 2D (ma trận)</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">mat</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">}</span>
+<span class="p">};</span>
+<span class="c1">// Truy cập: mat[i][j]  |  Rows = 3, Cols = 4</span>
+</code></pre></div>
+<h4 id="duyet-traversal">Duyệt (Traversal)<a class="headerlink" href="#duyet-traversal" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// Time Complexity: O(n)</span>
+</code></pre></div>
+<h4 id="chen-insertion">Chèn (Insertion)<a class="headerlink" href="#chen-insertion" title="Permanent link">&para;</a></h4>
+<p>Chèn phần tử <code>x</code> tại vị trí <code>k</code> (0 ≤ k ≤ n):</p>
+<ol>
+<li>
+<p>Kiểm tra capacity (kích thước mảng còn chỗ trống không).</p>
+</li>
+<li>
+<p>Dịch các phần tử từ vị trí <code>k</code> đến <code>n-1</code> sang phải một ô.</p>
+</li>
+<li>
+<p>Chèn <code>x</code> vào vị trí <code>k</code>.</p>
+</li>
+</ol>
+<p>Ví dụ: chèn 25 tại index 2 của <code>[10, 20, 30, 40, 50]</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">Before</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="mf">20</span><span class="w"> </span><span class="mf">30</span><span class="w"> </span><span class="mf">40</span><span class="w"> </span><span class="mf">50</span>
+<span class="nx">After</span><span class="o">:</span><span class="w">  </span><span class="mf">10</span><span class="w"> </span><span class="mf">20</span><span class="w"> </span><span class="mf">25</span><span class="w"> </span><span class="mf">30</span><span class="w"> </span><span class="mf">40</span><span class="w"> </span><span class="mf">50</span>
+</code></pre></div>
+<p>Time Complexity: <strong>O(n)</strong> (trường hợp chèn ở cuối và còn chỗ trống: O(1)).</p>
+<h4 id="xoa-deletion">Xóa (Deletion)<a class="headerlink" href="#xoa-deletion" title="Permanent link">&para;</a></h4>
+<p>Xóa phần tử tại index <code>k</code> (0 ≤ k &lt; n):</p>
+<ol>
+<li>
+<p>Lưu/xóa phần tử tại <code>k</code>.</p>
+</li>
+<li>
+<p>Dịch các phần tử từ <code>k+1</code> đến <code>n-1</code> sang trái một ô.</p>
+</li>
+<li>
+<p>Giảm kích thước (size) đi 1.</p>
+</li>
+</ol>
+<p>Ví dụ: xóa phần tử tại index 2 của <code>[10, 20, 30, 40, 50]</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">Before</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="mf">20</span><span class="w"> </span><span class="mf">30</span><span class="w"> </span><span class="mf">40</span><span class="w"> </span><span class="mf">50</span>
+<span class="nx">After</span><span class="o">:</span><span class="w">  </span><span class="mf">10</span><span class="w"> </span><span class="mf">20</span><span class="w"> </span><span class="mf">40</span><span class="w"> </span><span class="mf">50</span>
+</code></pre></div>
+<p>Time Complexity: <strong>O(n)</strong> (trường hợp xóa ở cuối: O(1)).</p>
+<h4 id="cap-nhat-updating-tim-kiem-searching">Cập nhật (Updating) &amp; Tìm kiếm (Searching)<a class="headerlink" href="#cap-nhat-updating-tim-kiem-searching" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Cập nhật: <code>arr[k] = newValue;</code> → <strong>O(1)</strong></p>
+</li>
+<li>
+<p>Tìm kiếm tuyến tính (Linear Search): kiểm tra từng phần tử → hoạt động trên mảng chưa/đã sắp xếp → <strong>O(n)</strong></p>
+</li>
+<li>
+<p>Tìm kiếm nhị phân (Binary Search): chỉ hoạt động trên mảng <strong>đã sắp xếp (sorted)</strong> → <strong>O(log n)</strong></p>
+</li>
+</ul>
+<h4 id="uu-iem-nhuoc-iem">Ưu điểm &amp; Nhược điểm<a class="headerlink" href="#uu-iem-nhuoc-iem" title="Permanent link">&para;</a></h4>
+<p><strong>Ưu điểm</strong></p>
+<ul>
+<li>
+<p>Truy cập ngẫu nhiên (random access) trong O(1)</p>
+</li>
+<li>
+<p>Đơn giản để hiểu và cài đặt</p>
+</li>
+<li>
+<p>Thân thiện với cache (cache-friendly) do bộ nhớ liên tiếp</p>
+</li>
+<li>
+<p>Duyệt (traversal) dễ dàng</p>
+</li>
+</ul>
+<p><strong>Nhược điểm</strong></p>
+<ul>
+<li>
+<p>Kích thước cố định (static ở nhiều ngôn ngữ), khó tăng/giảm</p>
+</li>
+<li>
+<p>Insertion/Deletion tốn kém — O(n)</p>
+</li>
+<li>
+<p>Yêu cầu một khối bộ nhớ liên tiếp</p>
+</li>
+</ul>
+<h4 id="ung-dung-thuc-te">Ứng dụng thực tế<a class="headerlink" href="#ung-dung-thuc-te" title="Permanent link">&para;</a></h4>
+<p>Lưu danh sách/mục điểm số · Ma trận và biểu diễn bảng · Triển khai các cấu trúc dữ liệu khác (Stack, Queue, Heap) · Tìm kiếm (Linear/Binary Search) · Đếm tần suất và băm (hashing)</p>
+<h4 id="bang-o-phuc-tap-thoi-gian-tong-hop">Bảng độ phức tạp thời gian tổng hợp<a class="headerlink" href="#bang-o-phuc-tap-thoi-gian-tong-hop" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Thao tác</th>
+<th>Tốt nhất</th>
+<th>Trung bình</th>
+<th>Xấu nhất</th>
+<th>Bộ nhớ (space)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Truy cập (access)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Tìm kiếm (chưa sắp xếp)</td>
+<td>O(1)*</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Tìm kiếm (đã sắp xếp - binary)</td>
+<td>O(1)*</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Chèn (insertion)</td>
+<td>O(1) (ở cuối)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Xóa (deletion)</td>
+<td>O(1) (ở cuối)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Duyệt (traversal)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<p>*Nếu phần tử mục tiêu là phần tử đầu tiên.</p>
+<h4 id="cac-pattern-thuong-gap-khi-phong-van-voi-array">Các pattern thường gặp khi phỏng vấn với Array<a class="headerlink" href="#cac-pattern-thuong-gap-khi-phong-van-voi-array" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Two Pointers</strong> — dùng hai con trỏ duyệt mảng từ hai đầu hoặc cùng chiều để giảm độ phức tạp.</p>
+</li>
+<li>
+<p><strong>Prefix Sum / Cumulative Sum</strong> — <code>prefix[i] = prefix[i-1] + a[i]</code>, dùng để tính tổng đoạn con nhanh chóng.</p>
+<ul>
+<li>Ví dụ: <code>a = [2, 3, -1, 4]</code> → <code>prefix = [2, 5, 4, 8]</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Sliding Window</strong> — duy trì một cửa sổ (window) trượt trên mảng để tính toán trên đoạn con liên tiếp.</p>
+</li>
+<li>
+<p><strong>Kadane's Algorithm</strong> (Max Subarray) — tìm tổng đoạn con liên tiếp lớn nhất.</p>
+</li>
+<li>
+<p><strong>Frequency Counting</strong> — đếm số lần xuất hiện của phần tử bằng hash map hoặc mảng đếm.</p>
+</li>
+<li>
+<p><strong>In-place vs Extra Space</strong>: xử lý <em>in-place</em> (sửa trực tiếp trên mảng đầu vào, tiết kiệm bộ nhớ O(1)) so với dùng <em>extra space</em> (mảng/map phụ, đôi khi code đơn giản hơn).</p>
+</li>
+</ul>
+<blockquote>
+<p>⚠️ Lỗi thường gặp: off-by-one trên biên slice/subarray <code>arr[l...r]</code> — cần xác định rõ <code>l</code> và <code>r</code> là inclusive hay exclusive.</p>
+</blockquote>
+<hr />
+<h3 id="chuoi-strings">Chuỗi (Strings)<a class="headerlink" href="#chuoi-strings" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>📌 Ảnh thuộc mục này: <code>1322_cam-nang-dsa-strings-operations-palindrome-anagram.jpg</code>, <code>1338_ghi-chu-dsa-arrays-strings-khong-lien-quan-ml.jpg</code>, <code>1408_ghi-chu-ve-cau-truc-du-lieu-chuoi-strings.jpg</code></p>
+</blockquote>
+<h4 id="chuoi-la-gi">Chuỗi là gì?<a class="headerlink" href="#chuoi-la-gi" title="Permanent link">&para;</a></h4>
+<p>String là một dãy các ký tự (characters) dùng để biểu diễn văn bản (text). Về bản chất, trong hầu hết các ngôn ngữ, <strong>string chính là một mảng ký tự</strong>. Chỉ số (indexing) trong string cũng bắt đầu từ 0.</p>
+<p>Ví dụ: <code>str = "HELLO"</code></p>
+<table>
+<thead>
+<tr>
+<th>Index</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ký tự</td>
+<td>H</td>
+<td>E</td>
+<td>L</td>
+<td>L</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+<p>Ở hầu hết ngôn ngữ (VD: Java, C++ <code>string</code>, Python), string mặc định là <strong>immutable</strong> (không thể thay đổi sau khi tạo) — mỗi lần "sửa" thực chất tạo ra một đối tượng string mới.</p>
+<h4 id="duyet-chuoi-traversal">Duyệt chuỗi (Traversal)<a class="headerlink" href="#duyet-chuoi-traversal" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">string</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"HELLO"</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">str</span><span class="p">.</span><span class="n">length</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// Output: H E L L O</span>
+</code></pre></div>
+<h4 id="cac-thao-tac-co-ban-voi-chuoi">Các thao tác cơ bản với chuỗi<a class="headerlink" href="#cac-thao-tac-co-ban-voi-chuoi" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Thao tác</th>
+<th>Cách dùng (ví dụ C++)</th>
+<th>Độ phức tạp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Độ dài (length)</td>
+<td><code>str.length()</code></td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Truy cập ký tự tại index i</td>
+<td><code>str[i]</code> / <code>s.charAt(i)</code></td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Nối chuỗi (concatenation)</td>
+<td><code>str1 + str2</code></td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Chuỗi con (substring)</td>
+<td><code>str.substr(start, len)</code></td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>So sánh (compare)</td>
+<td><code>str1 == str2</code> hoặc <code>str1.compare(str2)</code></td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Tìm 1 ký tự/chuỗi con</td>
+<td><code>str.find('x')</code> / <code>indexOf</code></td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Thay thế (replace)</td>
+<td><code>str.replace(pos, len, "new")</code></td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Tách chuỗi (split)</td>
+<td><code>str.split("delim")</code></td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Đổi kiểu chữ</td>
+<td><code>tolower()</code>, <code>toupper()</code></td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Các method String phổ biến trong C++ STL:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Mô tả</th>
+<th>Ví dụ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>length()</code></td>
+<td>Trả về độ dài string</td>
+<td><code>str.length()</code></td>
+</tr>
+<tr>
+<td><code>substr(pos,len)</code></td>
+<td>Trả về substring từ pos, độ dài len</td>
+<td><code>str.substr(1,3)</code></td>
+</tr>
+<tr>
+<td><code>find(ch/str)</code></td>
+<td>Trả về index xuất hiện đầu tiên</td>
+<td><code>str.find('a')</code></td>
+</tr>
+<tr>
+<td><code>rfind(ch/str)</code></td>
+<td>Trả về index xuất hiện cuối cùng</td>
+<td><code>str.rfind('a')</code></td>
+</tr>
+<tr>
+<td><code>replace(pos,len,s)</code></td>
+<td>Thay thế len ký tự tại pos</td>
+<td><code>str.replace(2,1,"X")</code></td>
+</tr>
+<tr>
+<td><code>erase(pos,len)</code></td>
+<td>Xóa len ký tự từ pos</td>
+<td><code>str.erase(1,2)</code></td>
+</tr>
+<tr>
+<td><code>insert(pos,s)</code></td>
+<td>Chèn str tại vị trí pos</td>
+<td><code>str.insert(2,"XY")</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="ao-nguoc-chuoi-reverse-a-string">Đảo ngược chuỗi (Reverse a String)<a class="headerlink" href="#ao-nguoc-chuoi-reverse-a-string" title="Permanent link">&para;</a></h4>
+<p>Ví dụ: <code>"HELLO"</code> → <code>"OLLEH"</code></p>
+<div class="highlight"><pre><span></span><code><span class="n">string</span><span class="w"> </span><span class="n">rev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">str</span><span class="p">.</span><span class="n">length</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span>
+<span class="w">    </span><span class="n">rev</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="c1">// rev = "OLLEH"</span>
+</code></pre></div>
+<h4 id="kiem-tra-palindrome">Kiểm tra Palindrome<a class="headerlink" href="#kiem-tra-palindrome" title="Permanent link">&para;</a></h4>
+<p>Một string là <strong>palindrome</strong> nếu đọc xuôi và đọc ngược giống nhau.</p>
+<p>Ví dụ: <code>"MADAM"</code> → đọc xuôi <code>M-A-D-A-M</code>, đọc ngược cũng <code>M-A-D-A-M</code> → <strong>Is Palindrome? → Yes</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">==</span> <span class="n">s</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">"MADAM"</span><span class="p">))</span>  <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">"HELLO"</span><span class="p">))</span>  <span class="c1"># False</span>
+</code></pre></div>
+<p>Cách khác dùng hai con trỏ (two pointers) — tối ưu hơn vì không cần tạo chuỗi đảo mới:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_palindrome_two_pointers</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+<p>Độ phức tạp: <strong>O(n)</strong> thời gian, O(1) hoặc O(n) bộ nhớ tùy cách làm.</p>
+<h4 id="kiem-tra-anagram">Kiểm tra Anagram<a class="headerlink" href="#kiem-tra-anagram" title="Permanent link">&para;</a></h4>
+<p>Hai string là <strong>anagram</strong> của nhau nếu chứa cùng các ký tự với cùng tần suất (chỉ khác thứ tự).</p>
+<p>Ví dụ: <code>"LISTEN"</code> và <code>"SILENT"</code> → <strong>Are Anagrams? → Yes</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_anagram</span><span class="p">(</span><span class="n">s1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">s2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">is_anagram</span><span class="p">(</span><span class="s2">"listen"</span><span class="p">,</span> <span class="s2">"silent"</span><span class="p">))</span>  <span class="c1"># True</span>
+</code></pre></div>
+<p>Cách tối ưu hơn dùng đếm tần suất (frequency counting), tránh chi phí sort O(n log n):</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">is_anagram_counting</span><span class="p">(</span><span class="n">s1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">s2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">Counter</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">==</span> <span class="n">Counter</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+</code></pre></div>
+<h4 id="em-tan-suat-ky-tu-character-frequency-counting">Đếm tần suất ký tự (Character Frequency Counting)<a class="headerlink" href="#em-tan-suat-ky-tu-character-frequency-counting" title="Permanent link">&para;</a></h4>
+<p>Ví dụ: <code>str = "aabac"</code> → tần suất: a=3, b=1, c=1</p>
+<div class="highlight"><pre><span></span><code><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">freq</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">ch</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="n">freq</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s2">"aabac"</span><span class="p">)</span>   <span class="c1"># Counter({'a': 3, 'b': 1, 'c': 1})</span>
+</code></pre></div>
+<h4 id="mutable-vs-immutable-string">Mutable vs Immutable String<a class="headerlink" href="#mutable-vs-immutable-string" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Immutable String</th>
+<th>Mutable String</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Không thể thay đổi sau khi tạo. Mỗi lần "sửa" tạo ra 1 string mới. Ví dụ: <code>string</code> (C++), Java <code>String</code>. Thường được lưu trong String Pool (Java) để tối ưu bộ nhớ.</td>
+<td>Có thể thay đổi sau khi tạo, hiệu quả hơn khi sửa đổi liên tục. Ví dụ: <code>StringBuilder</code> (Java). Thay đổi diễn ra trên cùng đối tượng, không lưu trong String Pool.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1">// Immutable</span>
+<span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"abc"</span><span class="p">;</span>
+<span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"d"</span><span class="p">;</span><span class="w">  </span><span class="c1">// tạo đối tượng mới "abcd"</span>
+
+<span class="c1">// Mutable</span>
+<span class="n">StringBuilder</span><span class="w"> </span><span class="n">sb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuilder</span><span class="p">(</span><span class="s">"abc"</span><span class="p">);</span>
+<span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"d"</span><span class="p">);</span><span class="w">  </span><span class="c1">// sửa trực tiếp -&gt; "abcd"</span>
+</code></pre></div>
+<h4 id="bang-o-phuc-tap-thoi-gian-cac-thao-tac-chuoi">Bảng độ phức tạp thời gian các thao tác chuỗi<a class="headerlink" href="#bang-o-phuc-tap-thoi-gian-cac-thao-tac-chuoi" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Thao tác</th>
+<th>Tốt nhất</th>
+<th>Trung bình</th>
+<th>Xấu nhất</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Truy cập (charAt(i))</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Độ dài (length())</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Nối chuỗi (s1+s2)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Chuỗi con (substring)</td>
+<td>O(1)*</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>So sánh (equals)</td>
+<td>O(1)*</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Tìm kiếm (indexOf)</td>
+<td>O(1)*</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Thay thế (replace)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Tách (split)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<p>*Trường hợp tốt nhất khi ký tự đầu tiên khớp/được tìm thấy ngay vị trí đầu.</p>
+<h4 id="cac-pattern-thuong-gap-khi-phong-van-voi-string">Các pattern thường gặp khi phỏng vấn với String<a class="headerlink" href="#cac-pattern-thuong-gap-khi-phong-van-voi-string" title="Permanent link">&para;</a></h4>
+<p>Check Palindrome · Check Anagram · Reverse a String · Find First Non-Repeating Character · Longest Substring Without Repeating Characters · String Compression · Tiền tố chung dài nhất (Longest Common Prefix) · Chuyển chuỗi thành số nguyên (atoi) · Đếm nguyên âm và phụ âm · Kiểm tra một chuỗi có phải là xoay vòng (rotation) của chuỗi khác</p>
+<blockquote>
+<p>💡 Mẹo phỏng vấn: luôn làm rõ string là <strong>mutable</strong> hay <strong>immutable</strong> trong ngôn ngữ bạn dùng — điều này ảnh hưởng trực tiếp đến độ phức tạp khi sửa đổi chuỗi liên tục.</p>
+</blockquote>
+<hr />
+<h3 id="danh-sach-lien-ket-linked-list">Danh sách liên kết (Linked List)<a class="headerlink" href="#danh-sach-lien-ket-linked-list" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>📌 Ảnh thuộc mục này: <code>1323_cam-nang-dsa-linked-list-insertion-deletion.jpg</code>, <code>1342_ghi-chu-dsa-linked-lists.jpg</code>, <code>1418_ghi-chu-danh-sach-lien-ket-linked-list.jpg</code></p>
+</blockquote>
+<h4 id="linked-list-la-gi">Linked List là gì?<a class="headerlink" href="#linked-list-la-gi" title="Permanent link">&para;</a></h4>
+<p>Linked List là một cấu trúc dữ liệu tuyến tính (linear data structure), trong đó các phần tử được lưu trong các <strong>node</strong>. Mỗi node chứa dữ liệu (data) và con trỏ (pointer/address) tới node kế tiếp. Các node <strong>không</strong> được lưu ở các vị trí bộ nhớ liên tiếp (non-contiguous) — chúng được kết nối với nhau bằng con trỏ.</p>
+<p><strong>Cấu trúc Node</strong> (singly linked list):</p>
+<div class="highlight"><pre><span></span><code><span class="o">|</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">next</span><span class="w"> </span><span class="o">|</span>
+</code></pre></div>
+<ul>
+<li>
+<p><strong>Head</strong>: trỏ tới node đầu tiên.</p>
+</li>
+<li>
+<p><strong>Tail</strong>: trỏ tới node cuối cùng; ở node cuối, <code>next = NULL</code>.</p>
+</li>
+</ul>
+<h4 id="singly-linked-list">Singly Linked List<a class="headerlink" href="#singly-linked-list" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nx">HEAD</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">[</span><span class="mf">10</span><span class="o">|</span><span class="err">•</span><span class="p">]</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">[</span><span class="mf">20</span><span class="o">|</span><span class="err">•</span><span class="p">]</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">[</span><span class="mf">30</span><span class="o">|</span><span class="err">•</span><span class="p">]</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">[</span><span class="mf">40</span><span class="o">|</span><span class="nx">NULL</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Class Node cơ bản (Python):</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SinglyLinkedList</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">traverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="k">while</span> <span class="n">temp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">" "</span><span class="p">)</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">next</span>
+</code></pre></div>
+<h4 id="duyet-traversal_1">Duyệt (Traversal)<a class="headerlink" href="#duyet-traversal_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">Node</span><span class="o">*</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">temp</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="p">;</span>
+<span class="w">    </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// Time Complexity: O(n)</span>
+</code></pre></div>
+<h4 id="chen-insertion_1">Chèn (Insertion)<a class="headerlink" href="#chen-insertion_1" title="Permanent link">&para;</a></h4>
+<p><strong>a) Chèn ở đầu (Insert at Beginning)</strong> — O(1)</p>
+<ul>
+<li>Tạo node mới → <code>newNode-&gt;next = head</code> → <code>head = newNode</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">insert_at_beginning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">new_node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_node</span>
+</code></pre></div>
+<p><strong>b) Chèn ở cuối (Insert at End)</strong> — O(n) (O(1) nếu có sẵn con trỏ tail)</p>
+<ul>
+<li>Tạo node mới → duyệt tới node cuối → <code>last-&gt;next = newNode</code> → <code>newNode-&gt;next = NULL</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">insert_at_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="k">return</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+    <span class="k">while</span> <span class="n">temp</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">next</span>
+    <span class="n">temp</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_node</span>
+</code></pre></div>
+<p><strong>c) Chèn tại một vị trí (pos)</strong> — O(n)</p>
+<ul>
+<li>Duyệt tới node ở vị trí <code>pos-1</code> → <code>newNode-&gt;next = curr-&gt;next</code> → <code>curr-&gt;next = newNode</code></li>
+</ul>
+<p>Ví dụ: chèn 25 vào vị trí 2 của <code>10 → 20 → 30 → 40</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">Sau</span><span class="w"> </span><span class="nx">khi</span><span class="w"> </span><span class="nx">chèn</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mf">25</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mf">20</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mf">30</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mf">40</span>
+</code></pre></div>
+<h4 id="xoa-deletion_1">Xóa (Deletion)<a class="headerlink" href="#xoa-deletion_1" title="Permanent link">&para;</a></h4>
+<p><strong>a) Xóa đầu (Delete from Beginning)</strong> — O(1): <code>temp = head</code>, <code>head = head-&gt;next</code>, <code>delete temp</code></p>
+<p><strong>b) Xóa cuối (Delete from End)</strong> — O(n): duyệt tới node kế cuối, <code>secondLast-&gt;next = NULL</code>, <code>delete lastNode</code></p>
+<p><strong>c) Xóa theo giá trị/vị trí (Delete by Value/Position)</strong> — O(n): tìm node cần xóa (giữ <code>prev</code> và <code>curr</code>), <code>prev-&gt;next = curr-&gt;next</code>, <code>delete curr</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">delete_by_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">return</span>
+    <span class="n">prev</span><span class="p">,</span> <span class="n">curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span>
+    <span class="k">while</span> <span class="n">curr</span> <span class="ow">and</span> <span class="n">curr</span><span class="o">.</span><span class="n">data</span> <span class="o">!=</span> <span class="n">value</span><span class="p">:</span>
+        <span class="n">prev</span><span class="p">,</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="p">,</span> <span class="n">curr</span><span class="o">.</span><span class="n">next</span>
+    <span class="k">if</span> <span class="n">curr</span><span class="p">:</span>
+        <span class="n">prev</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">next</span>
+</code></pre></div>
+<blockquote>
+<p>⚠️ Lỗi thường gặp: mất con trỏ tới phần còn lại của list khi thay đổi liên kết sai thứ tự (ví dụ gán <code>next = NULL</code> trước khi lưu lại phần còn lại) — sẽ làm mất quyền truy cập vào toàn bộ phần đuôi của danh sách. Luôn lưu <code>next</code> vào biến tạm trước khi thay đổi con trỏ.</p>
+</blockquote>
+<h4 id="doubly-linked-list">Doubly Linked List<a class="headerlink" href="#doubly-linked-list" title="Permanent link">&para;</a></h4>
+<p>Mỗi node có 3 phần: <code>prev | data | next</code>. Có thể duyệt (traversal) theo cả hai chiều (thuận và ngược).</p>
+<div class="highlight"><pre><span></span><code><span class="nx">NULL</span><span class="w"> </span><span class="err">←</span><span class="w"> </span><span class="p">[</span><span class="err">•</span><span class="mf">10</span><span class="err">•</span><span class="p">]</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="p">[</span><span class="err">•</span><span class="mf">20</span><span class="err">•</span><span class="p">]</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="p">[</span><span class="err">•</span><span class="mf">30</span><span class="err">•</span><span class="p">]</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">NULL</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DNode</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+<h4 id="circular-linked-list">Circular Linked List<a class="headerlink" href="#circular-linked-list" title="Permanent link">&para;</a></h4>
+<p>Node cuối trỏ ngược về node đầu (không có <code>NULL</code> ở cuối).</p>
+<div class="highlight"><pre><span></span><code><span class="nx">HEAD</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mf">20</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mf">30</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">(</span><span class="nx">quay</span><span class="w"> </span><span class="nx">lại</span><span class="w"> </span><span class="mf">10</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="meo-thuc-hanh">Mẹo thực hành<a class="headerlink" href="#meo-thuc-hanh" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Dùng <strong>dummy head / dummy node</strong> để đơn giản hóa các trường hợp biên (danh sách rỗng, chèn/xóa tại head).</p>
+</li>
+<li>
+<p>Dùng tên biến rõ nghĩa; xử lý trường hợp biên (danh sách rỗng, chỉ có một node); giải phóng bộ nhớ trong C/C++ để tránh rò rỉ (memory leak).</p>
+</li>
+</ul>
+<blockquote>
+<p>⚠️ Lỗi thường gặp: quên cập nhật con trỏ <code>head</code>; mất tham chiếu tới node kế trong khi xóa; không kiểm tra điều kiện <code>NULL</code>.</p>
+</blockquote>
+<h4 id="so-sanh-array-vs-linked-list">So sánh Array vs Linked List<a class="headerlink" href="#so-sanh-array-vs-linked-list" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Đặc điểm</th>
+<th>Array</th>
+<th>Linked List</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bộ nhớ</td>
+<td>Liên tiếp (contiguous)</td>
+<td>Không liên tiếp (non-contiguous)</td>
+</tr>
+<tr>
+<td>Kích thước</td>
+<td>Cố định (fixed)</td>
+<td>Động (dynamic)</td>
+</tr>
+<tr>
+<td>Insertion/Deletion</td>
+<td>Tốn kém — O(n)</td>
+<td>Hiệu quả — O(1)* (nếu có sẵn con trỏ tới vị trí)</td>
+</tr>
+<tr>
+<td>Truy cập (access)</td>
+<td>Ngẫu nhiên (random) — O(1)</td>
+<td>Tuần tự (sequential) — O(n)</td>
+</tr>
+<tr>
+<td>Memory overhead</td>
+<td>Ít hơn</td>
+<td>Nhiều hơn (do lưu thêm con trỏ)</td>
+</tr>
+</tbody>
+</table>
+<p>*Tại vị trí đã biết (nếu node được cho sẵn).</p>
+<h4 id="bang-o-phuc-tap-thoi-gian-singly-doubly-circular">Bảng độ phức tạp thời gian (Singly / Doubly / Circular)<a class="headerlink" href="#bang-o-phuc-tap-thoi-gian-singly-doubly-circular" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Thao tác</th>
+<th>Đơn (Singly)</th>
+<th>Đôi (Doubly)</th>
+<th>Vòng (Circular)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chèn đầu</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Chèn cuối</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)*</td>
+</tr>
+<tr>
+<td>Chèn tại vị trí</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Xóa đầu</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Xóa cuối</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)*</td>
+</tr>
+<tr>
+<td>Xóa tại vị trí</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Tìm kiếm</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<p>*O(1) nếu giữ con trỏ tail (đặc biệt hữu ích cho Circular Linked List).</p>
+<h4 id="cac-pattern-thuong-gap-khi-phong-van-voi-linked-list">Các pattern thường gặp khi phỏng vấn với Linked List<a class="headerlink" href="#cac-pattern-thuong-gap-khi-phong-van-voi-linked-list" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Đảo ngược một Linked List</strong> (Reverse a Linked List)</p>
+</li>
+<li>
+<p><strong>Phát hiện chu trình / vòng lặp</strong> (Floyd's Tortoise &amp; Hare / Cycle Detection)</p>
+</li>
+<li>
+<p><strong>Tìm node ở giữa</strong> bằng Slow &amp; Fast Pointers</p>
+</li>
+<li>
+<p><strong>Merge hai linked list đã sắp xếp</strong> (Merge Two Sorted Lists)</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ví dụ: đảo ngược singly linked list</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+    <span class="n">prev</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">curr</span> <span class="o">=</span> <span class="n">head</span>
+    <span class="k">while</span> <span class="n">curr</span><span class="p">:</span>
+        <span class="n">next_node</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">next</span>
+        <span class="n">curr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="n">next_node</span>
+    <span class="k">return</span> <span class="n">prev</span>  <span class="c1"># head mới</span>
+</code></pre></div>
+<hr />
+<blockquote>
+<p>📝 <strong>Ghi chú bổ sung</strong>
+- Ba bộ ghi chú gốc dùng ký hiệu và ngôn ngữ code hơi khác nhau (C++ trong hai bộ đầu, một số ví dụ Python được bổ sung ở đây để minh họa thêm) — về bản chất khái niệm và độ phức tạp là nhất quán giữa các nguồn.</p>
+<ul>
+<li>
+<p>Với Linked List, "O(1)" cho insertion/deletion chỉ đúng <strong>khi đã có sẵn con trỏ tới vị trí cần thao tác</strong>; nếu phải tìm vị trí trước thì tổng chi phí vẫn là O(n) do bước duyệt tìm kiếm.</p>
+</li>
+<li>
+<p>Nên luyện tập cài đặt tay cả ba cấu trúc (Array, String, Linked List) bằng ít nhất một ngôn ngữ để nắm vững thao tác con trỏ/index trước khi làm bài tập nâng cao (Stack, Queue, Tree...).
+</p>
+</li>
+</ul>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

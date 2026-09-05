@@ -1,0 +1,4996 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/deep-learning/cam-nang-deep-learning-transformer/">
+      
+      
+        <link rel="prev" href="../cam-nang-pytorch/">
+      
+      
+        <link rel="next" href="../cam-nang-deep-learning-nen-tang-neural-network/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Cẩm nang Deep Learning: Transformer - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cam-nang-deep-learning-transformer" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cẩm nang Deep Learning: Transformer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../toan/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lap-trinh/docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../toan/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/giai-tich/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../latent-space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-transformer-self-attention-multi-head-attention-trang-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Transformer: Self-Attention &amp; Multi-Head Attention (Trang 11)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Transformer: Self-Attention &amp; Multi-Head Attention (Trang 11)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-buc-tranh-tong-the" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Bức tranh tổng thể
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-co-che-self-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Cơ chế Self-Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-multi-head-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Multi-Head Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-position-wise-feed-forward-network-ffn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Position-wise Feed Forward Network (FFN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-encoder-layer-lap-lai-n-lan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Encoder Layer (lặp lại N lần)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-decoder-layer-lap-lai-n-lan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 Decoder Layer (lặp lại N lần)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-transformer-vs-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 Transformer vs RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-transformer-decoded-kien-truc-encoderdecoder-chi-tiet-trang-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Transformer Decoded: Kiến trúc Encoder–Decoder chi tiết (Trang 12)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Transformer Decoded: Kiến trúc Encoder–Decoder chi tiết (Trang 12)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-tong-quan-kien-truc-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Tổng quan kiến trúc Transformer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-scaled-dot-product-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Scaled Dot-Product Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-multi-head-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Multi-Head Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-feed-forward-network-ffn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Feed Forward Network (FFN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-layer-normalization-residual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Layer Normalization &amp; Residual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-encoder-vs-decoder-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Encoder vs Decoder Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-o-phuc-tap-mo-hinh-moi-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Độ phức tạp mô hình (mỗi layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-ung-dung-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 Ứng dụng phổ biến
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-transformer-in-depth-masked-attention-positional-encoding-trang-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Transformer In Depth: Masked Attention &amp; Positional Encoding (Trang 13)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Transformer In Depth: Masked Attention &amp; Positional Encoding (Trang 13)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-khoi-transformer-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Khối Transformer (Encoder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-khoi-transformer-decoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Khối Transformer (Decoder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-scaled-dot-product-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Scaled Dot-Product Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-multi-head-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Multi-Head Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-masked-multi-head-self-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 Masked Multi-Head Self-Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37-loi-ich-cua-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.7 Lợi ích của Transformer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38-ung-dung-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.8 Ứng dụng thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39-tom-tat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.9 Tóm tắt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-training-transformer-next-token-prediction-loss-optimizer-trang-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Training Transformer: Next-token Prediction, Loss &amp; Optimizer (Trang 14)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Training Transformer: Next-token Prediction, Loss &amp; Optimizer (Trang 14)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-muc-tieu-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Mục tiêu Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-quy-trinh-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Quy trình Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-loss-function-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Loss Function (Cross-Entropy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-ky-thuat-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Kỹ thuật Regularization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-du-lieu-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Dữ liệu &amp; Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-training-quy-mo-lon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 Training quy mô lớn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-anh-gia-trong-qua-trinh-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8 Đánh giá trong quá trình Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49-thach-thuc-thuong-gap-khi-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.9 Thách thức thường gặp khi Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ung-dung-thuc-te-cua-transformer-trong-nlpcvspeech-trang-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Ứng dụng thực tế của Transformer trong NLP/CV/Speech (Trang 15)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Ứng dụng thực tế của Transformer trong NLP/CV/Speech (Trang 15)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-natural-language-processing-nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Natural Language Processing (NLP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-computer-vision-cv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Computer Vision (CV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-speech-audio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Speech &amp; Audio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-recommendation-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Recommendation Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-ung-dung-a-phuong-thuc-multi-modal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Ứng dụng đa phương thức (Multi-modal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-ung-dung-moi-noi-khac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Ứng dụng mới nổi khác
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-tai-sao-transformer-hoat-ong-tot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 Tại sao Transformer hoạt động tốt?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-thach-thuc-gioi-han" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 Thách thức &amp; giới hạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#59-tuong-lai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.9 Tương lai
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tom-tat-nhanh-toan-bo-kien-thuc-transformer-trang-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tóm tắt nhanh toàn bộ kiến thức Transformer (Trang 16)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Tóm tắt nhanh toàn bộ kiến thức Transformer (Trang 16)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-transformer-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Transformer là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-y-tuong-cot-loi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Ý tưởng cốt lõi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-cong-thuc-chinh-scaled-dot-product-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Công thức chính — Scaled Dot-Product Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-tong-quan-kien-truc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Tổng quan kiến trúc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-cac-bien-the-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Các biến thể Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67-feed-forward-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7 Feed Forward Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68-layer-normalization-residual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8 Layer Normalization &amp; Residual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#69-o-phuc-tap-moi-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.9 Độ phức tạp (mỗi layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#610-transformer-vs-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10 Transformer vs RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#611-ung-dung-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.11 Ứng dụng phổ biến
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-training-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.12 Training cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-thach-thuc-gioi-han" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.13 Thách thức &amp; giới hạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#614-tai-sao-transformer-manh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.14 Tại sao Transformer mạnh?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#615-tuong-lai-xu-huong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.15 Tương lai &amp; xu hướng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#616-cong-thuc-tham-khao-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.16 Công thức tham khảo nhanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-deep-learning-nen-tang-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-nang-cao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-mang-chuoi-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-trees-heap-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-automation-best-practices-on-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-transformer-self-attention-multi-head-attention-trang-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Transformer: Self-Attention &amp; Multi-Head Attention (Trang 11)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Transformer: Self-Attention &amp; Multi-Head Attention (Trang 11)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-buc-tranh-tong-the" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Bức tranh tổng thể
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-co-che-self-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Cơ chế Self-Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-multi-head-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Multi-Head Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-position-wise-feed-forward-network-ffn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Position-wise Feed Forward Network (FFN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-encoder-layer-lap-lai-n-lan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Encoder Layer (lặp lại N lần)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-decoder-layer-lap-lai-n-lan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 Decoder Layer (lặp lại N lần)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-transformer-vs-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 Transformer vs RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-transformer-decoded-kien-truc-encoderdecoder-chi-tiet-trang-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Transformer Decoded: Kiến trúc Encoder–Decoder chi tiết (Trang 12)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Transformer Decoded: Kiến trúc Encoder–Decoder chi tiết (Trang 12)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-tong-quan-kien-truc-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Tổng quan kiến trúc Transformer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-scaled-dot-product-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Scaled Dot-Product Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-multi-head-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Multi-Head Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-feed-forward-network-ffn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Feed Forward Network (FFN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-layer-normalization-residual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Layer Normalization &amp; Residual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-encoder-vs-decoder-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Encoder vs Decoder Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-o-phuc-tap-mo-hinh-moi-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Độ phức tạp mô hình (mỗi layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-ung-dung-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 Ứng dụng phổ biến
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-transformer-in-depth-masked-attention-positional-encoding-trang-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Transformer In Depth: Masked Attention &amp; Positional Encoding (Trang 13)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Transformer In Depth: Masked Attention &amp; Positional Encoding (Trang 13)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-khoi-transformer-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Khối Transformer (Encoder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-khoi-transformer-decoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Khối Transformer (Decoder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-scaled-dot-product-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Scaled Dot-Product Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-multi-head-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Multi-Head Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-masked-multi-head-self-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 Masked Multi-Head Self-Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37-loi-ich-cua-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.7 Lợi ích của Transformer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38-ung-dung-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.8 Ứng dụng thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39-tom-tat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.9 Tóm tắt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-training-transformer-next-token-prediction-loss-optimizer-trang-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Training Transformer: Next-token Prediction, Loss &amp; Optimizer (Trang 14)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Training Transformer: Next-token Prediction, Loss &amp; Optimizer (Trang 14)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-muc-tieu-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Mục tiêu Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-quy-trinh-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Quy trình Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-loss-function-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Loss Function (Cross-Entropy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-ky-thuat-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Kỹ thuật Regularization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-du-lieu-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Dữ liệu &amp; Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-training-quy-mo-lon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 Training quy mô lớn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-anh-gia-trong-qua-trinh-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8 Đánh giá trong quá trình Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49-thach-thuc-thuong-gap-khi-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.9 Thách thức thường gặp khi Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ung-dung-thuc-te-cua-transformer-trong-nlpcvspeech-trang-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Ứng dụng thực tế của Transformer trong NLP/CV/Speech (Trang 15)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Ứng dụng thực tế của Transformer trong NLP/CV/Speech (Trang 15)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-natural-language-processing-nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Natural Language Processing (NLP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-computer-vision-cv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Computer Vision (CV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-speech-audio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Speech &amp; Audio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-recommendation-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Recommendation Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-ung-dung-a-phuong-thuc-multi-modal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Ứng dụng đa phương thức (Multi-modal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-ung-dung-moi-noi-khac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Ứng dụng mới nổi khác
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-tai-sao-transformer-hoat-ong-tot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 Tại sao Transformer hoạt động tốt?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-thach-thuc-gioi-han" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 Thách thức &amp; giới hạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#59-tuong-lai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.9 Tương lai
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tom-tat-nhanh-toan-bo-kien-thuc-transformer-trang-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tóm tắt nhanh toàn bộ kiến thức Transformer (Trang 16)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Tóm tắt nhanh toàn bộ kiến thức Transformer (Trang 16)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-transformer-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Transformer là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-y-tuong-cot-loi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Ý tưởng cốt lõi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-cong-thuc-chinh-scaled-dot-product-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Công thức chính — Scaled Dot-Product Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-tong-quan-kien-truc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Tổng quan kiến trúc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-cac-bien-the-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Các biến thể Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67-feed-forward-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7 Feed Forward Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68-layer-normalization-residual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8 Layer Normalization &amp; Residual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#69-o-phuc-tap-moi-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.9 Độ phức tạp (mỗi layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#610-transformer-vs-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10 Transformer vs RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#611-ung-dung-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.11 Ứng dụng phổ biến
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-training-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.12 Training cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-thach-thuc-gioi-han" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.13 Thách thức &amp; giới hạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#614-tai-sao-transformer-manh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.14 Tại sao Transformer mạnh?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#615-tuong-lai-xu-huong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.15 Tương lai &amp; xu hướng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#616-cong-thuc-tham-khao-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.16 Công thức tham khảo nhanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cam-nang-deep-learning-transformer">Cẩm nang Deep Learning: Transformer<a class="headerlink" href="#cam-nang-deep-learning-transformer" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🖼️ <strong>6 ảnh gốc cho trang này (dán theo đúng thứ tự vào từng mục bên dưới):</strong>
+1311_transformer-self-attention-multi-head-attention.jpg</p>
+<p>1312_transformer-decoded-kien-truc-encoder-decoder-chi-.jpg</p>
+<p>1313_transformer-chuyen-sau-masked-attention-positional.jpg</p>
+<p>1314_training-transformer-next-token-prediction-loss-op.jpg</p>
+<p>1315_ung-dung-thuc-te-cua-transformer-trong-nlp-cv-spee.jpg</p>
+<p>1316_tom-tat-nhanh-toan-bo-kien-thuc-transformer.jpg
+</p>
+<p>Ghi chú: Đây là phần tiếp nối bộ <strong>cẩm nang Deep Learning</strong> (bài 11–16, tiếp theo các chủ đề trước đó như CNN/RNN). Vì Transformer là <strong>backbone</strong> của phần lớn kiến trúc CBM (Concept Bottleneck Model) hiện đại (ví dụ dùng ViT/CLIP làm encoder trích concept), cần nắm chắc công thức attention gốc.</p>
+</blockquote>
+<h3 id="1-transformer-self-attention-multi-head-attention-trang-11">1. Transformer: Self-Attention &amp; Multi-Head Attention (Trang 11)<a class="headerlink" href="#1-transformer-self-attention-multi-head-attention-trang-11" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1311_transformer-self-attention-multi-head-attention.jpg</code></p>
+</blockquote>
+<p>Transformer ("Attention Is All You Need") dùng cơ chế <strong>self-attention</strong> để hiểu mối quan hệ giữa <strong>tất cả</strong> các từ trong một chuỗi cùng lúc, thay vì xử lý tuần tự như RNN.</p>
+<blockquote>
+<p>⭐ Mục tiêu: Nắm bắt long-range dependencies hiệu quả và cho phép training song song.</p>
+</blockquote>
+<p><strong>Tại sao dùng Transformer?</strong></p>
+<ul>
+<li>
+<p>Nắm bắt global context (mọi token "nhìn thấy" mọi token khác)</p>
+</li>
+<li>
+<p>Highly parallelizable (không phụ thuộc tuần tự như RNN)</p>
+</li>
+<li>
+<p>Tốt hơn cho chuỗi dài (long sequences)</p>
+</li>
+<li>
+<p>State-of-the-art trong NLP &amp; nhiều lĩnh vực khác</p>
+</li>
+</ul>
+<h4 id="11-buc-tranh-tong-the">1.1 Bức tranh tổng thể<a class="headerlink" href="#11-buc-tranh-tong-the" title="Permanent link">&para;</a></h4>
+<p>Luồng xử lý: <strong>Input Tokens → Token Embedding (+ Positional Encoding) → Encoder Stack (N layers) → Decoder Stack (N layers) → Linear + Softmax → Output Probabilities</strong></p>
+<ul>
+<li>
+<p>Encoder: hiểu input (context representation).</p>
+</li>
+<li>
+<p>Decoder: sinh output (auto-regressive – sinh từng token dựa trên các token đã sinh trước đó).</p>
+</li>
+</ul>
+<h4 id="12-co-che-self-attention">1.2 Cơ chế Self-Attention<a class="headerlink" href="#12-co-che-self-attention" title="Permanent link">&para;</a></h4>
+<p>Mỗi từ nhìn vào <strong>mọi</strong> từ khác (kể cả chính nó) và quyết định mức độ chú ý (attention weight) cần dành cho từng từ đó, để tạo ra một biểu diễn (output) mới chứa thông tin ngữ cảnh.</p>
+<p>Với mỗi token, ta tạo 3 vector chiếu (projection) từ embedding X: <strong>Q (Query)</strong>, <strong>K (Key)</strong>, <strong>V (Value)</strong>, rồi tính <strong>Attention Scores</strong> để ra <strong>Output Z</strong>.</p>
+<div class="arithmatex">\[\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V\]</div>
+<ul>
+<li>
+<p><span class="arithmatex">\(Q\)</span> = Query ("tôi đang tìm gì")</p>
+</li>
+<li>
+<p><span class="arithmatex">\(K\)</span> = Key ("tôi có thông tin gì để so khớp")</p>
+</li>
+<li>
+<p><span class="arithmatex">\(V\)</span> = Value ("nội dung thực sự mang đi nếu được chọn")</p>
+</li>
+<li>
+<p><span class="arithmatex">\(d_k\)</span> = số chiều của key (dùng để scale, tránh gradient quá nhỏ)</p>
+</li>
+</ul>
+<blockquote>
+<p>💡 Giải thích thêm: <span class="arithmatex">\(QK^T\)</span> đo độ "khớp" (similarity) giữa Query của token này với Key của tất cả token khác. Softmax biến điểm số đó thành trọng số xác suất (tổng = 1), rồi nhân với <span class="arithmatex">\(V\)</span> để lấy trung bình có trọng số các Value — chính là "mức độ chú ý" mà token dành cho các token khác.</p>
+</blockquote>
+<h4 id="13-multi-head-attention">1.3 Multi-Head Attention<a class="headerlink" href="#13-multi-head-attention" title="Permanent link">&para;</a></h4>
+<p>Thay vì dùng một attention duy nhất, ta dùng <strong>nhiều head</strong> để mô hình có thể tập trung vào các loại quan hệ khác nhau (ví dụ: head này học quan hệ cú pháp, head khác học quan hệ ngữ nghĩa).</p>
+<p>Luồng: <strong>X → (Head 1, Head 2, ..., Head h) → Concat → Linear → Output</strong></p>
+<div class="arithmatex">\[\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, ..., \text{head}_h)W^O\]</div>
+<div class="arithmatex">\[\text{head}_i = \text{Attention}(QW_i^Q,\ KW_i^K,\ VW_i^V)\]</div>
+<p>Mỗi head có bộ trọng số chiếu riêng (<span class="arithmatex">\(W_i^Q, W_i^K, W_i^V\)</span>), kết quả các head được nối lại (concat) rồi qua một lớp Linear (<span class="arithmatex">\(W^O\)</span>) để về đúng chiều mô hình ban đầu.</p>
+<h4 id="14-position-wise-feed-forward-network-ffn">1.4 Position-wise Feed Forward Network (FFN)<a class="headerlink" href="#14-position-wise-feed-forward-network-ffn" title="Permanent link">&para;</a></h4>
+<p>Sau attention, một mạng fully-connected đơn giản được áp dụng cho <strong>mỗi vị trí một cách độc lập</strong> (cùng trọng số cho mọi vị trí).</p>
+<p>Luồng: <strong>Input (from MHA) → Linear (d → dff) → ReLU → Linear (dff → d) → Output (same length)</strong></p>
+<blockquote>
+<p>💡 Thêm phi tuyến tính (non-linearity) và giúp mô hình học các pattern phức tạp hơn.</p>
+</blockquote>
+<h4 id="15-encoder-layer-lap-lai-n-lan">1.5 Encoder Layer (lặp lại N lần)<a class="headerlink" href="#15-encoder-layer-lap-lai-n-lan" title="Permanent link">&para;</a></h4>
+<p>Input → Multi-Head Self-Attention → Add &amp; Norm → Feed Forward Network → Add &amp; Norm → Output</p>
+<blockquote>
+<p>💡 Add &amp; Norm = Residual Connection + Layer Normalization</p>
+</blockquote>
+<h4 id="16-decoder-layer-lap-lai-n-lan">1.6 Decoder Layer (lặp lại N lần)<a class="headerlink" href="#16-decoder-layer-lap-lai-n-lan" title="Permanent link">&para;</a></h4>
+<p>Input → Masked Multi-Head Self-Attention → Add &amp; Norm → Multi-Head Cross-Attention (với Encoder Output) → Add &amp; Norm → Feed Forward → Add &amp; Norm</p>
+<blockquote>
+<p>💡 Masked Self-Attention ngăn không cho nhìn thấy token tương lai (chỉ nhìn được token đã sinh trước đó). Cross-Attention giúp decoder tập trung vào encoder output (Query từ decoder, Key/Value từ encoder).</p>
+</blockquote>
+<h4 id="17-positional-encoding">1.7 Positional Encoding<a class="headerlink" href="#17-positional-encoding" title="Permanent link">&para;</a></h4>
+<p>Vì Transformer không có recurrence (không xử lý tuần tự), ta phải <strong>thêm thông tin vị trí</strong> vào embedding để mô hình biết thứ tự token.</p>
+<p><strong>1. Sinusoidal Encoding (bản gốc, cố định):</strong></p>
+<div class="arithmatex">\[PE_{(pos,2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right)\]</div>
+<div class="arithmatex">\[PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d}}\right)\]</div>
+<ul>
+<li><span class="arithmatex">\(pos\)</span> = vị trí token trong chuỗi; <span class="arithmatex">\(i\)</span> = chỉ số chiều; <span class="arithmatex">\(d\)</span> = số chiều embedding.</li>
+</ul>
+<p><strong>2. Learned Embedding (Trainable):</strong> một vector học được (learnable) được cộng trực tiếp vào token embedding.</p>
+<p>Ví dụ bảng giá trị PE minh hoạ:</p>
+<table header-row="true"><tr><td>Pos</td><td>PE₀</td><td>PE₁</td><td>PE₂</td><td>PE₃</td></tr><tr><td>0</td><td>0.00</td><td>1.00</td><td>0.00</td><td>1.00</td></tr><tr><td>1</td><td>0.84</td><td>0.54</td><td>0.01</td><td>1.00</td></tr><tr><td>2</td><td>0.91</td><td>-0.42</td><td>0.02</td><td>1.00</td></tr></table>
+
+<p>Positional Encoding được <strong>cộng vào</strong> Token Embedding (không phải nối/concat).</p>
+<h4 id="18-transformer-vs-rnn">1.8 Transformer vs RNN<a class="headerlink" href="#18-transformer-vs-rnn" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Khía cạnh</td><td>RNN</td><td>Transformer</td></tr><tr><td>Dependency</td><td>Tuần tự</td><td>Toàn cục (đồng thời)</td></tr><tr><td>Training</td><td>Khó song song hoá</td><td>Song song hoá cao</td></tr><tr><td>Chuỗi dài</td><td>Gặp khó khăn</td><td>Xử lý tốt với attention</td></tr></table>
+
+<blockquote>
+<p><strong>Điểm mấu chốt:</strong> Transformer dùng self-attention để nắm bắt global context. Multi-head attention cho phép mô hình tập trung vào các khía cạnh khác nhau.</p>
+</blockquote>
+<hr />
+<h3 id="2-transformer-decoded-kien-truc-encoderdecoder-chi-tiet-trang-12">2. Transformer Decoded: Kiến trúc Encoder–Decoder chi tiết (Trang 12)<a class="headerlink" href="#2-transformer-decoded-kien-truc-encoderdecoder-chi-tiet-trang-12" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1312_transformer-decoded-kien-truc-encoder-decoder-chi-.jpg</code></p>
+</blockquote>
+<p>Transformer được xây dựng từ 3 thành phần cốt lõi: <strong>attention</strong>, <strong>nhận biết vị trí (position awareness)</strong>, và <strong>feed forward layer</strong> để hiểu và sinh ra chuỗi.</p>
+<blockquote>
+<p>⭐ Mục tiêu: Xây dựng mô hình hiểu context và mối quan hệ ở quy mô lớn.</p>
+</blockquote>
+<p><strong>Tại sao dùng Transformer?</strong></p>
+<ul>
+<li>
+<p>Nắm bắt long-range dependencies</p>
+</li>
+<li>
+<p>Xử lý song song (training nhanh hơn)</p>
+</li>
+<li>
+<p>Hiệu quả hơn RNN</p>
+</li>
+<li>
+<p>Backbone của các mô hình NLP hiện đại</p>
+</li>
+</ul>
+<h4 id="21-tong-quan-kien-truc-transformer">2.1 Tổng quan kiến trúc Transformer<a class="headerlink" href="#21-tong-quan-kien-truc-transformer" title="Permanent link">&para;</a></h4>
+<p>Input (Source Sequence) → Token Embedding + Positional Encoding → <strong>Encoder Stack (N layers)</strong> → <strong>Decoder Stack (N layers)</strong> (nhận thêm Target Sequence đã shifted right) → Linear → Softmax → Output Probabilities (Next Token).</p>
+<p>Chú thích màu: Input/Output, Embedding, Encoder, Decoder, Prediction (các khối được tô màu khác nhau theo vai trò trong ảnh gốc).</p>
+<h4 id="22-scaled-dot-product-attention">2.2 Scaled Dot-Product Attention<a class="headerlink" href="#22-scaled-dot-product-attention" title="Permanent link">&para;</a></h4>
+<p>Cho Query (Q), Key (K), Value (V):</p>
+<div class="arithmatex">\[\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V\]</div>
+<ul>
+<li><span class="arithmatex">\(Q\)</span> = ma trận Query, <span class="arithmatex">\(K\)</span> = ma trận Key, <span class="arithmatex">\(V\)</span> = ma trận Value, <span class="arithmatex">\(d_k\)</span> = số chiều của key.</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Tại sao scale bởi </strong><span class="arithmatex">\(\sqrt{d_k}\)</span><strong>?</strong> Để tránh dot product có giá trị lớn đẩy softmax vào vùng gradient cực nhỏ (vanishing gradient), giúp việc học ổn định hơn.</p>
+</blockquote>
+<h4 id="23-multi-head-attention">2.3 Multi-Head Attention<a class="headerlink" href="#23-multi-head-attention" title="Permanent link">&para;</a></h4>
+<p>Input (X) → (Head 1, Head 2, ..., Head h) → Concat → Linear → Output</p>
+<div class="arithmatex">\[\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1,...,\text{head}_h)W^O\]</div>
+<div class="arithmatex">\[\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)\]</div>
+<h4 id="24-positional-encoding">2.4 Positional Encoding<a class="headerlink" href="#24-positional-encoding" title="Permanent link">&para;</a></h4>
+<p>Vì Transformer không có recurrence, positional encoding thêm thông tin về vị trí token.</p>
+<p>Hai loại phổ biến:</p>
+<ol>
+<li><strong>Sinusoidal (Gốc):</strong></li>
+</ol>
+<div class="arithmatex">\[PE_{(pos,2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right),\quad PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d}}\right)\]</div>
+<ol>
+<li><strong>Learned (Trainable):</strong> một vector học được được cộng vào token embedding.</li>
+</ol>
+<p>Bảng giá trị ví dụ:</p>
+<table header-row="true"><tr><td>Pos</td><td>PE₁</td><td>PE₂</td><td>PE₃</td></tr><tr><td>0</td><td>0.00</td><td>1.00</td><td>0.02</td></tr><tr><td>1</td><td>0.84</td><td>0.54</td><td>0.99</td></tr><tr><td>2</td><td>0.91</td><td>-0.42</td><td>-0.07</td></tr></table>
+
+<h4 id="25-feed-forward-network-ffn">2.5 Feed Forward Network (FFN)<a class="headerlink" href="#25-feed-forward-network-ffn" title="Permanent link">&para;</a></h4>
+<p>Áp dụng theo từng vị trí (position-wise) và <strong>giống nhau cho mọi vị trí</strong>.</p>
+<p>Input (from Attention) → Linear(<span class="arithmatex">\(d \to d_{ff}\)</span>) → ReLU → Linear(<span class="arithmatex">\(d_{ff} \to d\)</span>) → Output (same length)</p>
+<p>Kích thước tiêu biểu: <span class="arithmatex">\(d_{model}\)</span> = 512/768/1024; <span class="arithmatex">\(d_{ff}\)</span> = 2048/3072/4096 (≈ 4× <span class="arithmatex">\(d_{model}\)</span>).</p>
+<h4 id="26-layer-normalization-residual">2.6 Layer Normalization &amp; Residual<a class="headerlink" href="#26-layer-normalization-residual" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[\text{Output} = \text{LayerNorm}(X + \text{Sublayer}(X))\]</div>
+<ul>
+<li>
+<p>Residual connection giúp gradient lan truyền tốt hơn (chống vanishing gradient khi mạng sâu).</p>
+</li>
+<li>
+<p>LayerNorm ổn định training và tăng tốc hội tụ.</p>
+</li>
+</ul>
+<h4 id="27-encoder-vs-decoder-layer">2.7 Encoder vs Decoder Layer<a class="headerlink" href="#27-encoder-vs-decoder-layer" title="Permanent link">&para;</a></h4>
+<p><strong>Encoder Layer:</strong> Input → Multi-Head Self-Attention → Add &amp; Norm → Feed Forward → Add &amp; Norm</p>
+<p><strong>Decoder Layer:</strong> Input → Masked Multi-Head Self-Attention → Add &amp; Norm → Multi-Head Cross-Attention (với Encoder Output) → Add &amp; Norm → Feed Forward → Add &amp; Norm</p>
+<blockquote>
+<p>💡 Encoder dùng self-attention để hiểu context bên trong input. Decoder có 2 khối attention: (1) Masked self-attention (ngăn nhìn trước tương lai), (2) Cross-attention (tập trung vào encoder output — Query lấy từ decoder, Key/Value lấy từ encoder).</p>
+</blockquote>
+<h4 id="28-o-phuc-tap-mo-hinh-moi-layer">2.8 Độ phức tạp mô hình (mỗi layer)<a class="headerlink" href="#28-o-phuc-tap-mo-hinh-moi-layer" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Component</td><td>Time Complexity</td><td>Space Complexity</td></tr><tr><td>Self-Attention</td><td>O(n²d)</td><td>O(n²)</td></tr><tr><td>Cross-Attention</td><td>O(nmd)</td><td>O(nm)</td></tr><tr><td>Feed Forward</td><td>O(n·d·dff)</td><td>O(n·dff)</td></tr></table>
+
+<p>Trong đó: <span class="arithmatex">\(n\)</span> = độ dài chuỗi, <span class="arithmatex">\(d\)</span> = model dim, <span class="arithmatex">\(d_{ff}\)</span> = feed-forward dim, <span class="arithmatex">\(m\)</span> = độ dài encoder output.</p>
+<h4 id="29-ung-dung-pho-bien">2.9 Ứng dụng phổ biến<a class="headerlink" href="#29-ung-dung-pho-bien" title="Permanent link">&para;</a></h4>
+<p>Language Translation, Text Summarization, Search &amp; QA Systems, Speech Recognition, Image Captioning.</p>
+<hr />
+<h3 id="3-transformer-in-depth-masked-attention-positional-encoding-trang-13">3. Transformer In Depth: Masked Attention &amp; Positional Encoding (Trang 13)<a class="headerlink" href="#3-transformer-in-depth-masked-attention-positional-encoding-trang-13" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1313_transformer-chuyen-sau-masked-attention-positional.jpg</code></p>
+</blockquote>
+<p>Transformer là <strong>backbone</strong> của NLP hiện đại.</p>
+<blockquote>
+<p>⭐ Mục tiêu: Hiểu sâu cách Transformer hoạt động, tại sao chúng hiệu quả và được dùng ở đâu.</p>
+</blockquote>
+<p><strong>Tại sao Transformer thống trị?</strong></p>
+<ul>
+<li>
+<p>Nắm bắt long-range dependencies</p>
+</li>
+<li>
+<p>Song song hoá (training nhanh hơn)</p>
+</li>
+<li>
+<p>Mở rộng cho model &amp; dataset khổng lồ</p>
+</li>
+<li>
+<p>State-of-the-art trong NLP, CV, Speech &amp; hơn thế</p>
+</li>
+</ul>
+<h4 id="31-khoi-transformer-encoder">3.1 Khối Transformer (Encoder)<a class="headerlink" href="#31-khoi-transformer-encoder" title="Permanent link">&para;</a></h4>
+<p>Input Tokens → Token Embedding + Positional Encoding → [lặp N lần: <strong>Multi-Head Self-Attention → Add &amp; Norm → Feed Forward Network → Add &amp; Norm</strong>] → Output (Encoder Representation)</p>
+<p>Thành phần (Components):</p>
+<ol>
+<li>
+<p>Multi-Head Self-Attention</p>
+</li>
+<li>
+<p>Add &amp; Norm (Residual + LayerNorm)</p>
+</li>
+<li>
+<p>Feed Forward Network (FFN)</p>
+</li>
+<li>
+<p>Add &amp; Norm</p>
+</li>
+</ol>
+<h4 id="32-khoi-transformer-decoder">3.2 Khối Transformer (Decoder)<a class="headerlink" href="#32-khoi-transformer-decoder" title="Permanent link">&para;</a></h4>
+<p>Token Embedding (Output Tokens, shifted right) → [lặp N lần: <strong>Masked Multi-Head Self-Attn → Add &amp; Norm → Multi-Head Cross-Attention → Add &amp; Norm → Feed Forward Network → Add &amp; Norm</strong>] → Linear → Softmax → Output Probabilities</p>
+<p>Thành phần (Components):</p>
+<ol>
+<li>
+<p>Masked Multi-Head Self-Attn</p>
+</li>
+<li>
+<p>Add &amp; Norm</p>
+</li>
+<li>
+<p>Cross-Attention</p>
+</li>
+<li>
+<p>Add &amp; Norm</p>
+</li>
+<li>
+<p>Feed Forward Network</p>
+</li>
+<li>
+<p>Add &amp; Norm</p>
+</li>
+</ol>
+<h4 id="33-scaled-dot-product-attention">3.3 Scaled Dot-Product Attention<a class="headerlink" href="#33-scaled-dot-product-attention" title="Permanent link">&para;</a></h4>
+<p>Input: Q (query), K (key), V (value)</p>
+<div class="arithmatex">\[\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V\]</div>
+<p><strong>Tại sao scale bởi </strong><span class="arithmatex">\(\sqrt{d_k}\)</span><strong>?</strong></p>
+<ul>
+<li>
+<p>Tránh softmax bị gradient rất nhỏ.</p>
+</li>
+<li>
+<p>Giúp training ổn định &amp; hiệu quả.</p>
+</li>
+</ul>
+<p><strong>Ví dụ minh hoạ:</strong></p>
+<p><span class="arithmatex">\(Q=[[1,0],[0,1]]\)</span>, <span class="arithmatex">\(K=[[1,1],[0,1]]\)</span>, <span class="arithmatex">\(V=[[1,2],[3,4]]\)</span>, <span class="arithmatex">\(d_k=2\)</span></p>
+<blockquote>
+<p>💡 Với ví dụ trên: <span class="arithmatex">\(QK^T\)\)</span> tính độ khớp giữa mỗi hàng Query và hàng Key, chia cho <span class="arithmatex">\(\sqrt{2}\)</span>, rồi softmax theo hàng để ra trọng số, cuối cùng nhân với <span class="arithmatex">\(V\)</span> để lấy tổng có trọng số — cho ra vector Attention output tương ứng cho mỗi Query.</p>
+</blockquote>
+<h4 id="34-multi-head-attention">3.4 Multi-Head Attention<a class="headerlink" href="#34-multi-head-attention" title="Permanent link">&para;</a></h4>
+<p>Input → h heads chạy Scaled Dot-Product Attention song song → Concat → Linear → Output</p>
+<blockquote>
+<p>💡 Multi-head attention cho phép mô hình nắm bắt thông tin từ nhiều representation subspace khác nhau tại nhiều vị trí khác nhau (mỗi head "nhìn" theo một góc quan hệ khác nhau).</p>
+</blockquote>
+<h4 id="35-positional-encoding">3.5 Positional Encoding<a class="headerlink" href="#35-positional-encoding" title="Permanent link">&para;</a></h4>
+<p>Vì Transformer không có recurrence, ta thêm thông tin vị trí. Hai loại: (1) Sinusoidal (cố định), (2) Learned (trainable).</p>
+<div class="arithmatex">\[PE_{(pos,2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right),\quad PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d}}\right)\]</div>
+<p>Được cộng vào token embedding.</p>
+<h4 id="36-masked-multi-head-self-attention">3.6 Masked Multi-Head Self-Attention<a class="headerlink" href="#36-masked-multi-head-self-attention" title="Permanent link">&para;</a></h4>
+<p>Trong decoder, ta <strong>che (mask)</strong> các token tương lai để ngăn "nhìn trộm" (prevent looking ahead) khi dự đoán token hiện tại — đảm bảo tính auto-regressive.</p>
+<p>Ma trận mask minh hoạ (1 = nhìn thấy được / visible, 0 = bị che / masked):</p>
+<table header-row="true"><tr><td></td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td></tr><tr><td>2</td><td>1</td><td>1</td><td>1</td><td>0</td></tr><tr><td>3</td><td>1</td><td>1</td><td>1</td><td>1</td></tr></table>
+
+<p>Đây chính là ma trận tam giác dưới (lower-triangular / look-ahead mask): tại vị trí <span class="arithmatex">\(i\)</span> chỉ được attend tới các vị trí <span class="arithmatex">\(j \le i\)</span>.</p>
+<h4 id="37-loi-ich-cua-transformer">3.7 Lợi ích của Transformer<a class="headerlink" href="#37-loi-ich-cua-transformer" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Song song hoá:</strong> Training nhanh hơn nhiều so với RNN.</p>
+</li>
+<li>
+<p><strong>Long-range Dependencies:</strong> Attention có thể kết nối các từ ở xa nhau trực tiếp (không qua nhiều bước trung gian như RNN).</p>
+</li>
+<li>
+<p><strong>Scalability:</strong> Mở rộng tốt cho model &amp; dataset lớn.</p>
+</li>
+</ul>
+<h4 id="38-ung-dung-thuc-te">3.8 Ứng dụng thực tế<a class="headerlink" href="#38-ung-dung-thuc-te" title="Permanent link">&para;</a></h4>
+<p>ChatGPT (Conversational AI), Google Translate (Language Translation), BERT (Search &amp; QA).</p>
+<h4 id="39-tom-tat">3.9 Tóm tắt<a class="headerlink" href="#39-tom-tat" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Transformer dùng attention, không dùng recurrence.</p>
+</li>
+<li>
+<p>Self-attention nắm bắt mối quan hệ trong chuỗi.</p>
+</li>
+<li>
+<p>Positional Encoding thêm thông tin thứ tự.</p>
+</li>
+<li>
+<p>Multi-head attention tập trung vào nhiều phần khác nhau.</p>
+</li>
+</ul>
+<hr />
+<h3 id="4-training-transformer-next-token-prediction-loss-optimizer-trang-14">4. Training Transformer: Next-token Prediction, Loss &amp; Optimizer (Trang 14)<a class="headerlink" href="#4-training-transformer-next-token-prediction-loss-optimizer-trang-14" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1314_training-transformer-next-token-prediction-loss-op.jpg</code></p>
+</blockquote>
+<p>Training một Transformer nghĩa là dạy nó dự đoán <strong>next token</strong> bằng cách giảm thiểu sai số giữa token dự đoán và token thực tế.</p>
+<blockquote>
+<p>⭐ Mục tiêu: Giảm thiểu sai số dự đoán để mô hình học pattern, hiểu context và tổng quát hoá với dữ liệu mới.</p>
+</blockquote>
+<p><strong>Tại sao Training quan trọng?</strong></p>
+<ul>
+<li>
+<p>Học pattern từ dữ liệu text khổng lồ</p>
+</li>
+<li>
+<p>Cải thiện hiểu context &amp; semantics</p>
+</li>
+<li>
+<p>Dự đoán next-token chính xác</p>
+</li>
+<li>
+<p>Giúp mô hình tổng quát hoá với dữ liệu mới</p>
+</li>
+<li>
+<p>Backbone cho mọi downstream task</p>
+</li>
+</ul>
+<h4 id="41-muc-tieu-training">4.1 Mục tiêu Training<a class="headerlink" href="#41-muc-tieu-training" title="Permanent link">&para;</a></h4>
+<p>Transformer được training bằng <strong>Next Token Prediction</strong>.</p>
+<p>Ví dụ: Input Tokens = ["The", "cat", "sat", "on", "the"] → Transformer Model → Predicted Next Token = "mat".</p>
+<p>Mô hình học bằng cách giảm thiểu độ khác biệt (error) giữa dự đoán và thực tế: So sánh với Actual Next Token ("mat") → Tính Loss (Cross-Entropy) → Cập nhật Model Parameters (Backpropagation).</p>
+<h4 id="42-quy-trinh-training">4.2 Quy trình Training<a class="headerlink" href="#42-quy-trinh-training" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Raw Text</strong> — kho văn bản lớn</p>
+</li>
+<li>
+<p><strong>Tokenization</strong> — chuyển text thành token</p>
+</li>
+<li>
+<p><strong>Input Sequences</strong> — tạo chuỗi độ dài cố định</p>
+</li>
+<li>
+<p><strong>Transformer</strong> — xử lý &amp; dự đoán next token</p>
+</li>
+<li>
+<p><strong>Loss &amp; Update</strong> — tính loss, lan truyền &amp; cập nhật weights</p>
+</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Training Loop (lặp lại nhiều lần):</strong> Forward Pass → Compute Loss → Backpropagation → Update Weights.</p>
+</blockquote>
+<h4 id="43-loss-function-cross-entropy">4.3 Loss Function (Cross-Entropy)<a class="headerlink" href="#43-loss-function-cross-entropy" title="Permanent link">&para;</a></h4>
+<p>Cross-entropy đo lường sự khác biệt giữa phân phối xác suất dự đoán và next token thực tế.</p>
+<div class="arithmatex">\[\text{Loss} = -\sum_{i} y_i \log(\hat{y}_i)\]</div>
+<ul>
+<li><span class="arithmatex">\(V\)</span> = kích thước vocabulary, <span class="arithmatex">\(y_i\)</span> = xác suất thực (one-hot), <span class="arithmatex">\(\hat{y}_i\)</span> = xác suất dự đoán.</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Trực giác:</strong> Loss thấp → mô hình tự tin &amp; đúng. Loss cao → mô hình sai hoặc không chắc chắn.</p>
+</blockquote>
+<h4 id="44-optimization">4.4 Optimization<a class="headerlink" href="#44-optimization" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Optimizer</td><td>Mô tả</td></tr><tr><td>Adam</td><td>Learning rate thích ứng (adaptive)</td></tr><tr><td>AdamW</td><td>Adam + Weight Decay</td></tr><tr><td>SGD + Momentum</td><td>Momentum tăng tốc hội tụ</td></tr></table>
+
+<p>Hyperparameter chính:</p>
+<ul>
+<li>
+<p>Learning Rate (1e-4)</p>
+</li>
+<li>
+<p>Batch Size (32, 64)</p>
+</li>
+<li>
+<p>Optimizer (AdamW)</p>
+</li>
+<li>
+<p>Weight Decay (0.01)</p>
+</li>
+<li>
+<p>Warmup Steps</p>
+</li>
+</ul>
+<h4 id="45-ky-thuat-regularization">4.5 Kỹ thuật Regularization<a class="headerlink" href="#45-ky-thuat-regularization" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Dropout:</strong> Ngẫu nhiên loại bỏ neuron khi training.</p>
+</li>
+<li>
+<p><strong>Weight Decay:</strong> Phạt weight lớn để giảm overfitting.</p>
+</li>
+<li>
+<p><strong>Label Smoothing:</strong> Ngăn mô hình quá tự tin (over-confident).</p>
+</li>
+<li>
+<p><strong>Early Stopping:</strong> Dừng khi validation loss ngừng cải thiện.</p>
+</li>
+</ul>
+<h4 id="46-du-lieu-scaling">4.6 Dữ liệu &amp; Scaling<a class="headerlink" href="#46-du-lieu-scaling" title="Permanent link">&para;</a></h4>
+<p><strong>Yêu cầu dữ liệu:</strong> Lượng lớn text (GB đến TB), miễn đa dạng, chất lượng cao quan trọng hơn số lượng.</p>
+<p><strong>Scaling Laws:</strong> Data nhiều hơn / Model lớn hơn / Compute nhiều hơn → Loss thấp hơn (nhưng lợi ích giảm dần — diminishing returns).</p>
+<h4 id="47-training-quy-mo-lon">4.7 Training quy mô lớn<a class="headerlink" href="#47-training-quy-mo-lon" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Distributed Training:</strong> Dùng nhiều GPU/TPU.</p>
+</li>
+<li>
+<p><strong>Data Parallelism:</strong> Cùng model, khác data shard.</p>
+</li>
+<li>
+<p><strong>Model Parallelism:</strong> Chia model qua nhiều thiết bị.</p>
+</li>
+<li>
+<p><strong>Mixed Precision:</strong> Dùng FP16/BF16 để training nhanh &amp; tốn ít bộ nhớ hơn.</p>
+</li>
+</ul>
+<h4 id="48-anh-gia-trong-qua-trinh-training">4.8 Đánh giá trong quá trình Training<a class="headerlink" href="#48-anh-gia-trong-qua-trinh-training" title="Permanent link">&para;</a></h4>
+<p><strong>Metrics:</strong> Training Loss, Validation Loss, Perplexity (PPL), Accuracy (cho task cụ thể).</p>
+<p>Ghi chú biểu đồ: Training loss giảm dần đều; Validation loss giảm rồi tăng trở lại sau một điểm (dấu hiệu overfitting) — điểm tốt nhất để dừng là <strong>Best Model (Early Stopping)</strong>, trước khi validation loss tăng trở lại.</p>
+<h4 id="49-thach-thuc-thuong-gap-khi-training">4.9 Thách thức thường gặp khi Training<a class="headerlink" href="#49-thach-thuc-thuong-gap-khi-training" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Thách thức</td><td>Tại sao xảy ra</td><td>Giải pháp</td></tr><tr><td>Overfitting</td><td>Mô hình học thuộc training data</td><td>Thêm data, regularization, early stopping</td></tr><tr><td>Underfitting</td><td>Model quá nhỏ hoặc training chưa đủ</td><td>Model lớn hơn, training nhiều hơn</td></tr><tr><td>Vanishing/Exploding Gradients</td><td>Khởi tạo sai hoặc model quá sâu</td><td>LayerNorm, Residual, khởi tạo tốt</td></tr><tr><td>Training chậm</td><td>Model lớn, compute hạn chế</td><td>Hardware tốt hơn, optimization, mixed precision</td></tr><tr><td>Dùng nhiều bộ nhớ</td><td>Batch lớn, chuỗi dài</td><td>Gradient checkpointing, batch nhỏ hơn, attention hiệu quả</td></tr></table>
+
+<blockquote>
+<p>💡 <strong>Điểm mấu chốt:</strong> Training Transformer tốt là sự kết hợp giữa dữ liệu chất lượng, kiến trúc phù hợp và tinh chỉnh optimization cẩn thận.</p>
+</blockquote>
+<hr />
+<h3 id="5-ung-dung-thuc-te-cua-transformer-trong-nlpcvspeech-trang-15">5. Ứng dụng thực tế của Transformer trong NLP/CV/Speech (Trang 15)<a class="headerlink" href="#5-ung-dung-thuc-te-cua-transformer-trong-nlpcvspeech-trang-15" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1315_ung-dung-thuc-te-cua-transformer-trong-nlp-cv-spee.jpg</code></p>
+</blockquote>
+<p>Transformer được dùng <strong>ở khắp mọi nơi</strong>! Sau đây là cách chúng vận hành các hệ thống AI hiện đại.</p>
+<p><strong>Tại sao dùng Transformer?</strong></p>
+<ul>
+<li>
+<p>Xử lý long-range dependencies</p>
+</li>
+<li>
+<p>Hiểu context &amp; ý nghĩa</p>
+</li>
+<li>
+<p>Hoạt động tốt với dữ liệu quy mô lớn</p>
+</li>
+<li>
+<p>Thích ứng với nhiều task &amp; domain</p>
+</li>
+<li>
+<p>Không ngừng cải tiến qua nghiên cứu</p>
+</li>
+</ul>
+<h4 id="51-natural-language-processing-nlp">5.1 Natural Language Processing (NLP)<a class="headerlink" href="#51-natural-language-processing-nlp" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Ứng dụng</td><td>Mô hình ví dụ</td><td>Transformer làm gì</td></tr><tr><td>Machine Translation</td><td>Google Translate, DeepL, mBERT</td><td>Dịch văn bản từ ngôn ngữ này sang ngôn ngữ khác</td></tr><tr><td>Text Summarization</td><td>BART, T5, PEGASUS</td><td>Tóm tắt bài viết hoặc tài liệu dài</td></tr><tr><td>Question Answering</td><td>BERT, RoBERTa, ALBERT</td><td>Tìm câu trả lời chính xác từ đoạn văn dài</td></tr><tr><td>Sentiment Analysis</td><td>BERT, DistilBERT, XLNet</td><td>Hiểu cảm xúc tích cực, tiêu cực hoặc trung lập</td></tr><tr><td>Text Generation</td><td>GPT, LLaMA, PaLM</td><td>Sinh văn bản giống người, hiểu context</td></tr></table>
+
+<h4 id="52-computer-vision-cv">5.2 Computer Vision (CV)<a class="headerlink" href="#52-computer-vision-cv" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Ứng dụng</td><td>Mô hình ví dụ</td><td>Transformer làm gì</td></tr><tr><td>Image Classification</td><td>ViT, DeiT, Swin Transformer</td><td>Phân loại hình ảnh với độ chính xác cao</td></tr><tr><td>Object Detection</td><td>DETR, Deformable DETR</td><td>Phát hiện và định vị object trong ảnh</td></tr><tr><td>Image Segmentation</td><td>SegFormer, Swin-UNet</td><td>Hiểu ảnh ở cấp độ pixel</td></tr><tr><td>Video Understanding</td><td>Video Transformer, TimeSformer</td><td>Hiểu hành động và sự kiện trong video</td></tr><tr><td>Medical Imaging</td><td>Swin Transformer, TransUNet</td><td>Phân tích X-ray, MRI, CT scan để chẩn đoán</td></tr></table>
+
+<h4 id="53-speech-audio">5.3 Speech &amp; Audio<a class="headerlink" href="#53-speech-audio" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Ứng dụng</td><td>Mô hình ví dụ</td><td>Transformer làm gì</td></tr><tr><td>Speech Recognition</td><td>Whisper, Wav2Vec 2.0, Conformer</td><td>Chuyển giọng nói thành văn bản chính xác</td></tr><tr><td>Text-to-Speech</td><td>FastSpeech 2, VITS</td><td>Sinh giọng nói tự nhiên từ văn bản</td></tr><tr><td>Speech Translation</td><td>SeamlessM4T, SpeechT5</td><td>Dịch giọng nói giữa các ngôn ngữ khác nhau</td></tr><tr><td>Speaker Recognition</td><td>ECAPA-TDNN + Transformers</td><td>Nhận diện và xác minh người nói</td></tr></table>
+
+<h4 id="54-recommendation-systems">5.4 Recommendation Systems<a class="headerlink" href="#54-recommendation-systems" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Ứng dụng</td><td>Mô hình ví dụ</td><td>Transformer làm gì</td></tr><tr><td>Product Recommendation</td><td>SASRec, BERT4Rec, CoRel</td><td>Gợi ý sản phẩm dựa trên hành vi người dùng</td></tr><tr><td>Content Recommendation</td><td>YouTube DNN, TransNet</td><td>Đề xuất video, bài viết hoặc nội dung</td></tr><tr><td>Personalized Search</td><td>BERT, TFRS</td><td>Xếp hạng kết quả theo intent người dùng</td></tr><tr><td>News Feed Ranking</td><td>Transformer Ranker, DeepRec</td><td>Xếp hạng và hiển thị bài viết liên quan nhất</td></tr></table>
+
+<h4 id="55-ung-dung-a-phuong-thuc-multi-modal">5.5 Ứng dụng đa phương thức (Multi-modal)<a class="headerlink" href="#55-ung-dung-a-phuong-thuc-multi-modal" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Ứng dụng</td><td>Mô hình ví dụ</td><td>Transformer làm gì</td></tr><tr><td>Image + Text Understanding</td><td>CLIP, ViLT, BLIP-2</td><td>Hiểu cả hình ảnh và văn bản cùng lúc</td></tr><tr><td>Visual QA (VQA)</td><td>LLaVA, ViLT, BLIP</td><td>Trả lời câu hỏi về hình ảnh</td></tr><tr><td>Document AI</td><td>LayoutLM, Donut, DocFormer</td><td>Trích xuất thông tin từ tài liệu scan, form, hoá đơn</td></tr><tr><td>Code + Text Understanding</td><td>CodeBERT, PLBART, StarCoder</td><td>Hiểu và sinh code kèm ngôn ngữ tự nhiên</td></tr></table>
+
+<blockquote>
+<p>💡 Ghi chú cho CBM: CLIP (Image+Text, dòng đầu bảng trên) là ví dụ tiêu biểu của encoder Transformer đa phương thức, thường được dùng làm backbone trích "concept" trong các mô hình Concept Bottleneck (CBM) hiện đại (concept dưới dạng embedding văn bản/hình ảnh có thể diễn giải).</p>
+</blockquote>
+<h4 id="56-ung-dung-moi-noi-khac">5.6 Ứng dụng mới nổi khác<a class="headerlink" href="#56-ung-dung-moi-noi-khac" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Ứng dụng</td><td>Mô hình ví dụ</td><td>Transformer làm gì</td></tr><tr><td>Scientific Research</td><td>SciBERT, Galactica, BioGPT</td><td>Phân tích paper, sinh giả thuyết, tóm tắt</td></tr><tr><td>Finance</td><td>FinBERT, Longformer, BloombergGPT</td><td>Phân tích tin tức thị trường, dự đoán xu hướng</td></tr><tr><td>Robotics</td><td>RT-1, PaLM-E, Perceiver IO</td><td>Hiểu môi trường và lên kế hoạch hành động</td></tr><tr><td>Healthcare NLP</td><td>BioBERT, ClinicalBERT, Med-PaLM</td><td>Phân tích hồ sơ y tế, dự đoán kết quả sức khoẻ</td></tr></table>
+
+<h4 id="57-tai-sao-transformer-hoat-ong-tot">5.7 Tại sao Transformer hoạt động tốt?<a class="headerlink" href="#57-tai-sao-transformer-hoat-ong-tot" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Self-attention nắm bắt mọi mối quan hệ trong dữ liệu</p>
+</li>
+<li>
+<p>Song song hoá → training nhanh hơn trên phần cứng hiện đại</p>
+</li>
+<li>
+<p>Mở rộng tốt cho model &amp; dataset khổng lồ</p>
+</li>
+<li>
+<p>Transfer learning giúp chúng thích ứng với nhiều task</p>
+</li>
+<li>
+<p>Kết quả state-of-the-art ở hầu hết mọi domain</p>
+</li>
+</ul>
+<h4 id="58-thach-thuc-gioi-han">5.8 Thách thức &amp; giới hạn<a class="headerlink" href="#58-thach-thuc-gioi-han" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Chi phí tính toán cao (training tốn kém)</p>
+</li>
+<li>
+<p>Cần lượng lớn dữ liệu</p>
+</li>
+<li>
+<p>Tốn nhiều bộ nhớ cho chuỗi dài</p>
+</li>
+<li>
+<p>Có thể sinh output thiên vị hoặc sai lệch</p>
+</li>
+<li>
+<p>Không phải lúc nào cũng dễ diễn giải (black box) — <strong>đây chính là động lực chính cho các nghiên cứu Explainable AI/CBM</strong></p>
+</li>
+</ul>
+<h4 id="59-tuong-lai">5.9 Tương lai<a class="headerlink" href="#59-tuong-lai" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Mô hình hiệu quả hơn (nhỏ hơn, nhanh hơn, xanh hơn)</p>
+</li>
+<li>
+<p>Hiểu long-context tốt hơn</p>
+</li>
+<li>
+<p>Tích hợp multi-modal mạnh mẽ hơn</p>
+</li>
+<li>
+<p>AI cá nhân hoá cho mọi người</p>
+</li>
+<li>
+<p>Transformer + Reasoning = tiềm năng AGI</p>
+</li>
+</ul>
+<blockquote>
+<p>🌟 <strong>15.10 Tóm tắt:</strong> Dù ở đâu có dữ liệu, Transformer đều có thể giúp ích!</p>
+</blockquote>
+<hr />
+<h3 id="6-tom-tat-nhanh-toan-bo-kien-thuc-transformer-trang-16">6. Tóm tắt nhanh toàn bộ kiến thức Transformer (Trang 16)<a class="headerlink" href="#6-tom-tat-nhanh-toan-bo-kien-thuc-transformer-trang-16" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1316_tom-tat-nhanh-toan-bo-kien-thuc-transformer.jpg</code></p>
+<p>💡 <strong>Ghi nhớ:</strong> Attention is all you need.</p>
+</blockquote>
+<h4 id="61-transformer-la-gi">6.1 Transformer là gì?<a class="headerlink" href="#61-transformer-la-gi" title="Permanent link">&para;</a></h4>
+<p>Transformer là một mô hình deep learning dựa trên cơ chế <strong>self-attention</strong> để hiểu mối quan hệ giữa tất cả các từ trong một chuỗi cùng lúc.</p>
+<blockquote>
+<p>🎯 Mục tiêu: Nắm bắt long-range dependencies hiệu quả và cho phép training song song.</p>
+</blockquote>
+<h4 id="62-y-tuong-cot-loi">6.2 Ý tưởng cốt lõi<a class="headerlink" href="#62-y-tuong-cot-loi" title="Permanent link">&para;</a></h4>
+<p>Input (Tokens) → Transformer (Encoder/Decoder) → Output (Probabilities)</p>
+<h4 id="63-cong-thuc-chinh-scaled-dot-product-attention">6.3 Công thức chính — Scaled Dot-Product Attention<a class="headerlink" href="#63-cong-thuc-chinh-scaled-dot-product-attention" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V\]</div>
+<p><span class="arithmatex">\(Q\)</span> = ma trận Query, <span class="arithmatex">\(K\)</span> = ma trận Key, <span class="arithmatex">\(V\)</span> = ma trận Value, <span class="arithmatex">\(d_k\)</span> = số chiều của key.</p>
+<p><strong>Mục đích:</strong> Đo lường mức độ tập trung cần dành từ Query đến các Key khác nhau.</p>
+<h4 id="64-tong-quan-kien-truc">6.4 Tổng quan kiến trúc<a class="headerlink" href="#64-tong-quan-kien-truc" title="Permanent link">&para;</a></h4>
+<p><strong>ENCODER (N layers):</strong> Input Embedding (+Positional Encoding) → Multi-Head Self-Attention → Add &amp; Norm → Feed Forward Network → Add &amp; Norm</p>
+<p><strong>DECODER (N layers):</strong> Output Embedding (Shifted Right) → Masked Multi-Head Self-Attention → Add &amp; Norm → Multi-Head Cross-Attention → Add &amp; Norm → Feed Forward → Add &amp; Norm</p>
+<h4 id="65-cac-bien-the-attention">6.5 Các biến thể Attention<a class="headerlink" href="#65-cac-bien-the-attention" title="Permanent link">&para;</a></h4>
+<p>a) <strong>Scaled Dot-Product Attention:</strong> <span class="arithmatex">\(\text{Attention}(Q,K,V) = \text{softmax}(QK^T/\sqrt{d_k})V\)</span></p>
+<p>Đặc điểm: No recurrence (không dùng RNN), song song hoá hoàn toàn, nắm bắt global context.</p>
+<p>b) <strong>Multi-Head Attention:</strong> <span class="arithmatex">\(\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1,...,\text{head}_h)W^O\)</span>, với <span class="arithmatex">\(\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)\)</span></p>
+<p>c) <strong>Masked Multi-Head Self-Attention (trong Decoder):</strong> Look-ahead mask ngăn attend đến token tương lai.</p>
+<h4 id="66-positional-encoding">6.6 Positional Encoding<a class="headerlink" href="#66-positional-encoding" title="Permanent link">&para;</a></h4>
+<p>a) <strong>Sinusoidal (Gốc):</strong></p>
+<div class="arithmatex">\[PE_{(pos,2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right),\quad PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d}}\right)\]</div>
+<table header-row="true"><tr><td>Pos</td><td>PE₀</td><td>PE₁</td><td>PE₂</td><td>PE₃</td></tr><tr><td>0</td><td>0.00</td><td>1.00</td><td>0.00</td><td>1.00</td></tr><tr><td>1</td><td>0.84</td><td>0.54</td><td>0.01</td><td>1.00</td></tr></table>
+
+<p>b) <strong>Learned (Trainable):</strong> Một vector học được được cộng vào token embedding.</p>
+<p><strong>Tại sao dùng Positional Encoding?</strong> Thêm thông tin thứ tự; giúp hiểu sequence; tổng quát hoá với chuỗi dài hơn.</p>
+<h4 id="67-feed-forward-network">6.7 Feed Forward Network<a class="headerlink" href="#67-feed-forward-network" title="Permanent link">&para;</a></h4>
+<p>Áp dụng theo từng vị trí (position-wise) và giống hệt nhau. Input → Linear(<span class="arithmatex">\(d \to d_{ff}\)</span>) → ReLU → Linear(<span class="arithmatex">\(d_{ff} \to d\)</span>) → Output.</p>
+<p>Kích thước: <span class="arithmatex">\(d_{model}\)</span> = 512/768/1024, <span class="arithmatex">\(d_{ff}\)</span> = 4× <span class="arithmatex">\(d_{model}\)</span>.</p>
+<h4 id="68-layer-normalization-residual">6.8 Layer Normalization &amp; Residual<a class="headerlink" href="#68-layer-normalization-residual" title="Permanent link">&para;</a></h4>
+<p>Input → Sub-layer → (+) cộng residual → LayerNorm → Output</p>
+<ul>
+<li>
+<p>Residual connection giúp gradient lan truyền tốt.</p>
+</li>
+<li>
+<p>LayerNorm ổn định training và tăng tốc hội tụ.</p>
+</li>
+</ul>
+<h4 id="69-o-phuc-tap-moi-layer">6.9 Độ phức tạp (mỗi layer)<a class="headerlink" href="#69-o-phuc-tap-moi-layer" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Component</td><td>Time</td><td>Space</td></tr><tr><td>Self-Attention</td><td>O(n²d)</td><td>O(n²)</td></tr><tr><td>Cross-Attention</td><td>O(nmd)</td><td>O(nm)</td></tr><tr><td>Feed Forward</td><td>O(n·dff)</td><td>O(n·dff)</td></tr></table>
+
+<p>n=độ dài chuỗi, d=model dim, dff=FFN dim, m=độ dài encoder output.</p>
+<h4 id="610-transformer-vs-rnn">6.10 Transformer vs RNN<a class="headerlink" href="#610-transformer-vs-rnn" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Khía cạnh</td><td>RNN</td><td>Transformer</td></tr><tr><td>Dependency</td><td>Tuần tự</td><td>Toàn cục</td></tr><tr><td>Training</td><td>Khó song song</td><td>Song song cao</td></tr><tr><td>Chuỗi dài</td><td>Gặp khó khăn</td><td>Xử lý tốt</td></tr><tr><td>Tốc độ</td><td>Chậm hơn</td><td>Nhanh hơn</td></tr><tr><td>Bộ nhớ</td><td>Cao (trạng thái tuần tự)</td><td>Hiệu quả hơn</td></tr></table>
+
+<h4 id="611-ung-dung-pho-bien">6.11 Ứng dụng phổ biến<a class="headerlink" href="#611-ung-dung-pho-bien" title="Permanent link">&para;</a></h4>
+<p>Language Translation, Text Summarization, Question Answering, Code Generation, Speech Recognition, Image Captioning, Recommendation, Search &amp; Ranking, Time Series Forecasting, Scientific Research.</p>
+<h4 id="612-training-co-ban">6.12 Training cơ bản<a class="headerlink" href="#612-training-co-ban" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Loss Function: Cross-Entropy Loss</p>
+</li>
+<li>
+<p>Optimizer: Adam / AdamW</p>
+</li>
+<li>
+<p>Learning Rate: 1e-4 (warmup + decay)</p>
+</li>
+<li>
+<p>Dropout: 0.1 (phổ biến)</p>
+</li>
+<li>
+<p>Batch Size: 32/64 (tuỳ GPU)</p>
+</li>
+<li>
+<p>Warmup Steps: thường 4000–10000</p>
+</li>
+<li>
+<p>Label Smoothing: 0.1 (giúp tổng quát hoá)</p>
+</li>
+<li>
+<p>Weight Decay: 0.01 (phổ biến)</p>
+</li>
+</ul>
+<h4 id="613-thach-thuc-gioi-han">6.13 Thách thức &amp; giới hạn<a class="headerlink" href="#613-thach-thuc-gioi-han" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Chi phí tính toán cao (O(n²) trong attention)</p>
+</li>
+<li>
+<p>Cần lượng lớn dữ liệu</p>
+</li>
+<li>
+<p>Tốn nhiều bộ nhớ cho chuỗi dài</p>
+</li>
+<li>
+<p>Có thể sinh output thiên vị/sai lệch</p>
+</li>
+<li>
+<p>Không phải lúc nào cũng dễ diễn giải (black box)</p>
+</li>
+</ul>
+<h4 id="614-tai-sao-transformer-manh">6.14 Tại sao Transformer mạnh?<a class="headerlink" href="#614-tai-sao-transformer-manh" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Self-attention nắm bắt mọi mối quan hệ</p>
+</li>
+<li>
+<p>Hoạt động tốt với dữ liệu quy mô lớn</p>
+</li>
+<li>
+<p>Song song hoá → training nhanh hơn</p>
+</li>
+<li>
+<p>Transfer learning giúp linh hoạt</p>
+</li>
+<li>
+<p>State-of-the-art ở nhiều domain</p>
+</li>
+</ul>
+<h4 id="615-tuong-lai-xu-huong">6.15 Tương lai &amp; xu hướng<a class="headerlink" href="#615-tuong-lai-xu-huong" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Mô hình hiệu quả hơn (nhỏ, nhanh, xanh)</p>
+</li>
+<li>
+<p>Mô hình hiểu long-context tốt hơn</p>
+</li>
+<li>
+<p>Tích hợp multi-modal mạnh hơn</p>
+</li>
+<li>
+<p>AI cá nhân hoá</p>
+</li>
+<li>
+<p>Transformer + Reasoning = tiềm năng AGI</p>
+</li>
+</ul>
+<h4 id="616-cong-thuc-tham-khao-nhanh">6.16 Công thức tham khảo nhanh<a class="headerlink" href="#616-cong-thuc-tham-khao-nhanh" title="Permanent link">&para;</a></h4>
+<table header-row="true"><tr><td>Công thức</td><td>Nội dung</td></tr><tr><td>1. Attention</td><td>softmax(QKᵀ/√dₖ)V</td></tr><tr><td>3. Positional Encoding (Sinusoidal)</td><td>sin/cos(pos/10000^(2i/d))</td></tr><tr><td>4. Layer Norm</td><td>(x−μ)/√(σ²+ε)</td></tr><tr><td>Notation</td><td>Q, K, V, dₖ, d_model, d_ff</td></tr></table>
+
+<blockquote>
+<p>💡 Ghi chú công thức Layer Norm: <span class="arithmatex">\(\text{LayerNorm}(x) = \frac{x-\mu}{\sqrt{\sigma^2+\epsilon}}\)</span>, trong đó <span class="arithmatex">\(\mu\)</span>, <span class="arithmatex">\(\sigma^2\)</span> là trung bình và phương sai tính theo chiều feature, <span class="arithmatex">\(\epsilon\)</span> là hằng số nhỏ tránh chia cho 0 — công thức này không hiện rõ ở các trang 11–15 nhưng được tóm tắt tại mục 16 (Công thức tham khảo nhanh) của trang 16.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

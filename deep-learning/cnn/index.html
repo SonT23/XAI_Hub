@@ -1,0 +1,3888 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/deep-learning/cnn/">
+      
+      
+        <link rel="prev" href="../latent-space/">
+      
+      
+        <link rel="next" href="../transformer-vit/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>CNN - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cnn" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CNN
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../toan/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lap-trinh/docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../toan/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/giai-tich/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../latent-space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tong-quan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tổng quan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tổng quan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-khong-dung-thang-mang-dense-cho-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao không dùng thẳng mạng Dense cho ảnh?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toan-canh-mot-tam-anh-i-qua-cnn-nhu-the-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toàn cảnh: một tấm ảnh đi qua CNN như thế nào
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oc-hieu-mot-tensor-au-vao-va-au-ra-thuc-su-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc hiểu một tensor: đầu vào và đầu ra thực sự là gì?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chi-tiet-tung-lop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chi tiết từng lớp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chi tiết từng lớp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lop-0-input-layer-lop-au-vao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 0 — Input Layer (Lớp đầu vào)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-1-convolutional-layer-lop-tich-chap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 1 — Convolutional Layer (Lớp tích chập)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lớp 1 — Convolutional Layer (Lớp tích chập)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cong-thuc-tinh-kich-thuoc-au-ra-phai-thuoc-long" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Công thức tính kích thước đầu ra — phải thuộc lòng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-tinh-tay-tich-chap-55-voi-kernel-33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ tính tay: tích chập 5×5 với kernel 3×3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ba-sieu-tham-so-cua-lop-conv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ba siêu tham số của lớp Conv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-2-activation-function-relu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 2 — Activation Function (ReLU)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-4-flatten-lam-phang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 4 — Flatten (Làm phẳng)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-5-fully-connected-layer-lop-ket-noi-ay-u" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 5 — Fully Connected Layer (Lớp kết nối đầy đủ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-6-softmax-lop-au-ra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 6 — Softmax (Lớp đầu ra)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-pytorch-oi-chieu-tung-dong-voi-bang-tra-cuu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code PyTorch — đối chiếu từng dòng với bảng tra cứu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sau-loi-thuong-gap-khi-moi-hoc-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sáu lỗi thường gặp khi mới học CNN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lien-he-voi-e-tai-nckh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Liên hệ với đề tài NCKH
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ung-dung-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ứng dụng thực tế
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nguon-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nguồn học
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-deep-learning-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-deep-learning-nen-tang-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-nang-cao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-mang-chuoi-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-trees-heap-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-automation-best-practices-on-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tong-quan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tổng quan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tổng quan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-khong-dung-thang-mang-dense-cho-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao không dùng thẳng mạng Dense cho ảnh?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toan-canh-mot-tam-anh-i-qua-cnn-nhu-the-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toàn cảnh: một tấm ảnh đi qua CNN như thế nào
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oc-hieu-mot-tensor-au-vao-va-au-ra-thuc-su-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc hiểu một tensor: đầu vào và đầu ra thực sự là gì?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chi-tiet-tung-lop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chi tiết từng lớp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chi tiết từng lớp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lop-0-input-layer-lop-au-vao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 0 — Input Layer (Lớp đầu vào)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-1-convolutional-layer-lop-tich-chap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 1 — Convolutional Layer (Lớp tích chập)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lớp 1 — Convolutional Layer (Lớp tích chập)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cong-thuc-tinh-kich-thuoc-au-ra-phai-thuoc-long" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Công thức tính kích thước đầu ra — phải thuộc lòng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-tinh-tay-tich-chap-55-voi-kernel-33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ví dụ tính tay: tích chập 5×5 với kernel 3×3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ba-sieu-tham-so-cua-lop-conv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ba siêu tham số của lớp Conv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-2-activation-function-relu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 2 — Activation Function (ReLU)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-4-flatten-lam-phang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 4 — Flatten (Làm phẳng)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-5-fully-connected-layer-lop-ket-noi-ay-u" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 5 — Fully Connected Layer (Lớp kết nối đầy đủ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lop-6-softmax-lop-au-ra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lớp 6 — Softmax (Lớp đầu ra)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-pytorch-oi-chieu-tung-dong-voi-bang-tra-cuu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code PyTorch — đối chiếu từng dòng với bảng tra cứu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sau-loi-thuong-gap-khi-moi-hoc-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sáu lỗi thường gặp khi mới học CNN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lien-he-voi-e-tai-nckh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Liên hệ với đề tài NCKH
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ung-dung-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ứng dụng thực tế
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nguon-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nguồn học
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cnn">CNN<a class="headerlink" href="#cnn" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🎓 <strong>NCKH</strong> / <strong>Deep Learning</strong> / <strong>CNN</strong></p>
+</blockquote>
+<h2 id="tong-quan">Tổng quan<a class="headerlink" href="#tong-quan" title="Permanent link">&para;</a></h2>
+<p><strong>CNN (Convolutional Neural Network — Mạng nơ-ron tích chập)</strong> là kiến trúc mạng nơ-ron sâu chuyên xử lý dữ liệu có cấu trúc <strong>dạng lưới (grid-like)</strong> — điển hình nhất là <strong>ảnh</strong>, vốn là một lưới 2 chiều các giá trị pixel. Đây là nền tảng của hầu hết các mô hình Computer Vision hiện đại.</p>
+<h3 id="vi-sao-khong-dung-thang-mang-dense-cho-anh">Vì sao không dùng thẳng mạng Dense cho ảnh?<a class="headerlink" href="#vi-sao-khong-dung-thang-mang-dense-cho-anh" title="Permanent link">&para;</a></h3>
+<p>Giả sử một ảnh màu 32×32, tức 32 × 32 × 3 = <strong>3072</strong> số. Nếu nối thẳng vào một lớp Dense có 3072 nơ-ron:</p>
+<div class="arithmatex">\[3072 \times 3072 \approx 9{,}44 \text{ triệu tham số — chỉ cho MỘT lớp}\]</div>
+<p>Trong khi đó một lớp tích chập 3×3 với 32 filter chỉ cần <strong>896 tham số</strong> (sẽ tính chi tiết ở mục 8). Chênh nhau hơn <strong>10.000 lần</strong>.</p>
+<blockquote>
+<p>🔑 <strong>Ba ý tưởng làm nên CNN — và cũng là ba lý do nó tiết kiệm tham số:</strong>
+<strong>1. Kết nối cục bộ (local connectivity).</strong> Mỗi nơ-ron chỉ "nhìn" một ô vuông nhỏ 3×3 hoặc 5×5, không nhìn toàn ảnh. Hợp lý, vì một cái cạnh chỉ cần vài pixel lân cận là nhận ra được.</p>
+<p><strong>2. Chia sẻ trọng số (weight sharing).</strong> Cùng <strong>một</strong> bộ lọc được trượt khắp bức ảnh. Bộ lọc dò cạnh dọc ở góc trên trái cũng chính là bộ lọc dò cạnh dọc ở góc dưới phải.</p>
+<p><strong>3. Bất biến theo vị trí (translation invariance).</strong> Nhờ hai ý trên, con mèo nằm ở góc trái hay góc phải đều được nhận ra như nhau.
+</p>
+<p>💡 <strong>Trực giác dễ nhớ:</strong> hãy tưởng tượng bạn có một <strong>tấm kính lúp in sẵn hoa văn</strong> (đó là kernel) và bạn <strong>trượt nó khắp bức ảnh</strong>. Ở chỗ nào hoa văn trên kính khớp với hoa văn trong ảnh, kính sẽ <strong>sáng lên</strong>. Bản ghi lại "chỗ nào sáng, chỗ nào tối" chính là <strong>Feature Map</strong>.
+Một CNN chỉ đơn giản là: có <strong>nhiều tấm kính lúp</strong> như vậy (nhiều filter), và <strong>xếp chồng nhiều tầng kính</strong> — tầng sau soi lên kết quả của tầng trước.
+</p>
+</blockquote>
+<hr />
+<h2 id="toan-canh-mot-tam-anh-i-qua-cnn-nhu-the-nao">Toàn cảnh: một tấm ảnh đi qua CNN như thế nào<a class="headerlink" href="#toan-canh-mot-tam-anh-i-qua-cnn-nhu-the-nao" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    A["INPUT&lt;br&gt;32x32x3&lt;br&gt;(ảnh màu)"] --&gt; B["CONV 1&lt;br&gt;32 filter 3x3&lt;br&gt;-&gt; 32x32x32"]
+    B --&gt; C["ReLU&lt;br&gt;-&gt; 32x32x32"]
+    C --&gt; D["POOL 2x2&lt;br&gt;-&gt; 16x16x32"]
+    D --&gt; E["CONV 2&lt;br&gt;64 filter 3x3&lt;br&gt;-&gt; 16x16x64"]
+    E --&gt; F["ReLU + POOL&lt;br&gt;-&gt; 8x8x64"]
+    F --&gt; G["CONV 3&lt;br&gt;128 filter 3x3&lt;br&gt;-&gt; 8x8x128"]
+    G --&gt; H["ReLU + POOL&lt;br&gt;-&gt; 4x4x128"]
+    H --&gt; I["FLATTEN&lt;br&gt;-&gt; 2048"]
+    I --&gt; J["FC 256&lt;br&gt;-&gt; 256"]
+    J --&gt; K["FC 10 + Softmax&lt;br&gt;-&gt; 10 xác suất"]</code></pre>
+<blockquote>
+<p>👁️ <strong>Quy luật xuyên suốt cả sơ đồ — đọc hai con số này là hiểu toàn bộ CNN:</strong>
+<strong>Chiều không gian (rộng × cao) GIẢM DẦN:</strong> 32 → 16 → 8 → 4</p>
+<p><strong>Chiều sâu (số kênh) TĂNG DẦN:</strong> 3 → 32 → 64 → 128</p>
+<p>Nghĩa là mạng đang <strong>đánh đổi "ở đâu" lấy "là cái gì"</strong>. Lúc đầu nó biết rất rõ từng pixel nằm ở đâu nhưng không biết đó là gì; càng về sau nó càng biết rõ "đây là tai mèo" nhưng chỉ còn biết vị trí một cách mơ hồ.
+</p>
+</blockquote>
+<hr />
+<h2 id="oc-hieu-mot-tensor-au-vao-va-au-ra-thuc-su-la-gi">Đọc hiểu một tensor: đầu vào và đầu ra thực sự là gì?<a class="headerlink" href="#oc-hieu-mot-tensor-au-vao-va-au-ra-thuc-su-la-gi" title="Permanent link">&para;</a></h2>
+<p>Trước khi đi vào từng lớp, phải nắm chắc một điều: <strong>mọi thứ chạy trong CNN đều là tensor 3 chiều</strong> <span class="arithmatex">\(H \times W \times C\)</span> (cao × rộng × số kênh). Đầu vào của một lớp là một tensor, đầu ra cũng là một tensor.</p>
+<table>
+<thead>
+<tr>
+<th>Tensor</th>
+<th>Kích thước</th>
+<th>Ý nghĩa của "kênh" (C)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ảnh xám gốc</td>
+<td>28 × 28 × <strong>1</strong></td>
+<td>1 kênh = độ sáng</td>
+</tr>
+<tr>
+<td>Ảnh màu gốc</td>
+<td>32 × 32 × <strong>3</strong></td>
+<td>3 kênh = Đỏ, Lục, Lam (RGB)</td>
+</tr>
+<tr>
+<td>Sau Conv 1 (32 filter)</td>
+<td>32 × 32 × <strong>32</strong></td>
+<td>32 kênh = <strong>32 loại đặc trưng</strong> khác nhau (cạnh dọc, cạnh ngang, đốm sáng...)</td>
+</tr>
+<tr>
+<td>Sau Conv 3 (128 filter)</td>
+<td>4 × 4 × <strong>128</strong></td>
+<td>128 kênh = 128 khái niệm trừu tượng (mắt, bánh xe, lông...)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Chỗ người mới hay nhầm nhất:</strong> sau lớp Conv đầu tiên, chữ "kênh" <strong>không còn nghĩa là màu sắc nữa</strong>. Kênh thứ 7 của Feature Map không phải một màu — nó là <strong>bản đồ trả lời câu hỏi "filter số 7 khớp mạnh ở những chỗ nào trong ảnh"</strong>.
+Số kênh của đầu ra <strong>luôn bằng số filter</strong> của lớp Conv đó. Đây là quy tắc quan trọng nhất cần nhớ.
+</p>
+</blockquote>
+<hr />
+<h2 id="chi-tiet-tung-lop">Chi tiết từng lớp<a class="headerlink" href="#chi-tiet-tung-lop" title="Permanent link">&para;</a></h2>
+<p>Mỗi mục dưới đây theo đúng một khuôn mẫu: <strong>đầu vào là gì → lớp làm gì → đầu ra là gì</strong>.</p>
+<h3 id="lop-0-input-layer-lop-au-vao">Lớp 0 — Input Layer (Lớp đầu vào)<a class="headerlink" href="#lop-0-input-layer-lop-au-vao" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Đầu vào</strong></td>
+<td>Một file ảnh (JPG, PNG...)</td>
+</tr>
+<tr>
+<td><strong>Việc phải làm</strong></td>
+<td>Đổi ảnh thành ma trận số; chuẩn hóa pixel từ 0–255 về đoạn [0, 1] hoặc [−1, 1]; gom nhiều ảnh thành một batch</td>
+</tr>
+<tr>
+<td><strong>Đầu ra</strong></td>
+<td>Tensor <span class="arithmatex">\(N \times H \times W \times C\)</span> — ví dụ 64 × 32 × 32 × 3 (64 ảnh màu 32×32)</td>
+</tr>
+<tr>
+<td><strong>Tham số học được</strong></td>
+<td><strong>0</strong> — lớp này không học gì cả</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>📏 <strong>Vì sao phải chuẩn hóa?</strong> Pixel gốc chạy từ 0 đến 255. Đưa thẳng những con số lớn như vậy vào mạng sẽ làm gradient rất lớn và huấn luyện mất ổn định. Chia cho 255 là bước bắt buộc, gần như không tutorial nào bỏ qua.
+Trong PyTorch, thứ tự chiều là <span class="arithmatex">\(N \times C \times H \times W\)</span> (kênh đứng trước), còn TensorFlow/Keras dùng <span class="arithmatex">\(N \times H \times W \times C\)</span>. Đây là nguồn lỗi shape rất hay gặp khi chuyển code giữa hai thư viện.
+</p>
+</blockquote>
+<h3 id="lop-1-convolutional-layer-lop-tich-chap">Lớp 1 — Convolutional Layer (Lớp tích chập)<a class="headerlink" href="#lop-1-convolutional-layer-lop-tich-chap" title="Permanent link">&para;</a></h3>
+<p>Đây là <strong>lớp cốt lõi</strong>, nơi việc học thật sự diễn ra.</p>
+<table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Đầu vào</strong></td>
+<td>Tensor <span class="arithmatex">\(H_{in} \times W_{in} \times C_{in}\)</span> — ví dụ 32 × 32 × 3</td>
+</tr>
+<tr>
+<td><strong>Việc phải làm</strong></td>
+<td>Trượt <span class="arithmatex">\(K\)</span> bộ lọc kích thước <span class="arithmatex">\(f \times f \times C_{in}\)</span> khắp ảnh; tại mỗi vị trí nhân từng phần tử rồi cộng dồn (dot product) + cộng bias</td>
+</tr>
+<tr>
+<td><strong>Đầu ra</strong></td>
+<td>Tensor <span class="arithmatex">\(H_{out} \times W_{out} \times K\)</span> — ví dụ 32 × 32 × 32. <strong>Số kênh đầu ra = số filter</strong></td>
+</tr>
+<tr>
+<td><strong>Tham số học được</strong></td>
+<td><span class="arithmatex">\((f \times f \times C_{in} + 1) \times K\)</span> — chính các con số bên trong filter</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cong-thuc-tinh-kich-thuoc-au-ra-phai-thuoc-long">Công thức tính kích thước đầu ra — phải thuộc lòng<a class="headerlink" href="#cong-thuc-tinh-kich-thuoc-au-ra-phai-thuoc-long" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[H_{out} = \left\lfloor \frac{H_{in} - f + 2P}{S} \right\rfloor + 1\]</div>
+<p>Trong đó <span class="arithmatex">\(f\)</span> = kích thước kernel, <span class="arithmatex">\(P\)</span> = padding, <span class="arithmatex">\(S\)</span> = stride.</p>
+<table>
+<thead>
+<tr>
+<th>Đầu vào</th>
+<th>Kernel</th>
+<th>Padding</th>
+<th>Stride</th>
+<th>Đầu ra</th>
+<th>Nhận xét</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32×32</td>
+<td>3×3</td>
+<td>1</td>
+<td>1</td>
+<td><strong>32×32</strong></td>
+<td>Giữ nguyên kích thước — cấu hình phổ biến nhất</td>
+</tr>
+<tr>
+<td>32×32</td>
+<td>3×3</td>
+<td>0</td>
+<td>1</td>
+<td>30×30</td>
+<td>Teo đi 2 pixel mỗi chiều</td>
+</tr>
+<tr>
+<td>32×32</td>
+<td>3×3</td>
+<td>1</td>
+<td>2</td>
+<td>16×16</td>
+<td>Stride 2 giảm một nửa — thay được cho Pooling</td>
+</tr>
+<tr>
+<td>32×32</td>
+<td>5×5</td>
+<td>2</td>
+<td>1</td>
+<td><strong>32×32</strong></td>
+<td>Kernel lớn hơn thì cần padding lớn hơn để giữ nguyên</td>
+</tr>
+<tr>
+<td>224×224</td>
+<td>7×7</td>
+<td>3</td>
+<td>2</td>
+<td>112×112</td>
+<td>Đúng lớp đầu tiên của ResNet</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🧮 <strong>Mẹo nhớ padding:</strong> muốn đầu ra <strong>bằng đúng</strong> đầu vào (stride = 1) thì đặt <span class="arithmatex">\(P = (f-1)/2\)</span>.
+Kernel 3×3 → padding 1. Kernel 5×5 → padding 2. Kernel 7×7 → padding 3. Đây là lý do người ta gần như luôn dùng kernel <strong>lẻ</strong>.
+</p>
+</blockquote>
+<h4 id="vi-du-tinh-tay-tich-chap-55-voi-kernel-33">Ví dụ tính tay: tích chập 5×5 với kernel 3×3<a class="headerlink" href="#vi-du-tinh-tay-tich-chap-55-voi-kernel-33" title="Permanent link">&para;</a></h4>
+<p>Ảnh đầu vào (5×5, 1 kênh) và bộ lọc dò <strong>cạnh dọc</strong>:</p>
+<p>```plain text
+ẢNH ĐẦU VÀO (5x5)              KERNEL (3x3)
+1  2  0  1  3                   1   0  -1
+0  1  3  2  1                   1   0  -1
+2  0  1  1  0        *          1   0  -1
+1  2  2  0  1
+0  1  0  3  2
+<div class="highlight"><pre><span></span><code>Với padding = 0, stride = 1, đầu ra sẽ là $(5-3)/1 + 1 = 3$, tức một Feature Map **3×3**.
+
+**Bước 1 — đặt kernel lên góc trên trái**, lấy đúng vùng 3×3 đầu tiên:
+
+```plain text
+Vùng ảnh          Kernel         Nhân từng ô
+1  2  0            1  0 -1        1*1  2*0  0*(-1)  =  1 + 0 + 0
+0  1  3     x      1  0 -1        0*1  1*0  3*(-1)  =  0 + 0 - 3
+2  0  1            1  0 -1        2*1  0*0  1*(-1)  =  2 + 0 - 1
+
+Cộng tất cả lại:  (1) + (-3) + (1) = -1
+</code></pre></div></p>
+<p><strong>Bước 2 — trượt sang phải 1 ô (stride = 1), lặp lại.</strong> Sau khi trượt hết 9 vị trí:</p>
+<p>```plain text
+FEATURE MAP ĐẦU RA (3x3)
+-1  -1   0
+-3   0   4
+ 0  -1   0
+<div class="highlight"><pre><span></span><code>&gt; 🔍 **Đọc kết quả này thế nào?** Kernel trên có cột trái là +1 và cột phải là −1, nên nó đo **"bên trái sáng hơn bên phải bao nhiêu"**.
+&gt; Ô giá trị **+4** (giữa phải) là chỗ có **cạnh dọc rõ nhất, sáng-sang-tối**. Ô **−3** là cạnh dọc theo chiều ngược lại, tối-sang-sáng. Các ô gần **0** là vùng phẳng, không có cạnh.
+&gt;
+&gt; **Đây chính là "trích xuất đặc trưng" — không hề bí ẩn: nó chỉ là phép nhân và cộng.**
+&gt;
+
+#### Với ảnh nhiều kênh thì sao? (điểm rất hay bị hiểu sai)
+
+Khi đầu vào có 3 kênh (RGB), kernel **không phải** 3×3 mà là **3×3×3** — nó dày đúng bằng số kênh đầu vào.
+
+```mermaid
+flowchart LR
+    A["Patch ảnh&lt;br&gt;3x3x3&lt;br&gt;(27 số)"] --&gt; B["Kernel&lt;br&gt;3x3x3&lt;br&gt;(27 trọng số)"]
+    B --&gt; C["Nhân từng ô&lt;br&gt;rồi cộng cả 27&lt;br&gt;+ 1 bias"]
+    C --&gt; D["MỘT số duy nhất&lt;br&gt;trong Feature Map"]
+</code></pre></div></p>
+<blockquote>
+<p>⚠️ <strong>Quy tắc vàng, nhớ kỹ:</strong> một filter <strong>luôn nuốt trọn toàn bộ chiều sâu</strong> của đầu vào và <strong>luôn nhả ra đúng một kênh</strong>.
+Vậy nên: đầu vào 32×32×<strong>3</strong>, dùng <strong>32</strong> filter kích thước 3×3 → mỗi filter thực chất là 3×3×<strong>3</strong>, và đầu ra là 32×32×<strong>32</strong>.</p>
+<p>Số tham số $<code>= (3 \times 3 \times 3 + 1) \times 32 = 28 \times 32 =</code>$ <strong>896</strong>.
+</p>
+</blockquote>
+<h4 id="ba-sieu-tham-so-cua-lop-conv">Ba siêu tham số của lớp Conv<a class="headerlink" href="#ba-sieu-tham-so-cua-lop-conv" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>🔲 <strong>Kernel size (f)</strong>
+Kích thước ô vuông filter nhìn được. 3×3 là mặc định hiện đại. Kernel lớn thấy rộng hơn nhưng tốn tham số hơn nhiều.
+</p>
+<p>👟 <strong>Stride (S)</strong>
+Bước nhảy mỗi lần trượt. S = 1 quét từng pixel; S = 2 nhảy cách một, làm kích thước giảm một nửa.
+</p>
+<p>🧱 <strong>Padding (P)</strong>
+Viền số 0 đắp quanh ảnh. Không có padding thì pixel ở viền bị filter quét qua ít lần hơn hẳn pixel ở giữa — thông tin viền bị thiệt.
+</p>
+</blockquote>
+<h3 id="lop-2-activation-function-relu">Lớp 2 — Activation Function (ReLU)<a class="headerlink" href="#lop-2-activation-function-relu" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Đầu vào</strong></td>
+<td>Feature Map từ lớp Conv — ví dụ 32 × 32 × 32</td>
+</tr>
+<tr>
+<td><strong>Việc phải làm</strong></td>
+<td>Áp dụng <span class="arithmatex">\(\text{ReLU}(x) = \max(0, x)\)</span> lên <strong>từng phần tử</strong></td>
+</tr>
+<tr>
+<td><strong>Đầu ra</strong></td>
+<td><strong>32 × 32 × 32 — kích thước không đổi chút nào</strong>, chỉ giá trị đổi</td>
+</tr>
+<tr>
+<td><strong>Tham số học được</strong></td>
+<td><strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Áp ReLU lên đúng Feature Map vừa tính tay ở trên:</p>
+<p>```plain text
+TRƯỚC ReLU              SAU ReLU
+-1  -1   0              0   0   0
+-3   0   4     -&gt;       0   0   4
+ 0  -1   0              0   0   0
+<div class="highlight"><pre><span></span><code>&gt; 💡 **Vì sao cần ReLU?** Hai lý do, cả hai đều quan trọng:
+&gt; **1. Tạo tính phi tuyến.** Tích chập chỉ là phép nhân-cộng, tức là **tuyến tính**. Xếp 100 lớp tuyến tính chồng lên nhau vẫn chỉ tương đương **một** lớp tuyến tính. Không có ReLU thì mạng sâu 100 lớp vô nghĩa.
+&gt;
+&gt; **2. Giữ lại tín hiệu "có", vứt bỏ tín hiệu "không".** Nhìn bảng trên: sau ReLU chỉ còn duy nhất ô **+4** sống sót — đúng chỗ có cạnh dọc mà filter đang tìm. Mạng nói: *"tôi tìm thấy đặc trưng này ở ĐÂY, còn những chỗ khác thì không."*
+&gt;
+
+### Lớp 3 — Pooling Layer (Lớp gộp)
+
+| Mục | Nội dung |
+| --- | --- |
+| **Đầu vào** | Feature Map sau ReLU — ví dụ 32 × 32 × 32 |
+| **Việc phải làm** | Chia mỗi kênh thành các ô 2×2 không chồng lấn, mỗi ô lấy **một** giá trị đại diện (lớn nhất hoặc trung bình) |
+| **Đầu ra** | **16 × 16 × 32** — chiều rộng và cao giảm một nửa, **số kênh giữ nguyên** |
+| **Tham số học được** | **0** — đây là phép toán cố định, không có gì để học |
+
+#### Ví dụ tính tay Pooling 2×2, stride 2
+
+```plain text
+FEATURE MAP VÀO (4x4)        chia thành 4 ô 2x2
+1  3 | 2  4                  [1 3]  [2 4]
+5  6 | 1  2                  [5 6]  [1 2]
+-----+------                 
+7  0 | 4  8                  [7 0]  [4 8]
+2  1 | 3  5                  [2 1]  [3 5]
+
+MAX POOLING (lấy số lớn nhất mỗi ô)
+6   4
+7   8
+
+AVERAGE POOLING (lấy trung bình mỗi ô)
+3.75   2.25
+2.50   5.00
+</code></pre></div></p>
+<blockquote>
+<p>🎯 <strong>Max Pooling phổ biến hơn hẳn, vì sao?</strong> Sau Conv + ReLU, một số lớn nghĩa là <strong>"đặc trưng xuất hiện rất mạnh ở đây"</strong>. Max Pooling giữ lại đúng bằng chứng mạnh nhất và vứt phần còn lại — nó trả lời câu hỏi <em>"trong vùng 2×2 này có đặc trưng đó không?"</em> thay vì <em>"đặc trưng đó nằm chính xác ở pixel nào?"</em>.
+Đó chính là cơ chế tạo ra <strong>tính bất biến với dịch chuyển nhỏ</strong>: xê ảnh đi 1 pixel, giá trị lớn nhất trong ô 2×2 phần lớn vẫn không đổi.
+</p>
+<p>📉 <strong>Xu hướng hiện đại:</strong> nhiều kiến trúc mới (ResNet, các mạng dạng "all-convolutional") <strong>bỏ hẳn Pooling</strong> và dùng <strong>Conv với stride = 2</strong> để giảm kích thước. Lý do: Pooling là phép cố định, còn Conv stride 2 <strong>học được cách nào nên giảm</strong>. Nếu bạn đọc bài báo mà không thấy lớp Pooling nào thì đó là lý do — không phải họ quên.</p>
+</blockquote>
+<h3 id="lop-4-flatten-lam-phang">Lớp 4 — Flatten (Làm phẳng)<a class="headerlink" href="#lop-4-flatten-lam-phang" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Đầu vào</strong></td>
+<td>Tensor 3 chiều — ví dụ 4 × 4 × 128</td>
+</tr>
+<tr>
+<td><strong>Việc phải làm</strong></td>
+<td>Duỗi thẳng toàn bộ thành một hàng số, không tính toán gì cả</td>
+</tr>
+<tr>
+<td><strong>Đầu ra</strong></td>
+<td>Vector 1 chiều dài $<code>4 \times 4 \times 128 =</code>$ <strong>2048</strong></td>
+</tr>
+<tr>
+<td><strong>Tham số học được</strong></td>
+<td><strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>✂️ <strong>Đây là ranh giới của CNN.</strong> Trước Flatten, mọi thứ còn giữ <strong>cấu trúc không gian</strong> (biết cái gì nằm ở đâu). Sau Flatten, tất cả chỉ còn là một danh sách số — cấu trúc không gian bị <strong>vứt bỏ hoàn toàn</strong>.
+Vì vậy Flatten thường được đặt càng muộn càng tốt, khi kích thước đã nhỏ (4×4), để không ném đi quá nhiều thông tin vị trí.</p>
+<p><strong>Thay thế hiện đại — Global Average Pooling (GAP):</strong> thay vì duỗi 4 × 4 × 128 thành 2048, lấy <strong>trung bình mỗi kênh</strong> để được đúng <strong>128</strong> số. Giảm được 16 lần đầu vào cho lớp FC, và chính GAP là thứ làm cho <strong>Grad-CAM</strong> hoạt động được.
+</p>
+</blockquote>
+<h3 id="lop-5-fully-connected-layer-lop-ket-noi-ay-u">Lớp 5 — Fully Connected Layer (Lớp kết nối đầy đủ)<a class="headerlink" href="#lop-5-fully-connected-layer-lop-ket-noi-ay-u" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Đầu vào</strong></td>
+<td>Vector 1 chiều — ví dụ 2048</td>
+</tr>
+<tr>
+<td><strong>Việc phải làm</strong></td>
+<td>Nhân ma trận <span class="arithmatex">\(y = Wx + b\)</span> — <strong>mọi</strong> đầu vào nối với <strong>mọi</strong> đầu ra</td>
+</tr>
+<tr>
+<td><strong>Đầu ra</strong></td>
+<td>Vector ngắn hơn — ví dụ 256, rồi 10 (số lớp cần phân loại)</td>
+</tr>
+<tr>
+<td><strong>Tham số học được</strong></td>
+<td><span class="arithmatex">\((\text{vào} \times \text{ra}) + \text{ra}\)</span> — ví dụ $<code>2048 \times 256 + 256 =</code>$ <strong>524.544</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🧠 <strong>Phân vai rõ ràng giữa hai nửa của mạng:</strong>
+Phần <strong>Conv + Pool</strong> là <strong>bộ trích xuất đặc trưng (feature extractor)</strong> — nó trả lời <em>"trong ảnh có những gì?"</em></p>
+<p>Phần <strong>FC</strong> là <strong>bộ phân loại (classifier)</strong> — nó trả lời <em>"tổng hợp tất cả những thứ đó lại thì đây là con gì?"</em></p>
+<p>Chính vì tách bạch như vậy mà kỹ thuật <strong>transfer learning</strong> hoạt động: giữ nguyên toàn bộ phần Conv của một mạng đã huấn luyện trên ImageNet, chỉ thay và huấn luyện lại mấy lớp FC cuối cho bài toán của mình.
+</p>
+<p>🌌 <strong>Vector 256 chiều ở lớp FC áp chót chính là một Latent Space.</strong> Đây là thứ được dùng khi ta nói "trích xuất đặc trưng từ CNN", và cũng là nơi CBM gắn lớp Bottleneck khái niệm vào.
+→ <a href="../latent-space/">Latent Space (Không gian tiềm ẩn)</a>
+</p>
+</blockquote>
+<h3 id="lop-6-softmax-lop-au-ra">Lớp 6 — Softmax (Lớp đầu ra)<a class="headerlink" href="#lop-6-softmax-lop-au-ra" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Đầu vào</strong></td>
+<td>Vector 10 số thực bất kỳ, gọi là <strong>logits</strong> — ví dụ [2.1, −0.5, 3.8, ...]</td>
+</tr>
+<tr>
+<td><strong>Việc phải làm</strong></td>
+<td><span class="arithmatex">\(\text{softmax}(z_i) = \dfrac{e^{z_i}}{\sum_j e^{z_j}}\)</span></td>
+</tr>
+<tr>
+<td><strong>Đầu ra</strong></td>
+<td>10 số dương <strong>cộng lại đúng bằng 1</strong> — đọc được như xác suất</td>
+</tr>
+<tr>
+<td><strong>Tham số học được</strong></td>
+<td><strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+<p>```plain text
+LOGITS         -&gt;    SOFTMAX      -&gt;  KẾT LUẬN
+mèo    3.8           0.78              "78% là mèo"
+chó    2.1           0.14
+ngựa  -0.5           0.01
+...                  ...
+                     tổng = 1.00
+<div class="highlight"><pre><span></span><code>&gt; ⚠️ **Bẫy khi viết code:** trong PyTorch, `nn.CrossEntropyLoss()` **đã bao gồm Softmax bên trong**. Nếu bạn tự thêm một lớp Softmax nữa ở cuối model rồi lại dùng `CrossEntropyLoss`, mạng vẫn chạy nhưng **học rất kém** — và lỗi này im lặng, không báo gì cả.
+&gt; ⇒ Khi huấn luyện thì truyền thẳng **logits**; chỉ gọi Softmax lúc suy luận nếu cần đọc xác suất.
+&gt;
+
+### Hai lớp phụ trợ luôn gặp trong code thật
+
+&gt; 📊 **Batch Normalization**
+&gt; **Vào:** 16 × 16 × 32 → **Ra:** 16 × 16 × 32 (không đổi)
+&gt;
+&gt; Chuẩn hóa lại phân phối giá trị trong mỗi kênh theo từng batch. Giúp mạng sâu hội tụ nhanh và ổn định hơn rất nhiều. Thứ tự chuẩn: **Conv → BatchNorm → ReLU**.
+&gt;
+
+&gt; 🎲 **Dropout**
+&gt; **Vào:** 256 → **Ra:** 256 (không đổi)
+&gt;
+&gt; Trong lúc huấn luyện, ngẫu nhiên "tắt" một tỉ lệ nơ-ron (thường 0.5) để mạng không phụ thuộc vào vài nơ-ron nhất định. **Chỉ bật khi train**, tự tắt khi đánh giá. Hay đặt giữa các lớp FC.
+&gt;
+
+---
+
+## Bảng tra cứu: toàn bộ đầu vào → đầu ra của một CNN thật
+
+Đây là bảng quan trọng nhất của cả trang. Mạng phân loại ảnh CIFAR-10 (32×32 màu, 10 lớp):
+
+| # | Lớp | Đầu vào | Đầu ra | Tham số | Cách tính tham số |
+| --- | --- | --- | --- | --- | --- |
+| 0 | Input | ảnh | 32×32×3 | 0 | — |
+| 1 | Conv 3×3, 32 filter, p=1 | 32×32×**3** | 32×32×**32** | **896** | (3·3·3 + 1) × 32 |
+| 2 | ReLU | 32×32×32 | 32×32×32 | 0 | — |
+| 3 | MaxPool 2×2, s=2 | 32×32×32 | **16**×**16**×32 | 0 | — |
+| 4 | Conv 3×3, 64 filter, p=1 | 16×16×**32** | 16×16×**64** | **18.496** | (3·3·32 + 1) × 64 |
+| 5 | ReLU + MaxPool | 16×16×64 | **8**×**8**×64 | 0 | — |
+| 6 | Conv 3×3, 128 filter, p=1 | 8×8×**64** | 8×8×**128** | **73.856** | (3·3·64 + 1) × 128 |
+| 7 | ReLU + MaxPool | 8×8×128 | **4**×**4**×128 | 0 | — |
+| 8 | Flatten | 4×4×128 | **2048** | 0 | 4 · 4 · 128 |
+| 9 | FC | 2048 | 256 | **524.544** | 2048 × 256 + 256 |
+| 10 | ReLU + Dropout 0.5 | 256 | 256 | 0 | — |
+| 11 | FC | 256 | **10** | **2.570** | 256 × 10 + 10 |
+| 12 | Softmax | 10 | 10 xác suất | 0 | — |
+
+$$\text{Tổng tham số} = 896 + 18{.}496 + 73{.}856 + 524{.}544 + 2{.}570 = \mathbf{620{.}362}$$
+
+&gt; 😲 **Con số làm nhiều người bất ngờ:**
+&gt; Ba lớp **Conv** — nơi mọi việc nhận diện thật sự diễn ra — chỉ chiếm **93.248 tham số ≈ 15%**.
+&gt;
+&gt; Hai lớp **FC** — chỉ làm việc tổng hợp cuối cùng — ngốn **527.114 tham số ≈ 85%**.
+&gt;
+&gt; Đây chính là lý do các kiến trúc hiện đại (ResNet, EfficientNet) **thay Flatten + FC lớn bằng Global Average Pooling**: cắt được phần lớn tham số mà độ chính xác không giảm, thậm chí còn đỡ overfitting hơn.
+&gt;
+
+---
+
+## Tính chất phân cấp của đặc trưng
+
+Đây là lý do sâu xa khiến CNN mạnh: xếp chồng nhiều lớp Conv thì mỗi tầng học đặc trưng **trừu tượng hơn tầng trước**.
+
+```mermaid
+flowchart TB
+    A["Conv 1 — nhìn được vùng 3x3&lt;br&gt;Học: cạnh, viền, đốm màu"] --&gt; B["Conv 2 — nhìn được vùng ~7x7&lt;br&gt;Học: góc, cung tròn, họa tiết"]
+    B --&gt; C["Conv 3 — nhìn được vùng ~15x15&lt;br&gt;Học: bánh xe, mắt, cánh hoa"]
+    C --&gt; D["Conv sâu — gần như nhìn cả ảnh&lt;br&gt;Học: mặt người, thân xe, cả con mèo"]
+</code></pre></div></p>
+<blockquote>
+<p>🔭 <strong>Khái niệm khóa: Receptive Field (vùng tiếp nhận).</strong> Một nơ-ron ở lớp Conv 1 chỉ "thấy" 3×3 pixel gốc. Nhưng một nơ-ron ở Conv 2 lại nhìn vào 3×3 nơ-ron của Conv 1 — tức gián tiếp thấy khoảng <strong>7×7 pixel gốc</strong>. Càng sâu, cửa sổ nhìn ra ảnh gốc càng rộng.
+Đây là câu trả lời cho câu hỏi <em>"vì sao kernel 3×3 bé xíu lại nhận ra được cả con mèo?"</em> — <strong>không phải một lớp làm được, mà là nhiều lớp cộng dồn.</strong>
+</p>
+</blockquote>
+<hr />
+<h2 id="code-pytorch-oi-chieu-tung-dong-voi-bang-tra-cuu">Code PyTorch — đối chiếu từng dòng với bảng tra cứu<a class="headerlink" href="#code-pytorch-oi-chieu-tung-dong-voi-bang-tra-cuu" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleCNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">features</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="c1"># 32x32x3  -&gt; 32x32x32</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="n">out_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>  <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>      <span class="c1"># -&gt; 16x16x32</span>
+
+            <span class="c1"># 16x16x32 -&gt; 16x16x64</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>                         <span class="c1"># -&gt; 8x8x64</span>
+
+            <span class="c1"># 8x8x64   -&gt; 8x8x128</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="mi">128</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>                         <span class="c1"># -&gt; 4x4x128</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>                 <span class="c1"># 4x4x128 -&gt; 2048</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2048</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">),</span>  <span class="c1"># -&gt; 10 logits (KHONG Softmax o day)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>     <span class="c1"># bo trich xuat dac trung</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   <span class="c1"># bo phan loai</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="c1"># Kiem tra shape — thoi quen nen co truoc moi lan train</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SimpleCNN</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()))</span>   <span class="c1"># ~620k (chua tinh BatchNorm)</span>
+</code></pre></div>
+<blockquote>
+<p>👀 Chú ý đối chiếu: <code>in_channels</code> của mỗi lớp Conv <strong>luôn bằng</strong> <code>out_channels</code> của lớp Conv ngay trước nó (3 → 32 → 64 → 128). Sai đúng một con số ở đây là lỗi shape phổ biến nhất khi mới viết CNN.</p>
+</blockquote>
+<hr />
+<h2 id="sau-loi-thuong-gap-khi-moi-hoc-cnn">Sáu lỗi thường gặp khi mới học CNN<a class="headerlink" href="#sau-loi-thuong-gap-khi-moi-hoc-cnn" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Hiểu sai</th>
+<th>Thực tế</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Kernel 3×3 chỉ có 9 tham số"</td>
+<td>Chỉ đúng khi đầu vào 1 kênh. Với 64 kênh vào thì mỗi kernel là 3×3×64 = <strong>576</strong> trọng số</td>
+</tr>
+<tr>
+<td>"Pooling cũng học được gì đó"</td>
+<td>Pooling có <strong>0 tham số</strong> — nó là phép toán cố định, không học gì cả</td>
+</tr>
+<tr>
+<td>"Sau Conv, kênh vẫn là màu"</td>
+<td>Không. Từ Conv 1 trở đi, mỗi kênh là <strong>bản đồ phản hồi của một filter</strong></td>
+</tr>
+<tr>
+<td>"Càng nhiều lớp Conv càng tốt"</td>
+<td>Mạng quá sâu mà không có <strong>skip connection</strong> (ResNet) sẽ bị vanishing gradient và khó huấn luyện</td>
+</tr>
+<tr>
+<td>"Thêm Softmax vào cuối model rồi dùng CrossEntropyLoss"</td>
+<td>Softmax bị áp <strong>hai lần</strong> → học rất kém mà <strong>không hề báo lỗi</strong></td>
+</tr>
+<tr>
+<td>"CNN bất biến hoàn toàn với xoay và co giãn"</td>
+<td>Chỉ bất biến với <strong>dịch chuyển nhỏ</strong>. Xoay và co giãn phải xử lý bằng <strong>data augmentation</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="lien-he-voi-e-tai-nckh">Liên hệ với đề tài NCKH<a class="headerlink" href="#lien-he-voi-e-tai-nckh" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🔗 <strong>CNN nối vào hướng XAI / CBM của bạn qua ba đường rất cụ thể:</strong>
+<strong>1. Grad-CAM chạy trên Feature Map của lớp Conv cuối.</strong> Nó lấy đúng tensor 4×4×128 ở dòng số 7 trong bảng tra cứu, tính gradient của điểm số lớp dự đoán theo từng kênh, rồi lấy tổng có trọng số để ra bản đồ nhiệt. <strong>Không hiểu Feature Map thì không hiểu được Grad-CAM.</strong></p>
+<p><strong>2. CNN là backbone của CBM đời đầu.</strong> Trong CBM gốc (Koh et al., 2020), phần trích xuất đặc trưng chính là một CNN (ResNet); lớp Bottleneck khái niệm được gắn vào <strong>ngay sau</strong> phần Conv, thay chỗ của lớp FC đầu tiên.</p>
+<p><strong>3. Kênh của Feature Map là ứng viên tự nhiên cho "khái niệm".</strong> Cả <strong>TCAV</strong> lẫn hướng network dissection đều xuất phát từ câu hỏi: <em>liệu một kênh, hay một hướng trong không gian đặc trưng, có tương ứng với một khái niệm con người hiểu được không?</em> Xem thêm <a href="../../xai/03-concept-based/">3. Phương pháp dựa trên khái niệm (Concept-based)</a>.
+</p>
+</blockquote>
+<hr />
+<h2 id="ung-dung-thuc-te">Ứng dụng thực tế<a class="headerlink" href="#ung-dung-thuc-te" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>🏷️ <strong>Image Classification</strong>
+Gán một hoặc nhiều nhãn cho cả bức ảnh. Đây là bài toán chuẩn để so sánh kiến trúc (ImageNet, CIFAR).
+</p>
+<p>📦 <strong>Object Detection</strong>
+Vừa định vị bằng bounding box vừa phân loại nhiều vật thể trong một ảnh (YOLO, Faster R-CNN).
+</p>
+<p>🧬 <strong>Segmentation</strong>
+Phân loại <strong>từng pixel</strong>. Rất quan trọng trong y tế (phân vùng khối u) và xe tự lái (U-Net, Mask R-CNN).
+</p>
+<p>🧰 <strong>Làm Encoder cho kiến trúc khác</strong>
+CNN là phần Encoder của Convolutional Autoencoder — xem <strong>Các biến thể phổ biến của Autoencoder</strong>. Cũng là image encoder của CLIP bản ResNet.
+</p>
+</blockquote>
+<hr />
+<h2 id="nguon-hoc">Nguồn học<a class="headerlink" href="#nguon-hoc" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="https://cs231n.github.io/convolutional-networks/">CS231n — Convolutional Neural Networks for Visual Recognition (Stanford)</a> — <strong>tài liệu chuẩn mực nhất</strong>, phần giải thích stride/padding rất kỹ.</p>
+</li>
+<li>
+<p><a href="https://poloclub.github.io/cnn-explainer/">CNN Explainer (Georgia Tech / Polo Club)</a> — <strong>công cụ tương tác, đáng xem nhất trong danh sách này.</strong> Bạn nhấp vào từng nơ-ron và thấy tận mắt phép tích chập chạy trên ảnh thật, từng ô một.</p>
+</li>
+<li>
+<p><a href="https://github.com/vdumoulin/conv_arithmetic">Conv Arithmetic — hình động về stride, padding, transposed conv</a> — bộ ảnh GIF kinh điển, giải thích công thức kích thước đầu ra bằng hình.</p>
+</li>
+<li>
+<p><a href="https://www.deeplearningbook.org/contents/convnets.html">Deep Learning Book — Chapter 9: Convolutional Networks (Goodfellow et al.)</a> — chương sách để trích dẫn học thuật.</p>
+</li>
+<li>
+<p><a href="https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53">A Comprehensive Guide to CNNs — Towards Data Science</a> — bài blog nhập môn dễ đọc.</p>
+</li>
+<li>
+<p><a href="https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html">PyTorch CIFAR-10 Tutorial</a> — code chạy được ngay, đúng bài toán trong bảng tra cứu ở trên.</p>
+</li>
+</ul>
+<blockquote>
+<p>🧪 <strong>Bài thực hành đáng làm nhất:</strong> mở <strong>CNN Explainer</strong> ở link thứ hai, chọn một ảnh, rồi lần lượt bấm vào từng lớp và <strong>đối chiếu với bảng tra cứu</strong> ở trên. Sau đó tự viết <code>SimpleCNN</code> bằng PyTorch và in <code>x.shape</code> sau <strong>mỗi</strong> lớp — nếu các con số khớp đúng bảng thì bạn đã thật sự hiểu, không phải chỉ đọc hiểu.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,5404 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki nghiên cứu về Explainable AI (XAI) và Concept Bottleneck Models (CBM), gồm ghi chú kiến thức nền, thư viện bài báo, và từ điển thuật ngữ Anh-Việt.">
+      
+      
+      
+        <link rel="canonical" href="https://SonT23.github.io/XAI_Hub/deep-learning/cam-nang-deep-learning-nen-tang-neural-network/">
+      
+      
+        <link rel="prev" href="../cam-nang-deep-learning-transformer/">
+      
+      
+        <link rel="next" href="../../xai/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Cẩm nang Deep Learning: Nền tảng Neural Network - NCKH — XAI & Concept Bottleneck Models</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cam-nang-deep-learning-nen-tang-neural-network" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-header__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NCKH — XAI & Concept Bottleneck Models
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cẩm nang Deep Learning: Nền tảng Neural Network
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện tối"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện tối" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Chuyển sang giao diện sáng"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Chuyển sang giao diện sáng" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../toan/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Toán nền tảng
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ml-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ML cơ bản
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../xai/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explainable AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../papers/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Thư viện bài báo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../glossary/all/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thuật ngữ Anh - Việt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ky-nang/cach-doc-bai-bao/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Kỹ năng nghiên cứu
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../lap-trinh/docker-co-ban/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lập trình
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NCKH — XAI &amp; Concept Bottleneck Models" class="md-nav__button md-logo" aria-label="NCKH — XAI & Concept Bottleneck Models" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NCKH — XAI & Concept Bottleneck Models
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SonT23/XAI_Hub" title="Xem mã nguồn" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    XAI_Hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../toan/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán nền tảng
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toán nền tảng
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/dai-so-tuyen-tinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Đại số tuyến tính
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/giai-tich/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Giải tích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/xac-suat-thong-ke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xác suất & Thống kê
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-gradient-descent-va-cac-bien-the/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Gradient Descent và các biến thể
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../toan/cheat-sheet-dai-so-tuyen-tinh-cho-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet: Đại số tuyến tính cho Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ml-co-ban/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML cơ bản
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/model-hyperparameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Hyperparameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/performance-measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Measures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-co-ban/so-do-tu-duy-phan-loai-cac-nhanh-machine-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sơ đồ tư duy: Phân loại các nhánh Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variational Autoencoder (VAE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../latent-space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformer-vit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer & ViT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat-sheet-cnn-stanford-cs230/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet CNN (Stanford CS230)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-pytorch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang PyTorch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cam-nang-deep-learning-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cẩm nang Deep Learning: Nền tảng Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-trang-bia-so-o-tong-quan-deep-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Trang bìa &amp; Sơ đồ tổng quan Deep Learning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-gioi-thieu-deep-learning-so-sanh-ml-vs-dl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Giới thiệu Deep Learning &amp; So sánh ML vs DL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Giới thiệu Deep Learning &amp; So sánh ML vs DL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-deep-learning-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Deep Learning là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-tai-sao-can-deep-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Tại sao cần Deep Learning?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-so-sanh-ml-vs-dl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. So sánh ML vs DL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-ung-dung-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Ứng dụng thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-nen-tang-neural-network-perceptron-layers-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Nền tảng Neural Network: Perceptron, Layers, Weights
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Nền tảng Neural Network: Perceptron, Layers, Weights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-neuron-perceptron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Neuron (Perceptron)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-cac-layer-trong-neural-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Các layer trong Neural Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-weights-biases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Weights &amp; Biases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-cac-loai-neural-network-vi-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Các loại Neural Network (ví dụ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-neural-network-du-oan-nhu-the-nao-quy-trinh-5-buoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5. Neural Network dự đoán như thế nào? (Quy trình 5 bước)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-activation-functions-relu-sigmoid-tanh-softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Activation Functions: ReLU, Sigmoid, Tanh, Softmax
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Activation Functions: ReLU, Sigmoid, Tanh, Softmax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-relu-rectified-linear-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ① ReLU (Rectified Linear Unit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sigmoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ② Sigmoid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tanh-hyperbolic-tangent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ③ Tanh (Hyperbolic Tangent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-softmax-multi-class-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ④ Softmax (Multi-class output)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tom-tat-so-sanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tóm tắt so sánh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-forward-propagation-va-backpropagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Forward Propagation và Backpropagation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Forward Propagation và Backpropagation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-forward-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Forward Propagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-backpropagation-tong-quan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Backpropagation (tổng quan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-backpropagation-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Backpropagation (chi tiết)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-tom-tat-truc-quan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4. Tóm tắt trực quan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-loss-functions-mse-binarycategorical-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Loss Functions: MSE, Binary/Categorical Cross-Entropy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Loss Functions: MSE, Binary/Categorical Cross-Entropy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-mean-squared-error-mse-dung-cho-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Mean Squared Error (MSE) — dùng cho Regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-binary-cross-entropy-log-loss-dung-cho-binary-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Binary Cross Entropy (Log Loss) — dùng cho Binary Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-categorical-cross-entropy-dung-cho-multi-class-classification-2-lop-tro-len" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Categorical Cross Entropy — dùng cho Multi-class Classification (2 lớp trở lên)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        So sánh nhanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-gradient-descent-va-cac-thuat-toan-optimization-adam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Gradient Descent và các thuật toán Optimization (Adam...)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Gradient Descent và các thuật toán Optimization (Adam...)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-gradient-descent-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Gradient Descent là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-cac-loai-gradient-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Các loại Gradient Descent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-cac-thuat-toan-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Các thuật toán Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-so-sanh-cac-optimizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4. So sánh các Optimizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-overfitting-va-cac-ky-thuat-regularization-dropout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Overfitting và các kỹ thuật Regularization (Dropout...)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Overfitting và các kỹ thuật Regularization (Dropout...)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-hieu-ve-overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1. Hiểu về Overfitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-cac-ky-thuat-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2. Các kỹ thuật Regularization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-training-curve-phat-hien-overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3. Training Curve (phát hiện overfitting)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-tong-quan-cac-kien-truc-neural-network-fnn-cnn-rnn-lstm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Tổng quan các kiến trúc Neural Network: FNN, CNN, RNN, LSTM...
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Tổng quan các kiến trúc Neural Network: FNN, CNN, RNN, LSTM...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-feedforward-neural-network-fnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1. Feedforward Neural Network (FNN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-convolutional-neural-network-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2. Convolutional Neural Network (CNN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-recurrent-neural-network-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3. Recurrent Neural Network (RNN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-lstm-long-short-term-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4. LSTM (Long Short-Term Memory)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-gru-gated-recurrent-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5. GRU (Gated Recurrent Unit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-autoencoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6. Autoencoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#97-transformer-attention-based-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.7. Transformer (Attention-based Model)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-cac-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        So sánh các Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-convolutional-neural-networks-cnn-convolution-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Convolutional Neural Networks (CNN) — Convolution, Pooling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Convolutional Neural Networks (CNN) — Convolution, Pooling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-convolution-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. Convolution Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-cnn-architecture-luong-ien-hinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2. CNN Architecture (luồng điển hình)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-cac-layer-pho-bien-trong-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3. Các layer phổ biến trong CNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-vi-du-pooling-max-pooling-2x2-stride2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4. Ví dụ Pooling (Max Pooling 2x2, stride=2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-cac-kien-truc-cnn-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5. Các kiến trúc CNN phổ biến
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-recurrent-neural-networks-rnn-cong-thuc-vanishing-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Recurrent Neural Networks (RNN) — Công thức, Vanishing Gradient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Recurrent Neural Networks (RNN) — Công thức, Vanishing Gradient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-recurrent-neural-network-dang-unfold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1. Recurrent Neural Network (dạng Unfold)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-cong-thuc-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2. Công thức RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-cac-loai-output-cua-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3. Các loại output của RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-output-many-to-many" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4. Output Many-to-Many
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-activation-function-trong-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.5. Activation Function trong RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#116-vanishing-exploding-gradients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.6. Vanishing &amp; Exploding Gradients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#117-so-sanh-cac-bien-the-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.7. So sánh các biến thể RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../xai/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explainable AI
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explainable AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tổng quan & Phân loại XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/02-post-hoc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Post-hoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/03-concept-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Concept-based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/04-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/05-bien-the-cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Biến thể CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/06-danh-gia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Đánh giá lời giải thích
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../xai/07-du-lieu-cong-cu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Bộ dữ liệu & Công cụ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thư viện bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thuật ngữ Anh - Việt
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thuật ngữ Anh - Việt
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toàn bộ (A-Z)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toán
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/ml-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/autoencoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoencoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/transformer-clip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer/CLIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/xai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/cbm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CBM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kỹ năng nghiên cứu
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kỹ năng nghiên cứu
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/cach-doc-bai-bao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cách đọc bài báo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ky-nang/lo-trinh-doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lộ trình đọc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lập trình
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lập trình
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/docker-nang-cao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker nâng cao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-nhap-mon-big-o/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Nhập môn & Big-O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-mang-chuoi-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Mảng, Chuỗi & Linked List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-stack-queue-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Stack, Queue & Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-de-quy-tim-kiem-sap-xep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Đệ quy, Tìm kiếm & Sắp xếp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-trees-heap-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Trees, Heap & Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-dp-greedy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: DP & Greedy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-ky-thuat-giai-bai-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Kỹ thuật giải bài tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/dsa-tong-on-tap-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA: Tổng ôn tập & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cu-phap-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cú pháp cơ bản
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc điều khiển
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-cau-truc-du-lieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Cấu trúc dữ liệu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-functions-comprehension-lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Functions, Comprehension & Lambda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-modules-file-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Modules, File & Exception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: OOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-nang-cao-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Nâng cao & Thư viện
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lap-trinh/python-automation-best-practices-on-tap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python: Automation, Best Practices & Ôn tập
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-trang-bia-so-o-tong-quan-deep-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Trang bìa &amp; Sơ đồ tổng quan Deep Learning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-gioi-thieu-deep-learning-so-sanh-ml-vs-dl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Giới thiệu Deep Learning &amp; So sánh ML vs DL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Giới thiệu Deep Learning &amp; So sánh ML vs DL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-deep-learning-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Deep Learning là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-tai-sao-can-deep-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Tại sao cần Deep Learning?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-so-sanh-ml-vs-dl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. So sánh ML vs DL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-ung-dung-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Ứng dụng thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-nen-tang-neural-network-perceptron-layers-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Nền tảng Neural Network: Perceptron, Layers, Weights
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Nền tảng Neural Network: Perceptron, Layers, Weights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-neuron-perceptron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Neuron (Perceptron)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-cac-layer-trong-neural-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Các layer trong Neural Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-weights-biases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Weights &amp; Biases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-cac-loai-neural-network-vi-du" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Các loại Neural Network (ví dụ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-neural-network-du-oan-nhu-the-nao-quy-trinh-5-buoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5. Neural Network dự đoán như thế nào? (Quy trình 5 bước)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-activation-functions-relu-sigmoid-tanh-softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Activation Functions: ReLU, Sigmoid, Tanh, Softmax
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Activation Functions: ReLU, Sigmoid, Tanh, Softmax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-relu-rectified-linear-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ① ReLU (Rectified Linear Unit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sigmoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ② Sigmoid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tanh-hyperbolic-tangent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ③ Tanh (Hyperbolic Tangent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-softmax-multi-class-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ④ Softmax (Multi-class output)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tom-tat-so-sanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tóm tắt so sánh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-forward-propagation-va-backpropagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Forward Propagation và Backpropagation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Forward Propagation và Backpropagation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-forward-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Forward Propagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-backpropagation-tong-quan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Backpropagation (tổng quan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-backpropagation-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Backpropagation (chi tiết)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-tom-tat-truc-quan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4. Tóm tắt trực quan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-loss-functions-mse-binarycategorical-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Loss Functions: MSE, Binary/Categorical Cross-Entropy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Loss Functions: MSE, Binary/Categorical Cross-Entropy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-mean-squared-error-mse-dung-cho-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Mean Squared Error (MSE) — dùng cho Regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-binary-cross-entropy-log-loss-dung-cho-binary-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Binary Cross Entropy (Log Loss) — dùng cho Binary Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-categorical-cross-entropy-dung-cho-multi-class-classification-2-lop-tro-len" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Categorical Cross Entropy — dùng cho Multi-class Classification (2 lớp trở lên)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-nhanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        So sánh nhanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-gradient-descent-va-cac-thuat-toan-optimization-adam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Gradient Descent và các thuật toán Optimization (Adam...)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Gradient Descent và các thuật toán Optimization (Adam...)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-gradient-descent-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Gradient Descent là gì?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-cac-loai-gradient-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Các loại Gradient Descent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-cac-thuat-toan-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Các thuật toán Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-so-sanh-cac-optimizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4. So sánh các Optimizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-overfitting-va-cac-ky-thuat-regularization-dropout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Overfitting và các kỹ thuật Regularization (Dropout...)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Overfitting và các kỹ thuật Regularization (Dropout...)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-hieu-ve-overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1. Hiểu về Overfitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-cac-ky-thuat-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2. Các kỹ thuật Regularization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-training-curve-phat-hien-overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3. Training Curve (phát hiện overfitting)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-tong-quan-cac-kien-truc-neural-network-fnn-cnn-rnn-lstm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Tổng quan các kiến trúc Neural Network: FNN, CNN, RNN, LSTM...
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Tổng quan các kiến trúc Neural Network: FNN, CNN, RNN, LSTM...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-feedforward-neural-network-fnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1. Feedforward Neural Network (FNN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-convolutional-neural-network-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2. Convolutional Neural Network (CNN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-recurrent-neural-network-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3. Recurrent Neural Network (RNN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-lstm-long-short-term-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4. LSTM (Long Short-Term Memory)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-gru-gated-recurrent-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5. GRU (Gated Recurrent Unit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-autoencoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6. Autoencoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#97-transformer-attention-based-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.7. Transformer (Attention-based Model)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-cac-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        So sánh các Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-convolutional-neural-networks-cnn-convolution-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Convolutional Neural Networks (CNN) — Convolution, Pooling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Convolutional Neural Networks (CNN) — Convolution, Pooling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-convolution-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. Convolution Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-cnn-architecture-luong-ien-hinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2. CNN Architecture (luồng điển hình)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-cac-layer-pho-bien-trong-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3. Các layer phổ biến trong CNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-vi-du-pooling-max-pooling-2x2-stride2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4. Ví dụ Pooling (Max Pooling 2x2, stride=2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-cac-kien-truc-cnn-pho-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5. Các kiến trúc CNN phổ biến
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-recurrent-neural-networks-rnn-cong-thuc-vanishing-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Recurrent Neural Networks (RNN) — Công thức, Vanishing Gradient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Recurrent Neural Networks (RNN) — Công thức, Vanishing Gradient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-recurrent-neural-network-dang-unfold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1. Recurrent Neural Network (dạng Unfold)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-cong-thuc-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2. Công thức RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-cac-loai-output-cua-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3. Các loại output của RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-output-many-to-many" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4. Output Many-to-Many
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-activation-function-trong-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.5. Activation Function trong RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#116-vanishing-exploding-gradients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.6. Vanishing &amp; Exploding Gradients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#117-so-sanh-cac-bien-the-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.7. So sánh các biến thể RNN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cam-nang-deep-learning-nen-tang-neural-network">Cẩm nang Deep Learning: Nền tảng Neural Network<a class="headerlink" href="#cam-nang-deep-learning-nen-tang-neural-network" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>🖼️ <strong>11 ảnh gốc cho trang này (dán theo đúng thứ tự vào từng mục bên dưới):</strong>
+1300_trang-bia-cam-nang-deep-learning-so-do-neural-netw.jpg</p>
+<p>1301_gioi-thieu-deep-learning-so-sanh-ml-vs-dl.jpg</p>
+<p>1302_nen-tang-neural-network-perceptron-layers-weights.jpg</p>
+<p>1303_activation-functions-relu-sigmoid-tanh-softmax.jpg</p>
+<p>1304_forward-propagation-va-backpropagation-trong-neura.jpg</p>
+<p>1305_loss-functions-mse-binary-categorical-cross-entrop.jpg</p>
+<p>1306_gradient-descent-va-cac-thuat-toan-optimization-ad.jpg</p>
+<p>1307_overfitting-va-cac-ky-thuat-regularization-dropout.jpg</p>
+<p>1308_tong-quan-kien-truc-neural-network-fnn-cnn-rnn-lst.jpg</p>
+<p>1309_convolutional-neural-networks-cnn-convolution-pool.jpg</p>
+<p>1310_recurrent-neural-networks-rnn-cong-thuc-vanishing-.jpg
+</p>
+</blockquote>
+<p>Trang này tổng hợp lại <strong>cẩm nang viết tay "Deep Learning" (bộ 11 ảnh cheat-sheet)</strong>, đi từ nền tảng đến kiến trúc mạng cụ thể, theo đúng mạch: (1) trang bìa &amp; tổng quan → (2) DL là gì, so với ML → (3) neuron/perceptron &amp; các layer → (4) activation functions → (5) forward &amp; backpropagation → (6) loss functions → (7) gradient descent &amp; optimizer → (8) overfitting &amp; regularization → (9) tổng quan các kiến trúc mạng (FNN/CNN/RNN/LSTM/GRU/Autoencoder/Transformer) → (10) đi sâu CNN → (11) đi sâu RNN (kèm vanishing/exploding gradient). Đây là tài liệu nền tảng cho phần NCKH về Explainable AI/CBM vì các kỹ thuật XAI (Grad-CAM, saliency map, concept bottleneck...) đều xây trên các khối này (CNN, backprop, loss, activation).</p>
+<hr />
+<h3 id="1-trang-bia-so-o-tong-quan-deep-learning">1. Trang bìa &amp; Sơ đồ tổng quan Deep Learning<a class="headerlink" href="#1-trang-bia-so-o-tong-quan-deep-learning" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1300_trang-bia-cam-nang-deep-learning-so-do-neural-netw.jpg</code></p>
+</blockquote>
+<p><strong>Cẩm nang Deep Learning v1.0</strong> — khẩu hiệu: <em>"Nắm vững khái niệm. Xây dựng hệ thống thông minh. Định hình tương lai cùng Deep Learning."</em></p>
+<ul>
+<li>
+<p>Sơ đồ minh hoạ một neural network cơ bản: <strong>Input → Hidden Layers → Output</strong>, với các neuron (nodes) nối đầy đủ (fully-connected) giữa các lớp bằng các đường weight.</p>
+</li>
+<li>
+<p>Từ khoá chủ đề xuyên suốt cẩm nang: <strong>Feature Learning • Representation Learning • Automation • Scalability • Innovation</strong>.</p>
+</li>
+</ul>
+<p><strong>Nội dung bên trong (11 chương gốc của cẩm nang đầy đủ):</strong></p>
+<ol>
+<li>
+<p>Giới thiệu về Deep Learning</p>
+</li>
+<li>
+<p>Kiến thức cơ bản về Neural Networks</p>
+</li>
+<li>
+<p>Activation Functions</p>
+</li>
+<li>
+<p>Loss Functions</p>
+</li>
+<li>
+<p>Optimization Algorithms</p>
+</li>
+<li>
+<p>Convolutional Neural Networks (CNN)</p>
+</li>
+<li>
+<p>Recurrent Neural Networks (RNN)</p>
+</li>
+<li>
+<p>Long Short-Term Memory (LSTM)</p>
+</li>
+<li>
+<p>Transformers &amp; Attention</p>
+</li>
+<li>
+<p>Generative Models (GAN, VAE)</p>
+</li>
+<li>
+<p>Deployment &amp; Best Practices</p>
+<ul>
+<li>Kèm thêm: Cheat Sheet &amp; Interview Q&amp;A</li>
+</ul>
+</li>
+</ol>
+<p><strong>Deep Learning qua các con số (ước tính):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Chỉ số</th>
+<th>Giá trị ước tính</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nhà phát triển</td>
+<td>2.5+ triệu</td>
+</tr>
+<tr>
+<td>Framework phổ biến</td>
+<td>TensorFlow, PyTorch, Keras, JAX</td>
+</tr>
+<tr>
+<td>Dữ liệu huấn luyện</td>
+<td>GBs đến TBs</td>
+</tr>
+<tr>
+<td>Thời gian huấn luyện</td>
+<td>Vài phút đến vài ngày</td>
+</tr>
+<tr>
+<td>Bộ nhớ GPU</td>
+<td>4GB đến 80GB+</td>
+</tr>
+<tr>
+<td>Độ chính xác đạt được</td>
+<td>90% đến 99%+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Chủ đề bao gồm:</strong> Neural Networks, CNN &amp; Computer Vision, RNN/LSTM/GRU, Transformers &amp; NLP, Activation Functions, Loss Functions, Optimization, Regularization, Transfer Learning, Generative Models, Model Evaluation, Deployment &amp; MLOps, Best Practices.</p>
+<p><strong>Tài liệu này dành cho ai?</strong> Học sinh/sinh viên &amp; người mới bắt đầu; Kỹ sư &amp; lập trình viên ML; Bất kỳ ai đam mê AI.</p>
+<blockquote>
+<p>💡 "Cách tốt nhất để dự đoán tương lai là tự tạo ra nó cùng Deep Learning."</p>
+</blockquote>
+<hr />
+<h3 id="2-gioi-thieu-deep-learning-so-sanh-ml-vs-dl">2. Giới thiệu Deep Learning &amp; So sánh ML vs DL<a class="headerlink" href="#2-gioi-thieu-deep-learning-so-sanh-ml-vs-dl" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1301_gioi-thieu-deep-learning-so-sanh-ml-vs-dl.jpg</code></p>
+<p>"Deep Learning là một nhánh con của Machine Learning, được lấy cảm hứng từ cấu trúc và chức năng của bộ não con người, gọi là <strong>Artificial Neural Networks</strong>."</p>
+</blockquote>
+<h4 id="21-deep-learning-la-gi">2.1. Deep Learning là gì?<a class="headerlink" href="#21-deep-learning-la-gi" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Deep Learning (DL) là một phần của Machine Learning (ML), sử dụng <strong>Artificial Neural Networks (ANNs)</strong> với nhiều lớp (<strong>hidden layers</strong>) để học các pattern từ dữ liệu.</p>
+</li>
+<li>
+<p>Nó có thể <strong>tự động học các feature</strong> từ dữ liệu thô mà không cần feature engineering thủ công (đây là khác biệt cốt lõi so với ML truyền thống).</p>
+</li>
+<li>
+<p>Hoạt động cực kỳ hiệu quả với <strong>lượng dữ liệu lớn</strong> và các bài toán phức tạp.</p>
+</li>
+</ul>
+<h4 id="22-tai-sao-can-deep-learning">2.2. Tại sao cần Deep Learning?<a class="headerlink" href="#22-tai-sao-can-deep-learning" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Xử lý tốt <strong>unstructured data</strong> như hình ảnh, âm thanh, văn bản, video.</p>
+</li>
+<li>
+<p>Tự động học các <strong>hierarchical feature</strong> (đặc trưng theo tầng bậc: từ cạnh/nét đơn giản → hình khối → đối tượng phức tạp).</p>
+</li>
+<li>
+<p><strong>Độ chính xác</strong> cao trong các tác vụ phức tạp.</p>
+</li>
+<li>
+<p>Mở rộng tốt cùng <strong>big data</strong> và sức mạnh tính toán (GPU/TPU).</p>
+</li>
+<li>
+<p>Là sức mạnh đứng sau các ứng dụng <strong>AI hiện đại</strong> (ChatGPT, xe tự lái, nhận diện giọng nói...).</p>
+</li>
+</ul>
+<h4 id="23-so-sanh-ml-vs-dl">2.3. So sánh ML vs DL<a class="headerlink" href="#23-so-sanh-ml-vs-dl" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Khía cạnh</th>
+<th>Machine Learning (ML)</th>
+<th>Deep Learning (DL)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feature Engineering</td>
+<td>Cần feature engineering thủ công</td>
+<td>Tự động học feature từ dữ liệu</td>
+</tr>
+<tr>
+<td>Yêu cầu dữ liệu</td>
+<td>Hoạt động tốt với dataset nhỏ đến vừa</td>
+<td>Cần lượng dữ liệu lớn để đạt hiệu suất tốt nhất</td>
+</tr>
+<tr>
+<td>Mô hình</td>
+<td>Shallow model (vd: Linear Regression, SVM, Decision Tree)</td>
+<td>Deep Neural Network với nhiều hidden layer</td>
+</tr>
+<tr>
+<td>Hiệu suất</td>
+<td>Tốt cho bài toán đơn giản</td>
+<td>Xuất sắc cho bài toán phức tạp</td>
+</tr>
+<tr>
+<td>Tính toán</td>
+<td>Ít tốn tài nguyên tính toán hơn</td>
+<td>Cao, cần GPU/TPU</td>
+</tr>
+<tr>
+<td>Ví dụ</td>
+<td>Phát hiện spam, dự đoán giá nhà</td>
+<td>Nhận diện hình ảnh, giọng nói, xe tự lái, ChatGPT...</td>
+</tr>
+</tbody>
+</table>
+<p><strong>DL trong thực tế:</strong> Nhận diện hình ảnh; Nhận diện giọng nói; Xe tự lái; Chatbot &amp; NLP.</p>
+<h4 id="24-ung-dung-thuc-te">2.4. Ứng dụng thực tế<a class="headerlink" href="#24-ung-dung-thuc-te" title="Permanent link">&para;</a></h4>
+<p>Gợi ý YouTube/Netflix • Gợi ý E-commerce • Trợ lý giọng nói (Siri, Alexa) • Phát hiện Email spam • Phân tích hình ảnh y tế • Chatbot AI (ChatGPT).</p>
+<hr />
+<h3 id="3-nen-tang-neural-network-perceptron-layers-weights">3. Nền tảng Neural Network: Perceptron, Layers, Weights<a class="headerlink" href="#3-nen-tang-neural-network-perceptron-layers-weights" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1302_nen-tang-neural-network-perceptron-layers-weights.jpg</code></p>
+</blockquote>
+<p>Các mô hình Deep Learning được xây dựng bằng <strong>Artificial Neural Networks (ANNs)</strong>, lấy cảm hứng từ bộ não con người.</p>
+<h4 id="31-neuron-perceptron">3.1. Neuron (Perceptron)<a class="headerlink" href="#31-neuron-perceptron" title="Permanent link">&para;</a></h4>
+<p>Neuron là đơn vị cơ bản cấu tạo nên một neural network. Một neuron nhận các input <span class="arithmatex">\(x_1, x_2, ..., x_n\)</span>, nhân với trọng số (weight) tương ứng <span class="arithmatex">\(w_1, w_2, ..., w_n\)</span>, cộng thêm bias <span class="arithmatex">\(b\)</span>, tạo ra tổng có trọng số <span class="arithmatex">\(z\)</span> (weighted sum), rồi đưa <span class="arithmatex">\(z\)</span> qua một <strong>activation function</strong> <span class="arithmatex">\(f(z)\)</span> để ra output <span class="arithmatex">\(y\)</span>.</p>
+<p><strong>Ký hiệu:</strong></p>
+<ul>
+<li>
+<p><span class="arithmatex">\(x_i\)</span> = inputs</p>
+</li>
+<li>
+<p><span class="arithmatex">\(w_i\)</span> = weights</p>
+</li>
+<li>
+<p><span class="arithmatex">\(b\)</span> = bias</p>
+</li>
+<li>
+<p><span class="arithmatex">\(z\)</span> = weighted sum</p>
+</li>
+<li>
+<p><span class="arithmatex">\(f(z)\)</span> = activation function</p>
+</li>
+</ul>
+<p><strong>Công thức toán học:</strong></p>
+<div class="arithmatex">\[z = w_1x_1 + w_2x_2 + ... + w_nx_n + b\]</div>
+<div class="arithmatex">\[y = f(z)\]</div>
+<h4 id="32-cac-layer-trong-neural-network">3.2. Các layer trong Neural Network<a class="headerlink" href="#32-cac-layer-trong-neural-network" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Input Layer</strong>: Nhận dữ liệu thô.</p>
+</li>
+<li>
+<p><strong>Hidden Layer(s)</strong>: Thực hiện tính toán và trích xuất feature.</p>
+</li>
+<li>
+<p><strong>Output Layer</strong>: Cho ra kết quả dự đoán cuối cùng.</p>
+</li>
+</ul>
+<p>Một mạng có thể có nhiều hidden layer — <strong>nhiều layer hơn → học được pattern phức tạp hơn.</strong></p>
+<h4 id="33-weights-biases">3.3. Weights &amp; Biases<a class="headerlink" href="#33-weights-biases" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Weights (</strong><span class="arithmatex">\(w_i\)</span><strong>)</strong> kiểm soát độ mạnh của kết nối giữa các neuron.</p>
+</li>
+<li>
+<p><strong>Bias (</strong><span class="arithmatex">\(b\)</span><strong>)</strong> cho phép mô hình dịch chuyển activation function (giúp mô hình linh hoạt hơn, không bị ép đi qua gốc toạ độ).</p>
+</li>
+<li>
+<p>Trong quá trình training, <strong>weights và biases</strong> được học để giảm thiểu lỗi (error/loss).</p>
+</li>
+</ul>
+<h4 id="34-cac-loai-neural-network-vi-du">3.4. Các loại Neural Network (ví dụ)<a class="headerlink" href="#34-cac-loai-neural-network-vi-du" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Loại</th>
+<th>Mô tả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feedforward NN</td>
+<td>Thông tin chỉ di chuyển về phía trước (Input → Output)</td>
+</tr>
+<tr>
+<td>CNN (Convolutional NN)</td>
+<td>Dùng cho dữ liệu hình ảnh</td>
+</tr>
+<tr>
+<td>RNN (Recurrent NN)</td>
+<td>Dùng cho dữ liệu tuần tự / time series</td>
+</tr>
+<tr>
+<td>LSTM / GRU</td>
+<td>Loại RNN đặc biệt, xử lý long-term dependencies</td>
+</tr>
+<tr>
+<td>Transformers</td>
+<td>Dùng trong NLP, Computer Vision và nhiều mô hình AI hiện đại</td>
+</tr>
+</tbody>
+</table>
+<h4 id="35-neural-network-du-oan-nhu-the-nao-quy-trinh-5-buoc">3.5. Neural Network dự đoán như thế nào? (Quy trình 5 bước)<a class="headerlink" href="#35-neural-network-du-oan-nhu-the-nao-quy-trinh-5-buoc" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Input</strong>: Dữ liệu thô được đưa vào network.</p>
+</li>
+<li>
+<p><strong>Forward Propagation</strong>: Dữ liệu đi qua các layer, mỗi neuron thực hiện <span class="arithmatex">\((w \cdot x + b)\)</span> và activation.</p>
+</li>
+<li>
+<p><strong>Output</strong>: Network cho ra dự đoán.</p>
+</li>
+<li>
+<p><strong>Error Calculation</strong>: So sánh dự đoán với giá trị thực bằng loss function.</p>
+</li>
+<li>
+<p><strong>Backpropagation</strong>: Lỗi được truyền ngược lại, weights &amp; biases được cập nhật.</p>
+</li>
+</ol>
+<p>Quá trình này <strong>lặp lại qua nhiều iteration</strong> cho đến khi mô hình học được!</p>
+<blockquote>
+<p>💡 Tip: Hãy hình dung neural network như một <b>function approximator</b> — học ánh xạ giữa Input (X) và Output (Y) từ dữ liệu.</p>
+</blockquote>
+<hr />
+<h3 id="4-activation-functions-relu-sigmoid-tanh-softmax">4. Activation Functions: ReLU, Sigmoid, Tanh, Softmax<a class="headerlink" href="#4-activation-functions-relu-sigmoid-tanh-softmax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1303_activation-functions-relu-sigmoid-tanh-softmax.jpg</code></p>
+</blockquote>
+<p>Activation function thêm <strong>non-linearity</strong> vào neural network, giúp nó học được các pattern phức tạp.</p>
+<blockquote>
+<p>💡 Nếu không có activation function, một neural network chỉ là một mô hình <b>linear regression</b> (dù có xếp bao nhiêu lớp, tổ hợp các phép biến đổi tuyến tính vẫn chỉ là một phép tuyến tính).</p>
+</blockquote>
+<h4 id="1-relu-rectified-linear-unit">① ReLU (Rectified Linear Unit)<a class="headerlink" href="#1-relu-rectified-linear-unit" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[f(x) = \max(0, x)\]</div>
+<ul>
+<li>
+<p><strong>Range</strong>: <span class="arithmatex">\([0, \infty)\)</span></p>
+</li>
+<li>
+<p><strong>Pros</strong>: Đơn giản &amp; nhanh; giúp giảm vanishing gradient.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Dying ReLU problem (neuron có thể "chết" — luôn output 0 nếu z âm mãi); không zero-centered.</p>
+</li>
+<li>
+<p><strong>Dùng trong</strong>: Hidden layers.</p>
+</li>
+</ul>
+<h4 id="2-sigmoid">② Sigmoid<a class="headerlink" href="#2-sigmoid" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[f(x) = \frac{1}{1 + e^{-x}}\]</div>
+<ul>
+<li>
+<p><strong>Range</strong>: <span class="arithmatex">\((0, 1)\)</span></p>
+</li>
+<li>
+<p><strong>Pros</strong>: Output từ 0 đến 1; hữu ích cho probability.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Vanishing gradient; không zero-centered.</p>
+</li>
+<li>
+<p><strong>Dùng trong</strong>: Output layer (binary classification), gates trong LSTM/GRU.</p>
+</li>
+</ul>
+<h4 id="3-tanh-hyperbolic-tangent">③ Tanh (Hyperbolic Tangent)<a class="headerlink" href="#3-tanh-hyperbolic-tangent" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[f(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}\]</div>
+<ul>
+<li>
+<p><strong>Range</strong>: <span class="arithmatex">\((-1, 1)\)</span></p>
+</li>
+<li>
+<p><strong>Pros</strong>: Zero-centered; mượt hơn sigmoid.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Vẫn gặp vanishing gradient.</p>
+</li>
+<li>
+<p><strong>Dùng trong</strong>: Hidden layers (mạng cũ, nay chủ yếu dùng ReLU).</p>
+</li>
+</ul>
+<h4 id="4-softmax-multi-class-output">④ Softmax (Multi-class output)<a class="headerlink" href="#4-softmax-multi-class-output" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[f(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}\]</div>
+<ul>
+<li>
+<p><strong>Range</strong>: <span class="arithmatex">\((0,1)\)</span>, tổng các output = 1</p>
+</li>
+<li>
+<p><strong>Pros</strong>: Chuyển score thành probability; dùng cho multi-class classification.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Không dùng trong hidden layers.</p>
+</li>
+<li>
+<p><strong>Dùng trong</strong>: Output layer cho bài toán multi-class.</p>
+</li>
+</ul>
+<h4 id="tom-tat-so-sanh">Tóm tắt so sánh<a class="headerlink" href="#tom-tat-so-sanh" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Formula</th>
+<th>Range</th>
+<th>Zero-Centered?</th>
+<th>Dùng tốt nhất trong</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReLU</td>
+<td>max(0,x)</td>
+<td>[0,∞)</td>
+<td>Không</td>
+<td>Hidden Layers (Mặc định)</td>
+</tr>
+<tr>
+<td>Sigmoid</td>
+<td>1/(1+e^-x)</td>
+<td>(0,1)</td>
+<td>Không</td>
+<td>Output (Binary), Gates</td>
+</tr>
+<tr>
+<td>Tanh</td>
+<td>(eˣ-e⁻ˣ)/(eˣ+e⁻ˣ)</td>
+<td>(-1,1)</td>
+<td>Có</td>
+<td>Hidden Layers</td>
+</tr>
+<tr>
+<td>Softmax</td>
+<td>e^zi/Σe^zj</td>
+<td>(0,1), tổng=1</td>
+<td>Không</td>
+<td>Output (Multi-class)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 TIPS: Dùng <b>ReLU</b> trong hidden layers để training tốt hơn. Dùng <b>Softmax</b> cho output multi-class. Chọn activation function phù hợp với loại bài toán!</p>
+</blockquote>
+<p>☆ <strong>Ghi nhớ:</strong> Chọn đúng activation function có thể tạo ra <strong>khác biệt lớn</strong> trong khả năng học của mô hình.</p>
+<hr />
+<h3 id="5-forward-propagation-va-backpropagation">5. Forward Propagation và Backpropagation<a class="headerlink" href="#5-forward-propagation-va-backpropagation" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1304_forward-propagation-va-backpropagation-trong-neura.jpg</code></p>
+</blockquote>
+<p><strong>Forward Propagation</strong> là cách mô hình đưa ra dự đoán. <strong>Backpropagation</strong> là cách mô hình <strong>học</strong> từ những sai lầm của nó.</p>
+<h4 id="51-forward-propagation">5.1. Forward Propagation<a class="headerlink" href="#51-forward-propagation" title="Permanent link">&para;</a></h4>
+<p>Dữ liệu chảy từ input layer → hidden layer(s) → output layer để tạo ra kết quả cuối cùng.</p>
+<p>Với một neuron đơn lẻ:</p>
+<div class="arithmatex">\[z = w_1x_1 + w_2x_2 + ... + w_nx_n + b\]</div>
+<div class="arithmatex">\[a = f(z) \quad \text{(a = activation/output)}\]</div>
+<ul>
+<li>
+<p><span class="arithmatex">\(z\)</span> = weighted sum (phần linear)</p>
+</li>
+<li>
+<p><span class="arithmatex">\(a\)</span> = activation (sau khi áp dụng activation function)</p>
+</li>
+<li>
+<p><span class="arithmatex">\(f()\)</span> = activation function</p>
+</li>
+</ul>
+<p><strong>Ký hiệu (Notations):</strong> <span class="arithmatex">\(x\)</span> = input vector, <span class="arithmatex">\(W\)</span> = weights, <span class="arithmatex">\(b\)</span> = bias vector, <span class="arithmatex">\(z\)</span> = linear output, <span class="arithmatex">\(a\)</span> = activation, <span class="arithmatex">\(\hat{y}\)</span> = dự đoán/output, <span class="arithmatex">\(y\)</span> = actual output (giá trị thực).</p>
+<p>Ví dụ mạng 2 lớp (1 hidden layer):</p>
+<div class="arithmatex">\[z^1 = W^1x + b^1, \quad a^1 = f(z^1)\]</div>
+<div class="arithmatex">\[z^2 = W^2a^1 + b^2, \quad a^2 = f(z^2) = \hat{y} \text{ (dự đoán)}\]</div>
+<h4 id="52-backpropagation-tong-quan">5.2. Backpropagation (tổng quan)<a class="headerlink" href="#52-backpropagation-tong-quan" title="Permanent link">&para;</a></h4>
+<p>Backpropagation hoạt động <strong>ngược lại</strong> — từ output layer đến input layer — để cập nhật weights và biases nhằm giảm thiểu error. Gồm 4 bước:</p>
+<ol>
+<li>
+<p><strong>Tính loss</strong> bằng predicted và actual output.</p>
+</li>
+<li>
+<p><strong>Tính error</strong> (gradient) tại output layer.</p>
+</li>
+<li>
+<p><strong>Lan truyền error</strong> ngược qua các hidden layer.</p>
+</li>
+<li>
+<p><strong>Cập nhật</strong> weights &amp; biases bằng gradient.</p>
+</li>
+</ol>
+<p><strong>Mục tiêu:</strong> Giảm thiểu loss function bằng cách điều chỉnh weights và biases.</p>
+<p><em>Tại sao nó hoạt động?</em> Calculus (<strong>Chain Rule</strong>) giúp tính từng weight đóng góp thế nào vào lỗi cuối cùng.</p>
+<h4 id="53-backpropagation-chi-tiet">5.3. Backpropagation (chi tiết)<a class="headerlink" href="#53-backpropagation-chi-tiet" title="Permanent link">&para;</a></h4>
+<p><strong>1. Output Layer Error (</strong><span class="arithmatex">\(\delta^{[L]}\)</span><strong>):</strong></p>
+<ul>
+<li>Cho regression (MSE):</li>
+</ul>
+<div class="arithmatex">\[\delta^{[L]} = (\hat{y}-y) \odot f'(z^{[L]})\]</div>
+<ul>
+<li>Cho classification (Cross Entropy với Softmax):</li>
+</ul>
+<div class="arithmatex">\[\delta^{[L]} = \hat{y} - y\]</div>
+<p>(<span class="arithmatex">\(\odot\)</span> = element-wise multiplication)</p>
+<p><strong>2. Hidden Layer Error:</strong></p>
+<div class="arithmatex">\[\delta^{[l]} = (W^{[l+1]})^T \delta^{[l+1]} \odot f'(z^{[l]})\]</div>
+<p>Trong đó: <span class="arithmatex">\(l\)</span> = layer hiện tại, <span class="arithmatex">\(L\)</span> = layer cuối cùng.</p>
+<p><strong>3. Gradient (để cập nhật):</strong></p>
+<div class="arithmatex">\[dW^{[l]} = \delta^{[l]}(a^{[l-1]})^T, \quad db^{[l]} = \delta^{[l]}\]</div>
+<p><span class="arithmatex">\(W, b\)</span> được cập nhật bằng <strong>Gradient Descent</strong>:</p>
+<div class="arithmatex">\[W^{[l]} = W^{[l]} - \eta \, dW^{[l]}, \quad b^{[l]} = b^{[l]} - \eta \, db^{[l]}\]</div>
+<p>(<span class="arithmatex">\(\eta\)</span> = learning rate)</p>
+<h4 id="54-tom-tat-truc-quan">5.4. Tóm tắt trực quan<a class="headerlink" href="#54-tom-tat-truc-quan" title="Permanent link">&para;</a></h4>
+<p><strong>Forward Pass</strong>: Input (x) → mạng → Output (<span class="arithmatex">\(\hat{y}\)</span>).</p>
+<p><strong>Backward Pass</strong>: Error (cập nhật weights &amp; biases) truyền ngược từ output về input.</p>
+<p><strong>TIPS:</strong></p>
+<ul>
+<li>
+<p>Hiểu luồng: Forward → Loss → Backward → Update.</p>
+</li>
+<li>
+<p>Activation function thêm non-linearity.</p>
+</li>
+<li>
+<p>Backpropagation là ứng dụng của chain rule.</p>
+</li>
+<li>
+<p>Thay đổi nhỏ ở weights có thể giảm loss đáng kể.</p>
+</li>
+<li>
+<p>Luyện tập với ví dụ nhỏ để xây dựng trực giác!</p>
+</li>
+</ul>
+<blockquote>
+<p>💡 Ghi nhớ: Forward Propagation tạo ra dự đoán, Backpropagation làm mô hình <b>tốt hơn</b>. ❤️</p>
+</blockquote>
+<hr />
+<h3 id="6-loss-functions-mse-binarycategorical-cross-entropy">6. Loss Functions: MSE, Binary/Categorical Cross-Entropy<a class="headerlink" href="#6-loss-functions-mse-binarycategorical-cross-entropy" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1305_loss-functions-mse-binary-categorical-cross-entrop.jpg</code></p>
+</blockquote>
+<p>Loss function đo lường mức độ <strong>sai</strong> của dự đoán. Mục tiêu là giảm thiểu loss.</p>
+<blockquote>
+<p>💡 Loss thấp hơn → dự đoán tốt hơn → mô hình tốt hơn.</p>
+</blockquote>
+<h4 id="61-mean-squared-error-mse-dung-cho-regression">6.1. Mean Squared Error (MSE) — dùng cho Regression<a class="headerlink" href="#61-mean-squared-error-mse-dung-cho-regression" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[MSE = \frac{1}{n}\sum_{i}(y_i - \hat{y}_i)^2\]</div>
+<ul>
+<li>
+<p><span class="arithmatex">\(y_i\)</span> = giá trị thực, <span class="arithmatex">\(\hat{y}_i\)</span> = giá trị dự đoán, <span class="arithmatex">\(n\)</span> = số lượng mẫu.</p>
+</li>
+<li>
+<p><strong>Pros</strong>: Phạt các lỗi lớn nhiều hơn (do bình phương); mượt và khả vi (differentiable).</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Nhạy cảm với outlier; không lý tưởng cho classification.</p>
+</li>
+</ul>
+<h4 id="62-binary-cross-entropy-log-loss-dung-cho-binary-classification">6.2. Binary Cross Entropy (Log Loss) — dùng cho Binary Classification<a class="headerlink" href="#62-binary-cross-entropy-log-loss-dung-cho-binary-classification" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[BCE = -\frac{1}{n}\sum_i \left[ y_i\log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i) \right]\]</div>
+<ul>
+<li>
+<p><span class="arithmatex">\(y_i \in \{0,1\}\)</span> (nhãn thực); <span class="arithmatex">\(\hat{y}_i \in (0,1)\)</span> (probability dự đoán).</p>
+</li>
+<li>
+<p><strong>Pros</strong>: Tốt nhất cho binary classification; xử lý probability tốt.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Không dùng cho regression; chỉ cho output binary.</p>
+</li>
+</ul>
+<h4 id="63-categorical-cross-entropy-dung-cho-multi-class-classification-2-lop-tro-len">6.3. Categorical Cross Entropy — dùng cho Multi-class Classification (2 lớp trở lên)<a class="headerlink" href="#63-categorical-cross-entropy-dung-cho-multi-class-classification-2-lop-tro-len" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[CCE = -\frac{1}{n}\sum_i \sum_j y_{ij}\log(\hat{y}_{ij})\]</div>
+<ul>
+<li>
+<p><span class="arithmatex">\(C\)</span> = số lượng class; <span class="arithmatex">\(y_{ij} = 1\)</span> nếu mẫu <span class="arithmatex">\(i\)</span> thuộc class <span class="arithmatex">\(j\)</span>, ngược lại = 0; <span class="arithmatex">\(\hat{y}_{ij}\)</span> = probability dự đoán class <span class="arithmatex">\(j\)</span> cho mẫu <span class="arithmatex">\(i\)</span>.</p>
+</li>
+<li>
+<p><strong>Pros</strong>: Hoàn hảo cho multi-class classification; hoạt động tốt với softmax output.</p>
+</li>
+<li>
+<p><strong>Cons</strong>: Không dùng cho binary (dùng BCE); nhạy cảm với label nhiễu.</p>
+</li>
+</ul>
+<h4 id="so-sanh-nhanh">So sánh nhanh<a class="headerlink" href="#so-sanh-nhanh" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Loss Function</th>
+<th>Dùng cho</th>
+<th>Loại Output</th>
+<th>Range</th>
+<th>Dùng tốt nhất khi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSE</td>
+<td>Regression</td>
+<td>Continuous</td>
+<td>[0,∞)</td>
+<td>Dự đoán số (giá, chiều cao,...)</td>
+</tr>
+<tr>
+<td>Binary Cross Entropy</td>
+<td>Binary Classification</td>
+<td>Probability (0/1)</td>
+<td>[0,∞)</td>
+<td>Yes/No, Spam/Not Spam</td>
+</tr>
+<tr>
+<td>Categorical Cross Entropy</td>
+<td>Multi-class Classification</td>
+<td>Probability (multi-class)</td>
+<td>[0,∞)</td>
+<td>Cat/Dog/Bird classification</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 Quy tắc ngón tay cái: Regression → MSE | Binary Classification → BCE | Multi-class Classification → CCE</p>
+</blockquote>
+<hr />
+<h3 id="7-gradient-descent-va-cac-thuat-toan-optimization-adam">7. Gradient Descent và các thuật toán Optimization (Adam...)<a class="headerlink" href="#7-gradient-descent-va-cac-thuat-toan-optimization-adam" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1306_gradient-descent-va-cac-thuat-toan-optimization-ad.jpg</code></p>
+</blockquote>
+<p>Gradient Descent là một thuật toán <strong>optimization</strong> dùng để <strong>giảm thiểu</strong> loss function bằng cách cập nhật các tham số theo hướng ngược với gradient.</p>
+<blockquote>
+<p>💡 Mục tiêu: Tìm tập tham số (weights, biases) giúp giảm thiểu loss.</p>
+</blockquote>
+<h4 id="71-gradient-descent-la-gi">7.1. Gradient Descent là gì?<a class="headerlink" href="#71-gradient-descent-la-gi" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Bắt đầu với random weights.</p>
+</li>
+<li>
+<p>Tính <strong>gradient</strong> (độ dốc) của loss function.</p>
+</li>
+<li>
+<p>Cập nhật tham số theo hướng <strong>ngược lại</strong> với gradient.</p>
+</li>
+<li>
+<p>Lặp lại cho đến khi loss được giảm thiểu.</p>
+</li>
+</ul>
+<p><strong>Quy tắc cập nhật:</strong></p>
+<div class="arithmatex">\[w_{t+1} = w_t - \eta \nabla L(w_t)\]</div>
+<ul>
+<li>
+<p><span class="arithmatex">\(w_t\)</span> = weights hiện tại</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\eta\)</span> = learning rate</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\nabla L(w_t)\)</span> = gradient của loss function theo weights</p>
+</li>
+</ul>
+<h4 id="72-cac-loai-gradient-descent">7.2. Các loại Gradient Descent<a class="headerlink" href="#72-cac-loai-gradient-descent" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Batch Gradient Descent</strong>: Dùng toàn bộ dataset để tính gradient. Cập nhật 1 lần mỗi epoch. Ổn định nhưng chậm hơn.</p>
+</li>
+<li>
+<p><strong>Stochastic Gradient Descent (SGD)</strong>: Dùng một training example mỗi lần. Cập nhật cho mỗi example. Nhanh hơn nhưng nhiễu (dao động).</p>
+</li>
+<li>
+<p><strong>Mini-Batch Gradient Descent</strong>: Dùng một batch nhỏ các example. Cập nhật cho mỗi mini-batch. Cân bằng tốt giữa tốc độ và ổn định.</p>
+</li>
+<li>
+<p><strong>Online Gradient Descent</strong>: Tương tự SGD, dùng cho dữ liệu online/streaming. Cập nhật mô hình liên tục khi dữ liệu đến. Thích ứng nhanh.</p>
+</li>
+</ol>
+<h4 id="73-cac-thuat-toan-optimization">7.3. Các thuật toán Optimization<a class="headerlink" href="#73-cac-thuat-toan-optimization" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>1. SGD (Vanilla GD)</strong>: Dạng đơn giản nhất, baseline tốt.</li>
+</ul>
+<div class="arithmatex">\[w_{t+1} = w_t - \eta \nabla L(w_t)\]</div>
+<ul>
+<li><strong>2. Momentum</strong>: Tăng tốc theo hướng phù hợp &amp; giảm dao động.</li>
+</ul>
+<div class="arithmatex">\[v_t = \gamma v_{t-1} + \eta \nabla L(w_t), \quad w_{t+1} = w_t - v_t\]</div>
+<ul>
+<li><strong>3. RMSProp</strong>: Điều chỉnh learning rate cho từng tham số. Tốt cho RNN.</li>
+</ul>
+<div class="arithmatex">\[s_t = \beta s_{t-1} + (1-\beta)(\nabla L)^2\]</div>
+<ul>
+<li><strong>4. Adam</strong>: Kết hợp Momentum &amp; RMSProp. Optimizer phổ biến nhất, dùng <span class="arithmatex">\(m_t, v_t\)</span> (bias correction).</li>
+</ul>
+<p><strong>TIPS</strong>: Bắt đầu với Adam (mặc định). Điều chỉnh cẩn thận learning rate (<span class="arithmatex">\(\eta\)</span>). Quá cao → vọt qua minima. Quá thấp → hội tụ chậm.</p>
+<h4 id="74-so-sanh-cac-optimizer">7.4. So sánh các Optimizer<a class="headerlink" href="#74-so-sanh-cac-optimizer" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Optimizer</th>
+<th>Memory</th>
+<th>Tốc độ</th>
+<th>Hội tụ</th>
+<th>Dùng tốt nhất trong</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SGD</td>
+<td>Thấp</td>
+<td>Nhanh (mỗi update)</td>
+<td>Chậm</td>
+<td>Dataset lớn</td>
+<td>Đơn giản, có thể dao động</td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td>Trung bình</td>
+<td>Nhanh hơn</td>
+<td>Tốt hơn</td>
+<td>CNN, Deep Nets</td>
+<td>Giảm dao động</td>
+</tr>
+<tr>
+<td>RMSProp</td>
+<td>Trung bình</td>
+<td>Nhanh</td>
+<td>Tốt</td>
+<td>RNN, bài toán non-stationary</td>
+<td>Xử lý gradient thay đổi</td>
+</tr>
+<tr>
+<td>Adam</td>
+<td>Cao</td>
+<td>Nhanh</td>
+<td>Xuất sắc</td>
+<td>Hầu hết bài toán Deep Learning</td>
+<td>Lựa chọn mặc định tốt nhất</td>
+</tr>
+</tbody>
+</table>
+<p>★ <strong>Ghi nhớ:</strong> Optimization là chìa khoá để training mô hình hiệu quả. ❤️</p>
+<hr />
+<h3 id="8-overfitting-va-cac-ky-thuat-regularization-dropout">8. Overfitting và các kỹ thuật Regularization (Dropout...)<a class="headerlink" href="#8-overfitting-va-cac-ky-thuat-regularization-dropout" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1307_overfitting-va-cac-ky-thuat-regularization-dropout.jpg</code></p>
+</blockquote>
+<p><strong>Overfitting</strong> xảy ra khi mô hình học <strong>quá kỹ</strong> training data, bao gồm cả noise, và hoạt động kém trên <strong>dữ liệu chưa từng thấy</strong>.</p>
+<p><strong>Tại sao xảy ra?</strong> Mô hình quá phức tạp; quá nhiều tham số; quá ít training data; training quá lâu.</p>
+<blockquote>
+<p>💡 Mục tiêu: Xây dựng mô hình tổng quát hoá tốt trên dữ liệu mới.</p>
+</blockquote>
+<h4 id="81-hieu-ve-overfitting">8.1. Hiểu về Overfitting<a class="headerlink" href="#81-hieu-ve-overfitting" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Underfitting</strong>: Mô hình quá đơn giản → Bias cao, error cao.</p>
+</li>
+<li>
+<p><strong>Good Fit</strong>: Độ phức tạp phù hợp → Bias thấp, variance thấp.</p>
+</li>
+<li>
+<p><strong>Overfitting</strong>: Mô hình quá phức tạp → Bias thấp, variance cao.</p>
+</li>
+</ol>
+<p><strong>Đánh đổi Bias vs Variance:</strong> Tăng độ phức tạp → Bias giảm, Variance tăng → Cần sự cân bằng phù hợp!</p>
+<h4 id="82-cac-ky-thuat-regularization">8.2. Các kỹ thuật Regularization<a class="headerlink" href="#82-cac-ky-thuat-regularization" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>L2 Regularization (Ridge)</strong>: Thêm penalty bằng bình phương độ lớn của weights.</li>
+</ol>
+<div class="arithmatex">\[L = L_0 + \lambda \sum w_i^2\]</div>
+<p>Thu nhỏ weight lớn; giảm overfitting; <span class="arithmatex">\(\lambda\)</span> = độ mạnh regularization.</p>
+<ol>
+<li><strong>L1 Regularization (Lasso)</strong>: Thêm penalty bằng giá trị tuyệt đối của weights.</li>
+</ol>
+<div class="arithmatex">\[L = L_0 + \lambda \sum |w_i|\]</div>
+<p>Có thể đưa weight về 0; tạo mô hình sparse; tốt cho feature selection.</p>
+<ol>
+<li>
+<p><strong>Dropout</strong>: Ngẫu nhiên loại bỏ (set = 0) một số neuron khi training. Ngăn co-adaptation; hoạt động như training nhiều mạng con.</p>
+</li>
+<li>
+<p><strong>Early Stopping</strong>: Dừng training khi hiệu suất trên validation set ngừng cải thiện. Đơn giản nhưng hiệu quả; ngăn overfitting.</p>
+</li>
+<li>
+<p><strong>Batch Normalization</strong>: Chuẩn hoá output của một layer về mean 0, variance 1.</p>
+</li>
+</ol>
+<div class="arithmatex">\[\hat{x} = \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}\]</div>
+<p>Ổn định &amp; tăng tốc training; có vai trò như regularizer.</p>
+<ol>
+<li>
+<p><strong>Data Augmentation</strong>: Tăng nhân tạo dữ liệu training bằng các phép biến đổi (flip, crop, rotate, zoom, noise...). Cải thiện khả năng tổng quát hoá; phổ biến với ảnh.</p>
+</li>
+<li>
+<p><strong>Đơn giản hoá Model</strong>: Dùng mô hình đơn giản hơn hoặc giảm số tham số — ít layer hơn, ít neuron hơn, bỏ feature không cần thiết.</p>
+</li>
+</ol>
+<h4 id="83-training-curve-phat-hien-overfitting">8.3. Training Curve (phát hiện overfitting)<a class="headerlink" href="#83-training-curve-phat-hien-overfitting" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Quan sát</th>
+<th>Training Loss</th>
+<th>Validation Loss</th>
+<th>Kết luận</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cả hai đều cao</td>
+<td>Cao</td>
+<td>Cao</td>
+<td>Underfitting (Tăng model capacity)</td>
+</tr>
+<tr>
+<td>Cả hai đều thấp</td>
+<td>Thấp</td>
+<td>Thấp</td>
+<td>Good Fit (Mô hình tổng quát hoá tốt)</td>
+</tr>
+<tr>
+<td>Train thấp, Val cao</td>
+<td>Thấp</td>
+<td>Cao</td>
+<td>Overfitting (Áp dụng Regularization)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 Điểm mấu chốt: Đừng chỉ fit dữ liệu, hãy <b>hiểu</b> nó. Regularization giúp mô hình tổng quát hoá và hoạt động tốt trên dữ liệu chưa từng thấy. ❤️</p>
+</blockquote>
+<hr />
+<h3 id="9-tong-quan-cac-kien-truc-neural-network-fnn-cnn-rnn-lstm">9. Tổng quan các kiến trúc Neural Network: FNN, CNN, RNN, LSTM...<a class="headerlink" href="#9-tong-quan-cac-kien-truc-neural-network-fnn-cnn-rnn-lstm" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1308_tong-quan-kien-truc-neural-network-fnn-cnn-rnn-lst.jpg</code></p>
+</blockquote>
+<p>Mỗi architecture được thiết kế để xử lý hiệu quả các loại <strong>dữ liệu</strong> và <strong>tác vụ học</strong> khác nhau.</p>
+<h4 id="91-feedforward-neural-network-fnn">9.1. Feedforward Neural Network (FNN)<a class="headerlink" href="#91-feedforward-neural-network-fnn" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Dữ liệu chỉ đi về phía trước, từ input layer đến output layer. Không có cycle hay loop.</p>
+</li>
+<li>
+<p><strong>Dùng cho</strong>: Classification, Regression, Tabular data.</p>
+</li>
+</ul>
+<h4 id="92-convolutional-neural-network-cnn">9.2. Convolutional Neural Network (CNN)<a class="headerlink" href="#92-convolutional-neural-network-cnn" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Dùng convolutional layer để trích xuất spatial feature. Tốt nhất cho dữ liệu hình ảnh và video.</p>
+</li>
+<li>
+<p>Luồng: Input Image → Conv Layer → Pooling Layer → FC Layer → Output.</p>
+</li>
+<li>
+<p><strong>Dùng cho</strong>: Nhận diện hình ảnh, Object detection, Medical imaging.</p>
+</li>
+</ul>
+<h4 id="93-recurrent-neural-network-rnn">9.3. Recurrent Neural Network (RNN)<a class="headerlink" href="#93-recurrent-neural-network-rnn" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Thiết kế cho dữ liệu tuần tự. Có loop để duy trì hidden state (bộ nhớ).</p>
+</li>
+<li>
+<p><strong>Dùng cho</strong>: Text, Speech, Time series, Language modeling.</p>
+</li>
+</ul>
+<h4 id="94-lstm-long-short-term-memory">9.4. LSTM (Long Short-Term Memory)<a class="headerlink" href="#94-lstm-long-short-term-memory" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Khắc phục vấn đề vanishing gradient của RNN. Dùng gate để kiểm soát luồng thông tin.</p>
+</li>
+<li>
+<p><strong>Dùng cho</strong>: Chuỗi dài, Translation, Video analysis.</p>
+</li>
+</ul>
+<h4 id="95-gru-gated-recurrent-unit">9.5. GRU (Gated Recurrent Unit)<a class="headerlink" href="#95-gru-gated-recurrent-unit" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Phiên bản đơn giản hoá của LSTM. Có reset gate và update gate.</p>
+</li>
+<li>
+<p><strong>Dùng cho</strong>: Tương tự LSTM nhưng nhanh hơn và ít phức tạp hơn.</p>
+</li>
+</ul>
+<h4 id="96-autoencoder">9.6. Autoencoder<a class="headerlink" href="#96-autoencoder" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Mô hình unsupervised learning. Học nén dữ liệu rồi tái tạo lại (Input → Encoder → Latent Space → Decoder → Output/Reconstruction).</p>
+</li>
+<li>
+<p><strong>Dùng cho</strong>: Dimensionality reduction, Denoising, Anomaly detection.</p>
+</li>
+</ul>
+<h4 id="97-transformer-attention-based-model">9.7. Transformer (Attention-based Model)<a class="headerlink" href="#97-transformer-attention-based-model" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Dùng self-attention mechanism thay vì recurrence. Highly parallelizable, hoạt động tốt trên chuỗi dài.</p>
+</li>
+<li>
+<p>Kiến trúc: Input (Embedding) → Encoder Stack (Nx: Multi-Head Self-Attention + Feed Forward) → Decoder Stack (Nx: Masked Self-Attention + Multi-Head Attention + Feed Forward) → Output (Softmax).</p>
+</li>
+<li>
+<p><strong>Dùng cho</strong>: NLP (BERT, GPT), Translation, Summarization.</p>
+</li>
+</ul>
+<h4 id="so-sanh-cac-architecture">So sánh các Architecture<a class="headerlink" href="#so-sanh-cac-architecture" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th>Tốt nhất cho</th>
+<th>Xử lý Sequence?</th>
+<th>Nắm bắt Spatial Info?</th>
+<th>Tốc độ Training</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FNN</td>
+<td>Tabular Data</td>
+<td>Không</td>
+<td>Không</td>
+<td>Nhanh</td>
+</tr>
+<tr>
+<td>CNN</td>
+<td>Images/Videos</td>
+<td>Không</td>
+<td>Có</td>
+<td>Trung bình</td>
+</tr>
+<tr>
+<td>RNN</td>
+<td>Sequences</td>
+<td>Có</td>
+<td>Không</td>
+<td>Chậm</td>
+</tr>
+<tr>
+<td>LSTM</td>
+<td>Long Sequences</td>
+<td>Có</td>
+<td>Không</td>
+<td>Chậm</td>
+</tr>
+<tr>
+<td>GRU</td>
+<td>Sequences</td>
+<td>Có</td>
+<td>Không</td>
+<td>Nhanh hơn</td>
+</tr>
+<tr>
+<td>Autoencoder</td>
+<td>Unsupervised Learning</td>
+<td>Không</td>
+<td>Không</td>
+<td>Trung bình</td>
+</tr>
+<tr>
+<td>Transformer</td>
+<td>NLP/Long Sequences</td>
+<td>Có</td>
+<td>Không</td>
+<td>Nhanh (Parallel)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 Điểm mấu chốt: Lựa chọn architecture phụ thuộc vào loại dữ liệu và bài toán bạn đang giải quyết. Hiểu dữ liệu → Chọn đúng architecture → Training hiệu quả → Đạt kết quả tốt hơn. ☆</p>
+</blockquote>
+<hr />
+<h3 id="10-convolutional-neural-networks-cnn-convolution-pooling">10. Convolutional Neural Networks (CNN) — Convolution, Pooling<a class="headerlink" href="#10-convolutional-neural-networks-cnn-convolution-pooling" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1309_convolutional-neural-networks-cnn-convolution-pool.jpg</code></p>
+</blockquote>
+<p>CNN được thiết kế để tự động học <strong>spatial hierarchy</strong> của các feature từ hình ảnh bằng convolution operation.</p>
+<p><strong>Tại sao dùng CNN?</strong> Tận dụng spatial structure của dữ liệu; ít tham số hơn; translation invariance; rất tốt cho hình ảnh &amp; video.</p>
+<h4 id="101-convolution-operation">10.1. Convolution Operation<a class="headerlink" href="#101-convolution-operation" title="Permanent link">&para;</a></h4>
+<p>Một filter (kernel) nhỏ trượt qua input và tính element-wise multiplication rồi cộng lại.</p>
+<p><strong>Công thức Output size:</strong></p>
+<div class="arithmatex">\[O = \frac{N - F + 2P}{S} + 1\]</div>
+<ul>
+<li><span class="arithmatex">\(N\)</span> = input size, <span class="arithmatex">\(F\)</span> = filter size, <span class="arithmatex">\(P\)</span> = padding, <span class="arithmatex">\(S\)</span> = stride.</li>
+</ul>
+<p>Ví dụ minh hoạ: Input Image 5x5 nhân chập (convolve, ký hiệu <span class="arithmatex">\(*\)</span>) với Filter/Kernel 3x3 cho ra Feature Map (Output) 3x3.</p>
+<h4 id="102-cnn-architecture-luong-ien-hinh">10.2. CNN Architecture (luồng điển hình)<a class="headerlink" href="#102-cnn-architecture-luong-ien-hinh" title="Permanent link">&para;</a></h4>
+<p>Input (64x64x3) → Convolution + ReLU → Pooling (Max Pool) → Convolution + ReLU → Pooling (Max Pool) → Flatten → Fully Connected Layers → Output (Softmax).</p>
+<p><strong>Tóm tắt luồng:</strong> Conv: Trích xuất feature → Pool: Giảm spatial size → FC: Học pattern bậc cao → Softmax: Dự đoán class.</p>
+<h4 id="103-cac-layer-pho-bien-trong-cnn">10.3. Các layer phổ biến trong CNN<a class="headerlink" href="#103-cac-layer-pho-bien-trong-cnn" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Convolution Layer</strong>: Áp dụng filter để trích xuất feature.</p>
+</li>
+<li>
+<p><strong>Activation Layer (ReLU)</strong>: Thêm non-linearity.</p>
+</li>
+<li>
+<p><strong>Pooling Layer (Max/Average)</strong>: Giảm spatial size.</p>
+</li>
+<li>
+<p><strong>Batch Normalization</strong>: Chuẩn hoá activation, tăng tốc training.</p>
+</li>
+<li>
+<p><strong>Dropout</strong>: Ngăn co-adaptation.</p>
+</li>
+<li>
+<p><strong>Fully Connected Layer</strong>: Thực hiện classification cuối cùng.</p>
+</li>
+<li>
+<p><strong>Softmax Layer</strong>: Chuyển score thành probability.</p>
+</li>
+</ol>
+<h4 id="104-vi-du-pooling-max-pooling-2x2-stride2">10.4. Ví dụ Pooling (Max Pooling 2x2, stride=2)<a class="headerlink" href="#104-vi-du-pooling-max-pooling-2x2-stride2" title="Permanent link">&para;</a></h4>
+<p>Input Feature Map 4x4 qua Max Pool (2x2, s=2) → Output 2x2 (lấy giá trị lớn nhất trong mỗi vùng 2x2, ví dụ vùng {1,3,4,6} → 6; vùng {2,0,6,1} → 6...).</p>
+<h4 id="105-cac-kien-truc-cnn-pho-bien">10.5. Các kiến trúc CNN phổ biến<a class="headerlink" href="#105-cac-kien-truc-cnn-pho-bien" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th>Năm</th>
+<th>Ý tưởng chính</th>
+<th>Tốt nhất cho</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LeNet-5</td>
+<td>1998</td>
+<td>CNN đầu tiên cho nhận diện chữ số</td>
+<td>Chữ số viết tay</td>
+</tr>
+<tr>
+<td>AlexNet</td>
+<td>2012</td>
+<td>Deep CNN, ReLU, Dropout</td>
+<td>ImageNet classification</td>
+</tr>
+<tr>
+<td>VGGNet</td>
+<td>2014</td>
+<td>Rất sâu với filter 3x3</td>
+<td>Tác vụ cần độ chính xác cao</td>
+</tr>
+<tr>
+<td>GoogLeNet (Inception)</td>
+<td>2014</td>
+<td>Inception modules</td>
+<td>Trích xuất feature hiệu quả</td>
+</tr>
+<tr>
+<td>ResNet</td>
+<td>2015</td>
+<td>Residual (skip) connections</td>
+<td>Mạng rất sâu</td>
+</tr>
+<tr>
+<td>EfficientNet</td>
+<td>2019</td>
+<td>Scale depth, width, resolution</td>
+<td>Độ chính xác cao, ít compute</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Điểm mấu chốt:</strong> CNN tận dụng spatial structure của hình ảnh. Convolution trích xuất pattern cục bộ. Pooling giảm size và tính toán. Mạng sâu hơn học được feature phức tạp hơn. Dùng ReLU, BatchNorm, Dropout để training tốt hơn. Softmax cho ra class probability cuối cùng.</p>
+<blockquote>
+<p>💡 🎯 Ghi nhớ: CNN biến đổi pixel thô thành feature có ý nghĩa, giúp mô hình tập trung vào <b>"CÁI GÌ"</b> quan trọng, chứ không phải <b>"Ở ĐÂU"</b>.</p>
+</blockquote>
+<hr />
+<h3 id="11-recurrent-neural-networks-rnn-cong-thuc-vanishing-gradient">11. Recurrent Neural Networks (RNN) — Công thức, Vanishing Gradient<a class="headerlink" href="#11-recurrent-neural-networks-rnn-cong-thuc-vanishing-gradient" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>🖼️ Dán ảnh: <code>1310_recurrent-neural-networks-rnn-cong-thuc-vanishing-.jpg</code></p>
+</blockquote>
+<p>RNN được thiết kế để xử lý <strong>dữ liệu tuần tự</strong> bằng cách duy trì hidden state (bộ nhớ) lưu lại thông tin từ các bước thời gian trước đó.</p>
+<p><strong>Tại sao dùng RNN?</strong> Xử lý chuỗi độ dài bất kỳ; nắm bắt temporal dependencies; chia sẻ tham số theo thời gian; lý tưởng cho text, speech &amp; time series.</p>
+<blockquote>
+<p>💡 Mục tiêu: Xử lý chuỗi độ dài bất kỳ bằng cách ghi nhớ những gì đã xảy ra trước đó.</p>
+</blockquote>
+<h4 id="111-recurrent-neural-network-dang-unfold">11.1. Recurrent Neural Network (dạng Unfold)<a class="headerlink" href="#111-recurrent-neural-network-dang-unfold" title="Permanent link">&para;</a></h4>
+<p>Ở dạng <strong>Compact Form</strong>, một ô <span class="arithmatex">\(h\)</span> nhận input <span class="arithmatex">\(x_t\)</span>, tự nối vòng (loop) lại chính nó, và cho output <span class="arithmatex">\(y_t\)</span>. Khi <strong>unfold (trải ra)</strong> theo thời gian, ta thấy chuỗi <span class="arithmatex">\(h_0 \to h_1 \to h_2 \to ... \to h_t\)</span>, mỗi bước nhận input tương ứng <span class="arithmatex">\(x_0, x_1, x_2, ..., x_t\)</span> và cho output <span class="arithmatex">\(y_0, y_1, y_2, ..., y_t\)</span> — hidden state được truyền từ bước này sang bước kế tiếp.</p>
+<h4 id="112-cong-thuc-rnn">11.2. Công thức RNN<a class="headerlink" href="#112-cong-thuc-rnn" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[h_t = f(W_{hx}x_t + W_{hh}h_{t-1} + b_h)\]</div>
+<div class="arithmatex">\[y_t = g(W_{yh}h_t + b_y)\]</div>
+<ul>
+<li>
+<p><span class="arithmatex">\(h_t\)</span> = hidden state tại thời điểm <span class="arithmatex">\(t\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(x_t\)</span> = input tại thời điểm <span class="arithmatex">\(t\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(y_t\)</span> = output tại thời điểm <span class="arithmatex">\(t\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(W_{hx}, W_{hh}, W_{yh}\)</span> = ma trận weight</p>
+</li>
+<li>
+<p><span class="arithmatex">\(b_h, b_y\)</span> = vector bias</p>
+</li>
+<li>
+<p><span class="arithmatex">\(f, g\)</span> = activation function (tanh, ReLU, softmax)</p>
+</li>
+</ul>
+<h4 id="113-cac-loai-output-cua-rnn">11.3. Các loại output của RNN<a class="headerlink" href="#113-cac-loai-output-cua-rnn" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>One-to-One</strong> (Image Classification): Single input, single output.</p>
+</li>
+<li>
+<p><strong>One-to-Many</strong> (Image Captioning): Single input, multiple outputs.</p>
+</li>
+<li>
+<p><strong>Many-to-One</strong> (Sentiment Analysis): Multiple inputs, single output.</p>
+</li>
+</ol>
+<h4 id="114-output-many-to-many">11.4. Output Many-to-Many<a class="headerlink" href="#114-output-many-to-many" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>a) <strong>Đồng bộ</strong> (POS Tagging): Input và output sequence có cùng độ dài.</p>
+</li>
+<li>
+<p>b) <strong>Encoder-Decoder</strong> (Machine Translation): Input và output sequence có thể khác độ dài.</p>
+</li>
+</ul>
+<h4 id="115-activation-function-trong-rnn">11.5. Activation Function trong RNN<a class="headerlink" href="#115-activation-function-trong-rnn" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>tanh</strong>: Range (-1,1) — thường dùng nhất trong RNN.</p>
+</li>
+<li>
+<p><strong>ReLU</strong>: Range [0,∞) — training nhanh hơn nhưng có thể kém ổn định.</p>
+</li>
+<li>
+<p><strong>sigmoid</strong>: Range (0,1) — hữu ích cho gate và output.</p>
+</li>
+</ul>
+<h4 id="116-vanishing-exploding-gradients">11.6. Vanishing &amp; Exploding Gradients<a class="headerlink" href="#116-vanishing-exploding-gradients" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Vanishing Gradients</strong>: Gradient trở nên quá nhỏ khi lan truyền ngược qua nhiều bước thời gian (mô hình quên thông tin dài hạn).</p>
+</li>
+<li>
+<p><strong>Exploding Gradients</strong>: Gradient trở nên quá lớn khi lan truyền ngược (mô hình trở nên không ổn định).</p>
+</li>
+</ul>
+<p><strong>Giải pháp:</strong> Dùng LSTM/GRU, Gradient Clipping, khởi tạo hợp lý (weight initialization), Layer Normalization.</p>
+<h4 id="117-so-sanh-cac-bien-the-rnn">11.7. So sánh các biến thể RNN<a class="headerlink" href="#117-so-sanh-cac-bien-the-rnn" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Ý tưởng chính</th>
+<th>Long-term Dependencies?</th>
+<th>Tốt nhất trong</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RNN</td>
+<td>Kết nối đệ quy cơ bản</td>
+<td>Không (Vanishing)</td>
+<td>Chuỗi ngắn</td>
+</tr>
+<tr>
+<td>LSTM</td>
+<td>Dùng gate (input, forget, output)</td>
+<td>Có</td>
+<td>Chuỗi dài, NLP, Time series</td>
+</tr>
+<tr>
+<td>GRU</td>
+<td>LSTM đơn giản hoá (update, reset)</td>
+<td>Có</td>
+<td>Ứng dụng real-time, Chatbot</td>
+</tr>
+<tr>
+<td>BiRNN</td>
+<td>Xử lý chuỗi theo cả 2 chiều</td>
+<td>Có</td>
+<td>Speech, NER, Text understanding</td>
+</tr>
+</tbody>
+</table>
+<p><strong>TÓM TẮT:</strong></p>
+<ul>
+<li>
+<p>RNN xử lý dữ liệu tuần tự bằng hidden state.</p>
+</li>
+<li>
+<p>Chúng gặp vấn đề vanishing/exploding gradient.</p>
+</li>
+<li>
+<p>LSTM và GRU giải quyết vấn đề long-term dependency.</p>
+</li>
+<li>
+<p>Chọn architecture phù hợp với dữ liệu &amp; bài toán.</p>
+</li>
+<li>
+<p>Architecture tốt hơn → Hiệu suất tốt hơn.</p>
+</li>
+</ul>
+<blockquote>
+<p>💡 Điểm mấu chốt: RNN ghi nhớ quá khứ để dự đoán tương lai. Hiểu về sequence chính là chìa khoá để giải quyết các bài toán thực tế. ☆</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.instant", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>
